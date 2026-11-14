@@ -1,0 +1,43 @@
+% ask-this-book-ar.tex — Arabic edition of the book's last page
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Arabic layer of upstream cover/ask-this-book.tex (scaffold structure and
+% via tags verbatim; text re-typeset from the recovery reference
+% text/17-ask-this-book.txt, Phase 28R unit 2 — no retranslation).
+% Latin tokens (Loafy, The Sourdough Framework) wrapped in \textenglish{}
+% per the record's unwrapped-Latin rule; the QR matrix macros wrapped in
+% \LRE{} (they must typeset LTR; RTL context corrupts them).
+
+\ifdefined\HCode
+\chapter*{أسئلة أثناء الخَبز؟}
+لكل مطبخ طبيعته الخاصة. حين لا يتصرّف البادئ أو العجين على النحو الذي يصفه
+هذا الكتاب، اسأل الكتاب نفسَه: \textenglish{Loafy}، رفيقُه المجاني، يجيب
+اعتمادًا على \textenglish{The Sourdough Framework} ويدلّك على القسم الذي
+تقرؤه.
+
+\href{https://loafy.ai/loafy?via=tsf-epub-end}{https://loafy.ai}
+\else
+\clearpage
+\thispagestyle{empty}
+\vspace*{0.22\textheight}
+\begin{center}
+{\LARGE\bfseries أسئلة أثناء الخَبز؟}\par
+\bigskip
+\begin{minipage}{0.72\textwidth}
+\centering
+لكل مطبخ طبيعته الخاصة. حين لا يتصرّف البادئ أو العجين على النحو الذي يصفه
+هذا الكتاب، اسأل الكتاب نفسَه: \textenglish{Loafy}، رفيقُه المجاني، يجيب
+اعتمادًا على \textenglish{The Sourdough Framework} ويدلّك على القسم الذي
+تقرؤه.\par
+\medskip
+\href{https://loafy.ai/loafy?via=tsf-pdf-end}{\nolinkurl{https://loafy.ai}}
+\end{minipage}\par
+\bigskip\bigskip
+% Black, not link blue: a light QR code is hard to scan once printed.
+% The QR matrix macros must typeset LTR; RTL context corrupts them.
+\LRE{\qrcode[nolink,height=3cm]{https://loafy.ai/loafy?via=tsf-pdf-qr}}
+\end{center}
+\fi

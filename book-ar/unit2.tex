@@ -1,0 +1,28 @@
+% unit2.tex — R2 unit 2 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 2 per the reconstruction plan: ch. 0 cover (done at R1) + ch. 16
+% ask-this-book. Same preamble as the R1 smoke driver; the test chapter is
+% replaced by the ask-this-book unit so the smoke driver's standing md5
+% stays untouched.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+\frontmatter
+{\hypersetup{hidelinks}\tableofcontents}
+
+\backmatter
+\input{ask-this-book-ar.tex}
+
+\end{document}
