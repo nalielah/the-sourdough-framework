@@ -1,0 +1,107 @@
+% fig-life-planet-sourdough-timeline-ar.tex — Arabic edition of the
+% life/planet/sourdough timeline (ch. 3, figure 3.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-life-planet-sourdough-timeline.tex (geometry, event
+% positions, branch lines and the December cluster verbatim), with the
+% label text recovered from the accepted edition's render of p. 15
+% (book-ar-fixed.pdf, b78c2a28…) — label recovery against a visual
+% reference, not retranslation. Arabic label text is wrapped in
+% \textarabic{}: inside a tikzpicture the sty's env hook sets LTR, and
+% bare Arabic node text renders un-reordered there (probe-verified,
+% 2026-11-15); \textarabic restores the RTL base and the digit runs read
+% LTR inside it exactly as in the accepted edition, including the
+% parenthesized clock times. Latin and digit islands inside labels ride
+% \LR{} rather than \textenglish{}: bare parens in the RTL \textarabic
+% context mirror (probe-verified: (eukaryotes) and (23:59:59) rendered
+% as )eukaryotes( and )23:59:59( before the \LR{} wrap).
+% CORRECTION (probe5, 2026-11-15, real environment): the earlier claim
+% that TikZ node interiors never pass the post_linebreak_filter is
+% WRONG — arabic-digits.lua's remap_glyphs recurses into hlist/vlist
+% heads unconditionally, so it DOES reach node interiors. Under the
+% standing, owner-authorized remap (R2 amendment: every Amiri digit and
+% ASCII letter the filter reaches is remapped to size-matched Pagella
+% regardless of nesting), figure digits and figure Latin therefore ride
+% TeXGyrePagella-Regular in this rebuild, where the accepted edition's
+% SVG-route XObjects carried Amiri-only subsets. No content-layer fix
+% exists: any Amiri the filter sees is remapped, and the lua is a
+% no-touch-without-authorization file. Recorded as a route consequence
+% for the owner: either accept the uniform Pagella digit/Latin face in
+% figures (recommended; same policy as prose), or authorize a lua
+% exemption amendment for figure boxes.
+
+\begin{tikzpicture}
+  % Draw horizontal line
+  \draw[line width=1pt] (0,0) -- (\textwidth,0);
+
+  % Define the width of each segment
+  \pgfmathsetlengthmacro{\segmentwidth}{\textwidth/12}
+
+  % Draw lines for the events, higher up so that they don't overflow the text
+  % Placing the lines has been a bit manual work of trying different values
+  % Maritime bacteria.
+
+  \draw[line width=1pt] (2.8*\segmentwidth,1) -- (2.8*\segmentwidth,0.2);
+  % Eukaryotes
+  \draw[line width=1pt] (5.8*\segmentwidth,1.5) -- (5.8*\segmentwidth,0.2);
+  % First bacteria on land
+  \draw[line width=1pt] (9.1*\segmentwidth,-1.25) -- (9.1*\segmentwidth,-0.2);
+  % Maritime fungi ancestors
+  \draw[line width=1pt] (9.5*\segmentwidth,-2) -- (9.5*\segmentwidth,-0.2);
+  % Fungi on land
+  \draw[line width=1pt] (10.8*\segmentwidth,-2.75) -- (10.8*\segmentwidth,-0.2);
+  % Yeasts on land
+  \draw[line width=1pt] (11.1*\segmentwidth,-3.0) -- (11.1*\segmentwidth,-0.2);
+  % First dinosaurs
+  \draw[line width=1pt] (11.4*\segmentwidth,0.5) -- (11.4*\segmentwidth,0.2);
+  % Pangea begins to rift apart
+  \draw[line width=1pt] (11.6*\segmentwidth,1) -- (11.6*\segmentwidth,0.2);
+  % Dinosaur extinction
+  \draw[line width=1pt] (11.9*\segmentwidth,1.5) -- (11.9*\segmentwidth,0.2);
+  % Additional line for dinosaurs since it is so close
+  \draw[line width=1pt] (11.9*\segmentwidth,1.49) -- (11.70*\segmentwidth,1.85);
+
+  % Special lines for december events since they are so close together
+  \draw[line width=1pt] (12.0*\segmentwidth,3.0) -- (12.0*\segmentwidth,0.2);  % Main branch
+  \draw[line width=1pt] (12.0*\segmentwidth,3.0) -- (11.75*\segmentwidth,2.5); % Branch to first humans
+  \draw[line width=1pt] (12.0*\segmentwidth,3.0) -- (11.75*\segmentwidth,3.0); % Branch to Jordan
+  % Move Pasteur down a bit so the lines look like they cross
+  \draw[line width=1pt] (12.0*\segmentwidth,2.99) -- (11.75*\segmentwidth,3.5); % Branch to Pasteur
+
+  % Draw months and month separators
+  \foreach \i/\month in {0/{يناير}, 1/{فبراير}, 2/{مارس}, 3/{أبريل},
+                         4/{مايو}, 5/{يونيو}, 6/{يوليو}, 7/{أغسطس},
+                         8/{سبتمبر}, 9/{أكتوبر}, 10/{نوفمبر}, 11/{ديسمبر}} {
+      % Separators
+      \draw[line width=1pt] (\i*\segmentwidth,0.1) -- (\i*\segmentwidth,-0.1);
+      % Month names
+      \node[timeline_event, below] at ({(\i+0.5)*\segmentwidth},-0.1) {\textarabic{\month}};
+  }
+  \draw[line width=1pt] (\textwidth,0.1) -- (\textwidth,-0.1);
+
+  % Full timeline width for billion years
+  \draw[stealth-stealth, line width=1pt] (0,-3.8) -- node[midway, timeline_timespan] {\textarabic{4.45 مليار سنة}} (\textwidth,-3.8);
+
+  % Indicator for the period of 3 months = 1.1 billion years
+  \draw[stealth-stealth, line width=1pt] (0,-1.0) -- node[midway, timeline_timespan] {\textarabic{1.11 مليار سنة}} ({\segmentwidth * 3},-1.0);
+
+  % Place events on the timeline with dates using the timeline_event style
+  % As a calculation I used (4.54 billion years / 12 months = 0.3785 billion years/month.
+  \node[timeline_event, above] at (2.5*\segmentwidth,1) {\textarabic{25 مارس: أول البكتيريا والعتائق البحرية}};
+  \node[timeline_event, above] at (4.50*\segmentwidth,1.5) {\textarabic{25 يونيو: أول الكائنات ذات النواة \LR{(eukaryotes)}}};
+  \node[timeline_event, above] at (7.8*\segmentwidth,-1.5) {\textarabic{4 أكتوبر: أول البكتيريا على اليابسة}};
+  \node[timeline_event, above] at (8.0*\segmentwidth,-2.25) {\textarabic{15 أكتوبر: أول أسلاف الفطريات المائية}};
+  \node[timeline_event, above] at (9.7*\segmentwidth,-2.75) {\textarabic{24 نوفمبر: الفطريات على اليابسة}};
+  \node[timeline_event, above] at (10.5*\segmentwidth,-3.25) {\textarabic{3 ديسمبر: الخمائر على اليابسة}};
+  \node[timeline_event, above] at (10.2*\segmentwidth,0.5) {\textarabic{14 ديسمبر: أول الديناصورات}};
+  \node[timeline_event, above] at (9.8*\segmentwidth,1) {\textarabic{17 ديسمبر: بدء تفكك بانجيا}};
+  \node[timeline_event, above] at (10.15*\segmentwidth,1.5) {\textarabic{29 ديسمبر: انقراض الديناصورات}};
+  \node[timeline_event, above, anchor=east, align=right] at (11.75*\segmentwidth,2.5) {\textarabic{31 ديسمبر: أول البشر}};
+  \node[timeline_event, above, anchor=east, align=right] at (11.75*\segmentwidth,3.0) {\textarabic{31 ديسمبر: أصل الخبز الحامض في الأردن \LR{(23:59:55)}}};
+  \node[timeline_event, above, anchor=east, align=right] at (11.75*\segmentwidth,3.5) {\textarabic{31 ديسمبر: عزل لوِي باستور للخميرة \LR{(23:59:59)}}};
+
+\end{tikzpicture}

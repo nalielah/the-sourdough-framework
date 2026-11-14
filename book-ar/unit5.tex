@@ -1,0 +1,34 @@
+% unit5.tex — R2 unit 5 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 5 per the reconstruction plan: ch. 3 history, the first unit with
+% figures — the two TikZ timelines are the re-derived Arabic sources in
+% figures-ar/ (R1-FIGURES route, labels recovered from the accepted
+% edition's renders of pp. 15–16), and einkorn-crumb / sourdough-stove
+% are upstream artwork carried over unchanged. Built with the
+% +TLT-corrected arabic-digits.lua (commit ecb0903, standing md5
+% a2e3d1daeb3e24ced21873376170cab8). Driver scheme per the accepted
+% edition (fidelity authority), same as units 3–4: NO \frontmatter —
+% chapters are numbered from 1 and page numbering runs continuously in
+% Western digits from the cover. Unit builds carry natural chapter
+% numbering (ch. 3 builds as ch. 1 here, figures as 1.1–1.4); the R3
+% full-book assembly regenerates true numbering.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{history-ar.tex}
+
+\end{document}
