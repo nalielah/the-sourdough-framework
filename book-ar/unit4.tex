@@ -1,0 +1,28 @@
+% unit4.tex — R2 unit 4 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 4 per the reconstruction plan: ch. 2 acknowledgments, built with
+% the amended arabic-digits.lua (commit f730314) — this unit's PDF is the
+% first live evidence of the corrected digit behavior. Driver scheme per
+% the accepted edition (fidelity authority), same as unit 3: NO
+% \frontmatter — chapters are numbered from 1 and page numbering runs
+% continuously in Western digits from the cover.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{acknowledgments-ar.tex}
+
+\end{document}
