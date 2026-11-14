@@ -1,0 +1,408 @@
+% sourdough-ar.sty — Arabic edition layer for The Sourdough Framework
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0.
+% The Arabic edition inherits CC BY-SA 4.0.
+%
+% This file is a fork of the upstream sourdough.sty carrying the RTL layer
+% of the Arabic edition (Phase 28R reconstruction; the lost original is
+% documented in the project record). Differences from upstream:
+%   - microtype disabled (no Arabic-script support under LuaLaTeX)
+%   - RTL layer: polyglossia (numerals=maghrib) loaded BEFORE luabidi
+%   - Arabic font companions: Amiri body, Noto Naskh Arabic headings
+%   - \arabicnumber patched with \@ensure@LTR wrap
+%   - captions=nooneline
+%   - TikZ LTR hook + node font override
+%   - dotted numbers (sections, floats, chapters, TOC entries) wrapped LTR
+%   - flowchart float with Arabic names
+%   - \insert@column TRT patch for RTL table cells
+%   - arabic-digits.lua post-filter loaded
+%   - PDF metadata Title in Arabic
+%
+% STANDING RULES FOR THIS FILE:
+%   - No \makeatletter here. A .sty already has @ as a letter; adding it
+%     would BREAK every @-macro below (the Phase 21 regression).
+%   - Do not modify this file without prior authorization.
+
+\ProvidesPackage{sourdough-ar}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{chemformula}
+\usepackage{chemfig}
+\usepackage{makecell}
+\usepackage[mode=match, reset-text-family=false]{siunitx}
+\usepackage{fontspec}
+\usepackage{calc}
+\usepackage[font={sffamily, sbseries}]{quoting}
+% microtype is DISABLED in the Arabic edition: protrusion/expansion has no
+% support for Arabic scripts under LuaLaTeX. (Upstream loads microtype.)
+%\usepackage{microtype}
+
+% style=nextline breaks on make4ht
+\ifdefined\HCode\else
+\usepackage{enumitem}
+\setlist[description]{style=nextline, leftmargin=0cm}
+\fi
+
+\usepackage{etoolbox}
+
+% ---------------------------------------------------------------- RTL layer
+% polyglossia MUST load before luabidi: luabidi only \providecommand's its
+% LTR/RTL helpers, while polyglossia's gloss-arabic \def's them. Loading
+% luabidi first would leave polyglossia's definitions broken.
+\usepackage{polyglossia}
+\setmainlanguage[numerals=maghrib]{arabic}
+\setotherlanguage{english}
+\usepackage{luabidi}
+
+% ---------------------------------------------------------- flowchart float
+\DeclareNewTOC[
+  type=flowchart,%
+  types=flowcharts,%  ,
+  float,
+  floattype=4,%
+  counterwithin=chapter,
+  name={المخطط الانسيابي},%
+  listname = {قائمة المخططات الانسيابية}
+]{loc}
+\setuptoc{loc}{chapteratlist}
+\DeclareTOCStyleEntry[numwidth=3em]{tocline}{figure}
+\DeclareTOCStyleEntry[numwidth=3em]{tocline}{flowchart}
+\DeclareTOCStyleEntry[numwidth=3em]{tocline}{table}
+
+% Common abbreviations
+\input{abbreviations.tex}
+
+% Consistent pH values
+\newcommand{\pHvalue}[1]{pH~\SI{#1}{}}
+
+% For tables
+\renewcommand\theadfont{\bfseries}
+
+\input{colors.tex}
+% Define flowcharts macros independently so we can build them as png files
+% for the website or something. This is supported in the makefile
+\input{figures/flowcharts_tikz.tex}
+
+% ------------------------------------------------------------------ fonts
+% Fonts
+\defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+% Define Semi-bold
+\DeclareRobustCommand\sbseries{\fontseries{sb}\selectfont}
+% Fonts for accessibility
+\ifdefined\isaccessible
+    \usepackage[mathrm=sym]{unicode-math}
+    \setmathfont{Fira Math}[Scale=MatchLowercase]
+    \setmainfont{Open Sans}[Scale=MatchLowercase]
+\else
+    \setmainfont{TeX Gyre Pagella}[Scale=1.0] % Or Palatino Linotype, etc.
+\fi
+% Opens Sans in both case..
+\setsansfont{Open Sans}[
+  Scale=MatchLowercase,
+  FontFace = {sb}{it}{* Semibold Italic},
+  FontFace = {sb}{n}{*-semibold}]
+% Arabic companions (the font-split block): Amiri body, Noto Naskh Arabic
+% as the sans companion for headings, Amiri for mono contexts.
+\newfontfamily\arabicfont[Script=Arabic, Scale=MatchLowercase]{Amiri}
+\newfontfamily\arabicfontsf[Script=Arabic, Scale=MatchLowercase]{Noto Naskh Arabic}
+\newfontfamily\arabicfonttt[Script=Arabic, Scale=MatchLowercase]{Amiri}
+
+% ------------------------------------------------- Western digits, LTR-safe
+% Patch polyglossia's \arabicnumber: under numerals=maghrib the western
+% branch emitted bare Western digits into RTL context, which the bidi
+% algorithm stores right-to-left (page numbers read "01" for "10"). Wrap
+% both branches in \@ensure@LTR so counters, page numbers and dates keep
+% LTR digit order everywhere.
+\renewcommand{\arabicnumber}[1]{%
+  \ifeastern@numerals
+    \@ensure@LTR{\arabicdigits{\number#1}}%
+  \else
+    \@ensure@LTR{\number#1}%
+  \fi}
+
+% ----------------------------------------------------------- caption style
+\KOMAoptions{captions=nooneline}
+
+% --------------------------------------------------- Lua digit post-filter
+% arabic-digits.lua: (1) post_linebreak_filter reversing bare Western-digit
+% runs stored RTL by the bidi algorithm inside TRT lines; (2) remap of
+% ASCII digits, letters and units punctuation landing in an Arabic font
+% onto size-matched TeX Gyre Pagella (RATIO 433/469), hlist AND vlist
+% recursion, style-matched. Loaded from the build directory.
+\directlua{dofile("arabic-digits.lua")}
+
+% --------------------------------------------------------------- TikZ fix
+% Flowchart node text stays LTR; Arabic labels inside nodes are wrapped in
+% \textarabic{} at the figure level. The font override drops \sffamily so
+% node text matches body weight.
+\AddToHook{env/tikzpicture/begin}{\setLTR}
+\tikzset{every picture/.append style={font=\footnotesize}}
+
+% ------------------------------------------------------ dotted numbers, LTR
+% Section/figure/table numbers and the chapter number everywhere it is
+% typeset must read left-to-right inside the RTL page.
+\renewcommand*{\sectionformat}{\LR{\thesection\autodot}}
+\renewcommand*{\subsectionformat}{\LR{\thesubsection\autodot}}
+\renewcommand*{\subsubsectionformat}{\LR{\thesubsubsection\autodot}}
+\renewcommand*{\figureformat}{\LR{\thefigure\autodot}}
+\renewcommand*{\tableformat}{\LR{\thetable\autodot}}
+\renewcommand*{\chaptermarkformat}{\LR{\thechapter\autodot}\enskip}
+
+% ------------------------------------------------- KAO CHAPTER HEADING STYLES
+\newlength{\hscale}
+\newlength{\vscale}
+\newlength{\mtocshift}
+
+% By default, the scales are set to work for a4paper
+\setlength{\hscale}{1mm}
+\setlength{\vscale}{1mm}
+
+\newif\ifwidelayout%
+\def\IfWideLayout{%
+    \ifwidelayout%
+        \expandafter\@firstoftwo%
+    \else%
+        \expandafter\@secondoftwo%
+    \fi%
+}
+
+% Command to easily switch between chapter styles
+\DeclareDocumentCommand{\setchapterstyle}{m}{%
+    \ifthenelse{\equal{plain}{#1}}{\chapterstyleplain}{}
+    \ifthenelse{\equal{bar}{#1}}{\chapterstylebar}{}
+    \ifthenelse{\equal{lines}{#1}}{\chapterstylelines}{}
+    \ifthenelse{\equal{kao}{#1}}{\chapterstylekao}{}
+}
+
+% The default definition in KOMA script. The chapter number goes LTR
+% (\LR{\thechapter\autodot}) in all five heading styles.
+\DeclareDocumentCommand{\chapterstyleplain}{}{%
+    \renewcommand{\chapterlinesformat}[3]{%
+        \@hangfrom{##2}{##3}}
+    \renewcommand*{\chapterformat}{%
+        \mbox{\chapappifchapterprefix{\nobreakspace}\LR{\thechapter\autodot}%
+        \IfUsePrefixLine{}{\enskip}}}
+    \RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+    \setlength{\mtocshift}{-1\vscale}
+}
+
+% Gray bar
+\DeclareDocumentCommand{\chapterstylebar}{}{%
+    \renewcommand*{\chapterformat}{%
+        \mbox{\chapappifchapterprefix{\nobreakspace}\LR{\thechapter\autodot}%
+        \IfUsePrefixLine{}{\enskip}}%
+    }
+    \renewcommand{\chapterlinesformat}[3]{%
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[
+                anchor=south west,
+                xshift=\dimexpr - \hoffset - \oddsidemargin - 1in -1mm,%-30\hscale,
+                yshift=4.3mm,
+                rectangle,
+                fill=gray!20!white,
+                fill opacity=0.8,
+                inner ysep=5\vscale,
+                inner xsep=\dimexpr \hoffset + \oddsidemargin + 1in,%30\hscale,
+                text opacity=1,
+                text width=\paperwidth-40\hscale,
+            ]{\@hangfrom{##2}{##3}};
+        \end{tikzpicture}
+    }
+    \RedeclareSectionCommand[beforeskip=-55\vscale,afterskip=6\vscale]{chapter}
+    \setlength{\mtocshift}{-1\vscale}
+}
+
+% Lines
+\renewcommand{\hrulefill}[1][0.4pt]{%
+    \leavevmode\leaders\hrule height #1\hfill\kern\z@%
+}
+
+\DeclareDocumentCommand{\chapterstylelines}{}{%
+    \renewcommand*{\chapterformat}{%
+        \chapappifchapterprefix{\nobreakspace}\scalebox{3.5}{\LR{\thechapter\autodot}}%
+    }%
+    \renewcommand\chapterlinesformat[3]{%
+        %\vspace*{-1cm}%
+        \leavevmode%
+        \makebox[0pt][l]{%
+        \makebox[\textwidth][l]{\hrulefill[1pt]##2}%\hfill%\par%\bigskip
+        \makebox[\marginparsep][l]{}%
+        \makebox[\marginparwidth][l]{}%
+        }\\
+        %\vspace{.5cm}
+        \makebox[0pt][l]{%
+        \makebox[\textwidth][l]{##3}%
+        \makebox[\marginparsep][l]{}%
+        \makebox[\marginparwidth][l]{}%
+        }\\
+        \makebox[0pt][l]{%
+        \makebox[\textwidth+\marginparsep+\marginparwidth][l]{\hrulefill[1.1pt]}%
+    }%
+    \RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}
+    \setlength{\mtocshift}{-1\vscale}%
+}
+}
+% The Kao style
+\DeclareDocumentCommand{\chapterstylekao}{}{%
+    \IfWideLayout{%
+        \renewcommand*{\chapterformat}{%
+            \mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\LR{\thechapter\autodot}}}%
+        }%
+        \renewcommand\chapterlinesformat[3]{%
+            \vspace{3.5\vscale}%
+            \if@twoside%
+                \Ifthispageodd{%
+                    \smash{\makebox[0pt][l]{%
+                        \parbox[b]{\textwidth - 6.2\hscale}{\flushright{##3}}%
+                        \makebox[6.2\hscale][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                        \parbox[b]{\marginparwidth}{##2}%
+                    }}%
+                }{
+                    \smash{\makebox[\textwidth + 6.2\hscale][r]{%
+                        \parbox[b]{47.7\hscale + 6.2\hscale}{\flushright{##2}}%
+                        \makebox[6.2\hscale][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                        \parbox[b]{\textwidth}{\flushleft{##3}}%
+                    }}%
+                }
+            \else%
+                \smash{\makebox[0pt][l]{%
+                    \parbox[b]{\textwidth - 6.2\hscale}{\flushright{##3}}%
+                    \makebox[6.2\hscale][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                    \parbox[b]{\marginparwidth}{##2}%
+                }}%
+            \fi%
+        }%
+    }{%
+        \renewcommand*{\chapterformat}{%
+            \mbox{\chapappifchapterprefix{\nobreakspace}\scalebox{2.85}{\LR{\thechapter\autodot}}}%
+        }%
+        \renewcommand\chapterlinesformat[3]{%
+            \vspace{3.5\vscale}%
+            \if@twoside%
+                \Ifthispageodd{%
+                    \smash{\makebox[0pt][l]{%
+                        \parbox[b]{\textwidth}{\flushright{##3}}%
+                        \makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                        \parbox[b]{\marginparwidth}{##2}%
+                    }}%
+                }{
+                    \smash{\makebox[\textwidth][r]{%
+                        \parbox[b]{\marginparwidth}{\flushright{##2}}%
+                        \makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                        \parbox[b]{\textwidth}{\flushleft{##3}}%
+                    }}%
+                }
+            \else%
+                \smash{\makebox[0pt][l]{%
+                    \parbox[b]{\textwidth}{\flushright{##3}}%
+                    \makebox[\marginparsep][c]{\rule[-2\vscale]{1pt}{27.4\vscale+\f@size mm}}%
+                    \parbox[b]{\marginparwidth}{##2}%
+                }}%
+            \fi%
+        }%
+    }%
+    \RedeclareSectionCommand[beforeskip=0cm,afterskip=10\vscale]{chapter}%
+    \setlength{\mtocshift}{-3.5\vscale}%
+}
+
+% Takes as input the image path and optionally the "beforeskip"
+\DeclareDocumentCommand{\setchapterimage}{O{55\vscale} m}{%
+    \setchapterpreamble[o]{%
+        \vspace*{-27\vscale}\hspace*{\dimexpr - \hoffset - \oddsidemargin - 1in}%
+        \includegraphics[width=\paperwidth,height=#1+27\vscale,keepaspectratio=false]{#2}%
+    }%
+    \chapterstylebar%
+    % beforeskip=-(figure_height-top_margin)
+    \RedeclareSectionCommand[beforeskip=-#1, afterskip=6\vscale]{chapter}%
+    \setlength{\mtocshift}{0cm}%
+}
+
+% TOC entry number formats: seven hooks, set at \AtBeginDocument once
+% tocbasic has declared the entry types.
+\AtBeginDocument{%
+  \renewcommand*{\scr@tso@chapter@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@section@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@subsection@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@subsubsection@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@figure@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@table@numberformat}[1]{\LR{#1}}%
+  \renewcommand*{\scr@tso@flowchart@numberformat}[1]{\LR{#1}}%
+}
+
+% ---------------------------------------------------------------- RTL tables
+% Cell bodies start in TRT direction: the RTL table-mirror convention keeps
+% columns declared in visual left-to-right order with labels rightmost,
+% while each cell's Arabic text flows right-to-left. \qty cells are wrapped
+% in \LR{} islands at the source level. Patched without \makeatletter (a
+% .sty has @ as a letter already).
+\patchcmd{\insert@column}%
+  {\ignorespaces \@sharp \unskip}%
+  {\ignorespaces \@sharp \unskip \textdir TRT}%
+  {}{\PackageError{sourdough-ar}{\string\insert@column\space patch failed (array.sty changed?)}{}}
+
+% Kerning in footnotes
+\usepackage{fnpct}
+
+% References
+\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+% Clickable links in the table of contents
+\usepackage{hyperref}
+\usepackage{bookmark}
+
+% QR codes for the note on asking this book (title page and last page). Only
+% the PDF draws them; the ebook shows the link alone.
+\ifdefined\HCode\else
+\usepackage{qrcode}
+\fi
+\hypersetup{%
+    linktoc=all,
+    colorlinks = true,
+    linkcolor = hlorange,
+    urlcolor  = codeblue,
+    citecolor = hlocre,
+    breaklinks = true,
+    pdfinfo={%
+        Title={منظومة عمل الخبز الحامض},
+        Author={Hendrik Kleinw\"achter},
+        Subject={النسخة العربية من كتاب الخبز الحامض},
+        Keywords={Sourdough, dough, bread, wheat, baking, bake, home-baking,
+            yeast, rye, crumb, debug, gluten, dough strength, crust, DIY,
+            framework, https://the-sourdough-framework.com,
+            https://www.the-bread-code.io/,
+            https://github.com/hendricius/the-sourdough-framework,
+            open-source, CC-BY-SA}
+    }
+}
+
+
+% Folders where to search for images
+\graphicspath{
+  {images/}
+  {troubleshooting/}
+  {sourdough-starter/}
+  {troubleshooting/crumb-structures/}
+  {history/}
+  {images/external/}
+  {baking/}
+  {wheat-sourdough/}
+  {wheat-sourdough/shaping/}
+  {non-wheat-sourdough/}
+  {mix-ins/}
+}
+
+% Caption and figure size below images
+\addtokomafont{captionlabel}{\textbf}
+\addtokomafont{caption}{\small}
+
+\DeclareSIUnit\degF{\text{°}F}
+
+% By default start with the lines style
+\setchapterstyle{lines}
+
+\endinput

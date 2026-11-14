@@ -1,0 +1,82 @@
+% smoke.tex — R1 smoke build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Exercises the reconstructed pipeline end to end: cover + title page
+% (cover-ar.tex, 4-word title), TOC with dotted numbers, chapter/section
+% numbering LTR, bare Western digits in Arabic prose, \qty/\qtyrange in
+% \LR{} islands, a mirrored table, a TikZ flowchart float, footnote with
+% \textenglish parens, \pHvalue. Not a content unit: chapter text is
+% re-typeset at R2 from the recovery references.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+\frontmatter
+{\hypersetup{hidelinks}\tableofcontents}
+
+\mainmatter
+\setchapterstyle{lines}
+
+\chapter{فصل اختبار البنية التحتية}
+
+هذا فصل اختبار للبنية التحتية للطبعة العربية. يجرّب الأرقام الغربية
+في السياق العربي: تُخمَّر العجينة مدة 24 ساعة عند درجة حرارة 20 درجة،
+ثم يُخبز الرغيف مدة 45 دقيقة. النسبة المئوية للترطيب هي 75% من وزن
+الدقيق، ودرجة الحرارة المثالية 26.5 درجة. راجع الفصل 3 والمخطط 1.2
+للتفاصيل.
+
+\section{القسم الأول: الأرقام والوحدات}
+
+تحتفظ خلايا \qty{500}{\gram} من الدقيق بـ\qty{350}{\milli\liter} من
+الماء\footnote{الأقواس اللاتينية تمر عبر \textenglish{(parenthetical
+English)} إلى الخط اللاتيني الرئيسي.}، ويعمل الخليط عند
+\qtyrange{20}{25}{\celsius}. قيمة الرقم الهيدروجيني تهبط إلى
+\pHvalue{3.8} بعد التخمير الكتلي. نسبة 1:2 تعني جزءًا من البادئ
+وجزءين من الدقيق، والمدى 10--15% يغطي الفروق الموسمية.
+
+\subsection{قسم فرعي مرقّم}
+
+الخلية الواحدة تحتوي نصًا عربيًا يتدفق من اليمين إلى اليسار، بينما
+يبقى الرقم 42 مرتبًا من اليسار إلى اليمين داخل السطر.
+
+\begin{table}[!htb]
+\centering
+\caption{جدول اختبار المرآة}
+\label{tab:smoke-mirror}
+\begin{tabular}{lll}
+\toprule
+\thead{\qty{250}{\gram}} & \thead{الوصف} & \thead{العنصر} \\
+\midrule
+\qty{500}{\gram} & دقيق قمحي كامل الحبة & الدقيق \\
+\qty{350}{\milli\liter} & ماء بدرجة حرارة الغرفة & الماء \\
+\qty{100}{\gram} & بادئ حامض نشط & البادئ \\
+\qty{10}{\gram} & ملح خشن & الملح \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{flowchart}[!htb]
+\centering
+\begin{tikzpicture}[node distance = 3.5cm, auto]
+  \node [start] (start_n) {\textarabic{اخلط \qty{50}{\gram} دقيق مع \qty{50}{\gram} ماء}};
+  \node [block, right of=start_n, node distance = 3.5cm] (wait_n) {\textarabic{انتظر\\ \qty{24}{\hour}}};
+  \node [decision, right of=wait_n, node distance = 3.5cm] (readycheck_n) {\textarabic{جاهز؟}};
+  \draw [line] (start_n) -- (wait_n);
+  \draw [line] (wait_n) -- (readycheck_n);
+  \draw [line] (readycheck_n) -- node {\textarabic{نعم}} ++(3.5,0);
+\end{tikzpicture}
+\caption{مخطط انسيابي اختباري}
+\label{fig:smoke-flowchart}
+\end{flowchart}
+
+\end{document}
