@@ -16,6 +16,19 @@
 --     trailing % or ° joins the run; untaken discretionary hyphens are
 --     transparent. After reversing a segment the scan resumes at n.next.
 --
+--     R2 amendment (2026-11-15, owner-authorized): dir-node tracking
+--     handles luabidi's push/pop forms explicitly — "+TRT"/"TRT" set
+--     trt=true, "+TLT"/"TLT" set trt=false, and the pop forms "-TRT"/
+--     "-TLT" restore the line base. Before this fix the +TLT push fell
+--     into the else branch and restored the RTL base, so digit runs
+--     inside a bare \textenglish{} island in an RTL line were reversed
+--     (probe: \textenglish{Lili1232000,} extracted "0002321" before,
+--     "Lili1232000" after; an \mbox island was already correct because
+--     its own TLT hlist dir field reaches the recursion, while \LRE{}
+--     does not protect). Unit 4 boxes its one digit-bearing name as a
+--     content-layer workaround; this fix applies from the unit 5 build
+--     onward.
+--
 --     Engine findings (LuaHBTeX 1.17.0, TeX Live 2023), kept here so they
 --     are not re-derived: the base direction of a line rides the line
 --     hlist's own dir field ("TRT"/"TLT"), while luabidi's run switches
@@ -178,8 +191,10 @@ local function fix_digits_list(head, trt_base)
       local d = tostring(n.dir)
       if d == "+TRT" or d == "TRT" then
         trt = true
+      elseif d == "+TLT" or d == "TLT" then
+        trt = false
       else
-        trt = trt_base or false
+        trt = trt_base or false  -- pop (-TRT/-TLT): restore the line base
       end
     elseif n.id == node.id("glyph") and trt then
       local code = node_code(n)
