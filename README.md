@@ -157,3 +157,11 @@ International License][cc-by-sa].
 [cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
 [cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
 [cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+
+## Arabic translation
+
+An Arabic translation of this book is maintained in this fork under the same
+CC BY-SA 4.0 license as the original work.
+
+- Original work: *The Sourdough Framework* by Hendrik Kleinwächter (CC BY-SA 4.0)
+- Arabic translation by Nayl Alielah (نائل العيله)
