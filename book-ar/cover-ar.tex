@@ -1,0 +1,96 @@
+% cover-ar.tex — Arabic cover and title page for The Sourdough Framework
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Fork of the upstream cover/cover.tex. Page 1 carries the cover raster
+% (upstream cover/cover-page.jpg, upstream commit 69636e6) with the Arabic
+% overlay of record on the cover band; page 2 is the blank verso; page 3 is
+% the typeset title page with the Arabic title, edition date and the
+% author/translator credit.
+%
+% Overlay of record (Phase 26/27, Item 1 applied at R1: 4-word title):
+%   Line 1: title, \put(88.45, 7.87), 14/16 Amiri bold, centered
+%   Line 2: تأليف: هندريك كلاينفِختر · ترجمة: نائل العيله
+%           \put(88.45, 2.92), 8/9 Amiri regular, centered
+% The \makeatletter/\if@twoside wrapper is upstream-verbatim (a .tex file;
+% the no-\makeatletter rule binds the .sty only).
+
+\thispagestyle{empty}
+\setlength{\unitlength}{1mm}
+\makeatletter
+\if@twoside%
+    \noindent\begin{picture}(0,0)(1,-1)
+    \put(-16.3,-265){\includegraphics[width=1.33\linewidth]{cover/cover-page.jpg}}
+    \end{picture}
+\else%
+    \noindent\begin{picture}(0,0)(1,-1)
+    \put(-23.3,-265){\includegraphics[width=1.33\linewidth]{cover/cover-page.jpg}}
+    \end{picture}
+\fi%
+% Arabic overlay on the cover band (Phase 26/27 of record; 4-word title).
+\noindent\begin{picture}(0,0)(1,-1)
+    \put(88.45,7.87){\makebox(0,0)[c]{\fontsize{14}{16}\selectfont\bfseries منظومة عمل الخبز الحامض}}%
+    \put(88.45,2.92){\makebox(0,0)[c]{\fontsize{8}{9}\selectfont تأليف: هندريك كلاينفِختر · ترجمة: نائل العيله}}%
+\end{picture}
+\makeatother
+
+\newpage
+\thispagestyle{empty}
+
+\rule{1pt}{\textheight} % Vertical line
+ % Whitespace between the vertical line and title page text
+\hspace{0.05\textwidth}
+ % Paragraph box for holding the title page text, adjust the width to move the
+% title page left or right on the page
+\parbox[b]{0.75\textwidth}{%
+{\Huge\bfseries منظومة عمل الخبز الحامض}\\[2\baselineskip] % Title
+{\large\textit{الإصدار: \today}}\\[4\baselineskip]
+{\Large هندريك كلاينفِختر}\\[1\baselineskip]
+{\large ترجمة: نائل العيله}
+
+% Whitespace between the title block and the copyright text. In the PDF and
+% the ebook it holds a note on asking this book: Loafy answers from it. The
+% website leaves it out, it has Loafy on every page already. Each place has
+% its own via tag, so Loafy can count where readers came from.
+\ifdefined\HCode
+\vspace{0.5\textheight}
+\ifdefined\sdfebook
+\textbf{أسئلة أثناء الخَبز؟} اسأل هذا الكتاب. \textenglish{Loafy}، رفيقه المجاني،
+يجيب من هذه الصفحات ويسمّي القسم:
+\href{https://loafy.ai/loafy?via=tsf-epub-title}{https://loafy.ai}
+\fi
+\else
+\vspace{0.17\textheight}
+
+\noindent
+\begin{minipage}[c]{2.4cm}
+% Black, not link blue: a light QR code is hard to scan once printed.
+% The QR matrix macros must typeset LTR; RTL context corrupts them.
+\LRE{\qrcode[nolink,height=2.2cm]{https://loafy.ai/loafy?via=tsf-pdf-qr}}
+\end{minipage}%
+\hspace{0.4cm}%
+\begin{minipage}[c]{\linewidth-2.8cm}
+\textbf{أسئلة أثناء الخَبز؟} اسأل هذا الكتاب. \textenglish{Loafy}، رفيقه المجاني،
+يجيب من هذه الصفحات ويسمّي القسم:
+\href{https://loafy.ai/loafy?via=tsf-pdf-title}{\nolinkurl{https://loafy.ai}}
+\end{minipage}
+
+\vspace{0.17\textheight}
+\fi
+
+
+{\noindent
+\begin{flushleft}
+    \includegraphics[width=3cm]{cover/CC-BY-SA}\par
+الشيفرة المصدرية الكاملة للكتاب متاحة على
+\url{https://github.com/hendricius/the-sourdough-framework/} تحت رخصة
+\textenglish{CC-BY-SA}.
+راجع \url{https://creativecommons.org/licenses/by-sa/4.0/} لمزيد من التفاصيل.
+لا تتردد في الإبلاغ عن الأخطاء أو الاقتراحات. يتوفر إصدار غلاف مقوّى من
+الكتاب أيضًا. مزيد من المعلومات هنا:
+\url{https://www.breadco.de/hardcover-book}
+\end{flushleft}
+}
+}
