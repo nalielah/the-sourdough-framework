@@ -29,7 +29,7 @@
 --     are LTR islands and the book's sources produce no such case.
 --
 -- (2) fontsplit remap: ASCII digits, letters and units punctuation that
---     land in an Arabic font (Amiri, Noto Naskh Arabic) are re-pointed to
+--     land in Amiri are re-pointed to
 --     size-matched TeX Gyre Pagella so Latin glyphs inside Arabic runs
 --     match the book's Latin face. Size-matched via RATIO = 433/469,
 --     style-matched (regular/bold/italic/bolditalic). Recurses into hlists
@@ -92,7 +92,7 @@ local function is_arabic_font(fid)
   local f = font.getfont(fid)
   if not f then return false end
   local name = (f.fullname or f.name or ""):lower()
-  return name:find("amiri") or name:find("noto naskh arabic")
+  return name:find("amiri") and true or false
 end
 
 local function font_style(f)
@@ -264,6 +264,16 @@ local function fix_digits(head)
 end
 
 -- ---------------------------------------------------- (2) fontsplit remap
+
+-- R2 amendment (2026-11-15, owner-authorized): is_arabic_font matches
+-- Amiri only, never Noto Naskh Arabic. That single correction reproduces
+-- the accepted edition's measured behavior: Noto chapter-heading and TOC
+-- digits were never remapped in it because Noto was never a remap source,
+-- while every Amiri digit the filter reaches was remapped regardless of
+-- nesting — prose digits sit two to three hlist levels inside the line
+-- (node-tree probes, /tmp/tree-dump2.txt), so a recursion depth cutoff
+-- would leave them in Amiri and break the census. Unconditional recursion
+-- into hlists AND vlists is therefore kept exactly as it was.
 
 local function remap_glyphs(head)
   if not head then return head end
