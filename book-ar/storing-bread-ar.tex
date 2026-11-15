@@ -1,0 +1,98 @@
+% storing-bread-ar.tex — Arabic edition of ch. 13, storing bread
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 13 reconstruction. VERBATIM transcription of the R0
+% recovery reference (recovery-r0/text/13-storing-bread.txt, mined from
+% the Phase 23 website build of the accepted Arabic sources); no text
+% retranslated from the English. The accepted edition book-ar-fixed.pdf
+% (b78c2a28b574288801d8000a7249af3a) is the fidelity authority; ch. 13 =
+% accepted pp. 148–150. Short caption (خيارات تخزين الخبز) recovered
+% from the accepted edition's list-of-tables page (قائمة الجداول,
+% entry 13.1, accepted p. 192).
+%
+% No figures, no flowcharts, no recipes in this chapter. One table
+% (upstream [!htb] spec kept verbatim; placement verified against the
+% accepted render — table on the chapter opening page under the intro,
+% caption at the page bottom). Two footnotes, two cites (upstream keys
+% storing+bread, freezing+toasting+bread).
+%
+% Direction treatments per the standing conventions:
+%  - the table is mirrored per the unit 9 RTL table convention
+%    (columns visual LTR, label column الطريقة rightmost); every
+%    non-empty cell wrapped {\textdir TRT ...} (unit 9, BINDING);
+%  - Latin terms ride \textenglish{} islands: (breadcrumbs), Knödel,
+%    (mold), (airtight container), (ziplock bag), (freezer), (thawing),
+%    (toaster) — paren-font residual (Pagella vs Amiri parens)
+%    documented, R3 harmonization agenda;
+%  - digit ranges as literal-text LTR islands per the unit 9 dash-font
+%    convention: \LR{\textenglish{1\textendash 2}} and
+%    \LR{\textenglish{3\textendash 4}};
+%  - bare digit runs ride per-token \LR islands: \LR{10} إلى \LR{15}
+%    ثانية, عام \LR{2008};
+%  - the single percentage rides \LR{\qty{40}{\percent}} (unit 11
+%    convention);
+%  - cites ride ~\cite{...} with the upstream keys (units 9–12
+%    pattern);
+%  - footnote markers AFTER the sentence period (accepted p. 149
+%    token order 'طرية.1' and '.2' verified in the render), unlike the
+%    upstream English (marker before period);
+%  - the same-unit table ref renders \LR{\ref{...}} per the same-unit
+%    ref convention (unit build shows 1.1 where the accepted shows
+%    13.1 — unit-numbering artifact, R3 assembly regenerates true
+%    numbering);
+%  - the accepted edition's own text-layer tatweel in 'فالـكيس' /
+%    'ﺍلـكيس' (p. 149) is a justification kashida artifact of the
+%    accepted toolchain, not source text — the recovery reference (mined
+%    from the accepted sources) has فالكيس / الكيس without tatweel, and
+%    the transcription follows the recovery reference.
+
+\chapter{تخزين الخبز}\label{ch:storing-bread}
+
+\begin{quoting}
+يناقش هذا الفصل طرقًا مختلفة لتخزين خبزك، ولكل منها مزاياها وعيوبها. وبهذا يمكن الاستمتاع بخبزك في وقت لاحق بأفضل صورة ممكنة.
+\end{quoting}
+
+تجد ملخصًا في الجدول~\LR{\ref{table:bread-storage}}، مع التفاصيل والشرح في بقية هذا الفصل.
+\begin{table}[!htb]
+    \centering
+        \input{tables-ar/table-storing-bread-overview-ar.tex}
+        \caption[خيارات تخزين الخبز]{جدول يوضح مزايا وعيوب خيارات تخزين الخبز المختلفة.}%
+        \label{table:bread-storage}
+\end{table}
+
+\section{درجة حرارة الغرفة}
+
+الطريقة الأكثر شيوعًا هي تخزين خبزك في درجة حرارة الغرفة. وبعد أن تأخذ شريحة من الخبز، خزّن خبزك مع لُبّه باتجاه الأسفل.
+
+تعمل هذه الطريقة بشكل رائع إذا أردت أكل خبزك خلال يوم واحد. فتبقى القشرة مقرمشة ولا تصبح طرية.\footnote{كلما ارتفعت الرطوبة في غرفتك أصبحت القشرة طرية بسرعة أكبر.} أما أكبر عيوب هذه الطريقة فهو أن الخبز يتصلّب بسرعة. فمع مضي الوقت يتبخر من لُبّ عجينك ماء أكثر فأكثر. وفي النهاية سيصبح الخبز صلبًا جدًّا يستحيل أكله. وكلما زاد الماء الذي تستخدمه في صنع الخبز بقي الخبز جيدًا مدة أطول. فالوصفة منخفضة الترطيب قد تجفّ بعد \LR{\textenglish{1\textendash 2}} يوم، بينما يحتاج الخبز مرتفع الترطيب إلى \LR{\textenglish{3\textendash 4}} أيام ليجفّ.
+
+وبمجرد أن يجفّ خبزك يمكنك تمريره تحت ماء الصنبور مدة \LR{10} إلى \LR{15} ثانية تقريبًا. يتيح هذا الحمّام المائي للنشويات الموجودة في اللُبّ أن تمتص كمية كبيرة من الماء. ثم اخبز خبزك مجددًا في الفرن. سيكون الرغيف الناتج جيدًا شبه كأنه جديد.
+
+وهناك خيار آخر للخبز اليابس وهو استخدامه في صنع البقسماط \textenglish{(breadcrumbs)}. ويمكن خلط هذه الفتاتات الخبزية في أرغفة لاحقة. كما يمكن استخدامها مكونات أساسية في وصفات أخرى مثل \textenglish{Knödel}.\footnote{\textenglish{Knödel} هو طبق نمساوي يقوم على الخبز القديم. تُخلط الفتاتات وخبز اليوم السابق مع البيض، وتُضاف أحيانًا السبانخ أو اللحم المقدد. ثم يُسلق الخليط في ماء مملح.}
+
+\section{درجة حرارة الغرفة داخل وعاء}
+
+كما في الخيار السابق، يمكنك أيضًا تخزين خبزك داخل وعاء. وقد يكون هذا كيسًا ورقيًّا أو كيسًا بلاستيكيًّا أو صندوق تخزين خبز. فالكيس الورقي ومعظم صناديق الخبز ليست محكمة الإغلاق تمامًا، مما يسمح ببعض الهواء بالانتشار خارج الوعاء. وهذا يعني أيضًا أن الخبز سيجفّ قليلًا.
+
+وعند استخدام كيس محكم مثل الكيس البلاستيكي سيحتفظ الخبز بكمية كبيرة من الرطوبة. فيبقى الخبز جيدًا مدة أطول. غير أنه في الوقت نفسه ستفقد القشرة قرمشتها أيضًا. فبعض الماء ينتشر في الكيس ثم يعيد القشرةُ امتصاصَه. وإذا أردت القشرة المقرمشة فالخيار الأفضل هو تحميص خبزك.
+
+ومن المشكلات الأخرى لأوعية التخزين تلوث العَفَن \textenglish{(mold)} الطبيعي. ففي اللحظة التي يخرج فيها خبزك من الفرن تبدأ بتلقّح بأبواغ العَفَن المحمولة في الهواء. وهذه الأبواغ صغيرة جدًّا لدرجة المجهر وهي في كل مكان. وتنمو أبواغ العَفَن بأفضل صورة في بيئة رطبة. وبوضع عجينك داخل وعاء تكون قد صنعت جنةً للعَفَن. فالعجين العادي القائم على الخميرة سيبدأ بالعَفَن خلال أيام قليلة هكذا. أما الخبز القائم على البادئة الحامضة فيبقى جيدًا مدة أطول لأن الحموضة مانع طبيعي للعَفَن.
+
+\section{الثلاجة}
+
+في تجربتي الخاصة يعمل تخزين الخبز داخل الثلاجة بشكل جيد طالما تستخدم وعاءً محكم الإغلاق \textenglish{(airtight container)}، حتى إن بعض المصادر تقول إن الخبز يجفّ داخل الثلاجة~\cite{storing+bread}. فمن المفترض أن الثلاجة تشجع السائل الموجود في اللُبّ على الانتقال إلى سطح الخبز.
+
+لكن في تجربتي الحيلة هي استخدام وعاء قابل للإغلاق. فمع كيس بسحّاب محكم \textenglish{(ziplock bag)} ستبقى الرطوبة الزائدة في الكيس وتضمن ألا يجفّ الخبز بسرعة. وفي درجة حرارة الغرفة كان هذا سيسبب عَفَن خبزك. وعند درجات الحرارة المنخفضة يمكن أن يبقى الخبز جيدًا هكذا لأسابيع. غير أن القشرة ستفقد قرمشتها، ولهذا يُنصح بالتحميص.
+
+\section{التجميد}
+
+وهناك خيار رائع آخر للتخزين طويل الأمد وهو استخدام مُجمِّدك \textenglish{(freezer)}. قطّع الرغيف كله وأنشئ أجزاءً يمكنك استهلاكها خلال يوم واحد. وخزّن كل جزء في وعاء منفصل وضعها داخل مُجمِّدك.
+
+وعندما تريد أكل خبز طازج، افتح أحد الأوعية في الصباح واترك الخبز يفكّ تجمّده \textenglish{(thawing)} على مدى ساعات قليلة. هذا ضروري كي تتمكن من فصل الشرائح المتجمدة المتلاصقة بسهولة. ثم حمّص الشرائح في محمصة الخبز \textenglish{(toaster)} أو اخبزها في الفرن حتى تبلغ القرمشة التي تعجبك.
+
+وهذا الخيار رائع للتخزين طويل الأمد جدًّا. وأنا شخصيًّا أحب أن تكون لديّ بضع شرائح خبز مجمدة بوصفها احتياطيًّا طارئًا حين لا يكون لديّ وقت للخَبز.
+
+وتلمح دراسة أجريت عام \LR{2008} إلى احتمال وجود فوائد صحية لتجميد خبزك وتحميصه. فبفعل ذلك قد تصبح جزيئات النشا أكثر مقاومة للهضم، مما يخفض استجابة سكر الدم في جسمك بما يقارب \LR{\qty{40}{\percent}}~\cite{freezing+toasting+bread}.
