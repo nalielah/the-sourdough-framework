@@ -31,9 +31,12 @@ lualatex -interaction=nonstopmode "$DRIVER.tex"
 lualatex -interaction=nonstopmode "$DRIVER.tex"
 
 if [ "$DRIVER" != "smoke" ]; then
-  # Full-book runs expect the Arabic figure fonts (KMVOJZ+/YFXCFN+ subsets)
-  # to be present; the post-processor aborts if they are not.
-  python3 tounicode-fix.py "$DRIVER.pdf" --require-overrides
+  # Ruling 2026-11-15 (unit 5 relay): --require-overrides DROPPED. Under the
+  # R1-FIGURES TikZ route the override fonts (/KMVOJZ+/YFXCFN+ Amiri subsets,
+  # former rsvg SVG XObject artifacts) cannot exist by construction, so the
+  # flag could only abort a correct build. The 0-CID / 0-unresolved report
+  # below still runs and still catches silent font substitution.
+  python3 tounicode-fix.py "$DRIVER.pdf"
 else
   python3 tounicode-fix.py "$DRIVER.pdf"
 fi
