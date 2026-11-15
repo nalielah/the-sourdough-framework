@@ -19,6 +19,9 @@ cd "$(dirname "$0")"
 
 DRIVER="${1:-book-ar}"
 export TEXINPUTS="../book:"
+# biber does not honor TEXINPUTS; it needs BIBINPUTS to find
+# ../book/references.bib (unit-5 session finding, 2026-11-15).
+export BIBINPUTS="../book:"
 
 lualatex -interaction=nonstopmode "$DRIVER.tex"
 if [ "$DRIVER" != "smoke" ]; then

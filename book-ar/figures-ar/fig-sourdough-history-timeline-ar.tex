@@ -1,0 +1,96 @@
+% fig-sourdough-history-timeline-ar.tex — Arabic edition of the sourdough
+% history timeline (ch. 3, figure 3.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-sourdough-history-timeline.tex (axis geometry, the
+% millenary/century tick loops with \num, the axis break and the era
+% spans verbatim), with the label text recovered from the accepted
+% edition's render of p. 16 (book-ar-fixed.pdf, b78c2a28…) — label
+% recovery against a visual reference, not retranslation. Arabic label
+% text is wrapped in \textarabic{} (see the companion figure 3.1 file for
+% the probe evidence); the axis tick numbers stay bare \num{} — digits in
+% the LTR picture base read correctly, as the accepted edition shows.
+% The upstream Jordan label's two-line tabular is set as an align=right
+% node instead: RTL lines flush right reproduce the accepted edition's
+% render (second line under the right edge of the first), which an LTR
+% l-column tabular cannot.
+%
+% Figure digit/Latin face (probe5, 2026-11-15): the standing remap in
+% arabic-digits.lua reaches TikZ node interiors (it recurses into
+% hlist/vlist heads unconditionally), so digits and Latin inside
+% \textarabic{}/\LR{} islands ride TeXGyrePagella-Regular here, where
+% the accepted edition's SVG-route XObjects carried Amiri-only subsets.
+% Route consequence, documented in the companion figure 3.1 file; owner
+% ruling pending (accept uniform Pagella, or authorize a lua exemption).
+
+\begin{tikzpicture}
+  \pgfmathsetlengthmacro{\timelinewidth}{(\textwidth-0.5cm)}
+
+  % Define the width of each segment
+  \pgfmathsetlengthmacro{\segmentwidth}{\timelinewidth/12}
+
+  % Draw horizontal lines
+  \draw[line width=1pt, color=hlorange] (0,0) -- (\timelinewidth/2,0);
+  \draw[line width=1pt] (\timelinewidth/2,0) -- (\timelinewidth/2 +1.5*\segmentwidth/3,0);
+  \draw[line width=1pt] (\timelinewidth/2 + 2*\segmentwidth/3,0) --(\timelinewidth, 0);
+  \draw[line width=1pt] (\timelinewidth/2+1.5*\segmentwidth/3-5,-0.2) -- (\timelinewidth/2+1.5*\segmentwidth/3+5, 0.2);
+  \draw[line width=1pt] (\timelinewidth/2+2*\segmentwidth/3-5,-0.2) -- (\timelinewidth/2+2*\segmentwidth/3+5, 0.2);
+
+  % Lines for periods
+  \draw[stealth-stealth, line width=1pt] (0,-3.7)
+    -- node[midway, timeline_timespan] {\textarabic{صناعة الخبز التاريخية}} ({\segmentwidth * 7.8},-3.7);
+  \draw[stealth-stealth, line width=1pt] ({\segmentwidth * 7.8},-3.7)
+    -- node[midway, timeline_timespan] {\textarabic{الخبز الحديث}} ({\segmentwidth * 12},-3.7);
+
+  % Regularly placed events, not in chronological order
+  % since should be placed on top of others on the timeline
+
+  % BC
+  \draw[line width=1pt] ({\segmentwidth*3},1.0) -- ({\segmentwidth*3},0.3)
+    node[at start, left, timeline_event] {\textarabic{6000 قبل الميلاد: أول جِعة في مصر}};
+  \draw[line width=1pt] ({\segmentwidth*5.95},1.5) -- ({\segmentwidth*5.95},0.3)
+    node[at start, left, timeline_event] {\textarabic{70 قبل الميلاد: أول طاحونة مائية}};
+
+  % Sourdough in Jordan
+  \draw[line width=1pt] (0,-0.3) -- (0,-1.5);
+  \draw[line width=1pt] (0,-1.5) -- (0.25,-1.5);
+  \node[timeline_event, below, anchor=west, align=right] at (0.25,-1.5)
+    {\textarabic{12000 قبل الميلاد: الخبز الحامض في الأردن}\\
+     \textarabic{زراعة القمح}};
+
+  % AD
+  \draw[line width=1pt] ({\segmentwidth*10.50},1.0) -- ({\segmentwidth*10.50},0.3)
+    node[at start, above, timeline_event] {\hspace{1.0cm}\textarabic{1950: القمح الحديث}};
+  \draw[line width=1pt] ({\segmentwidth*9.60},1.5) -- ({\segmentwidth*9.60},0.3)
+    node[at start, above, timeline_event] {\textarabic{1868: الخميرة التجارية}};
+  \draw[line width=1pt] ({\segmentwidth*7.8},2) -- ({\segmentwidth*7.8},0.3)
+    node[at start, above, timeline_event] {\textarabic{1680: اكتشاف الكائنات الدقيقة}};
+
+  \draw[line width=1pt] ({\segmentwidth*8.80},-1.25) -- ({\segmentwidth*8.80},-0.3)
+    node[at start, left, timeline_event] {\textarabic{1785: الطاحونة البخارية}};
+  \draw[line width=1pt] ({\segmentwidth*9.57},-1.75) -- ({\segmentwidth*9.57},-0.3)
+    node[at start, left, timeline_event] {\textarabic{1857: عزل الخميرة}};
+  \draw[line width=1pt] ({\segmentwidth*9.80},-2.25) -- ({\segmentwidth*9.80},-0.3)
+    node[at start, left, timeline_event] {\textarabic{1885: الخلاط الكهربائي}};
+  \draw[line width=1pt] ({\segmentwidth*11.20},-2.75) -- ({\segmentwidth*11.20},-0.3)
+    node[at start, left, timeline_event] {\textarabic{2020: جائحة كورونا}};
+
+  % Indicators for period
+  % Draw millenary and century separators
+  \foreach \i/\century in {0/-12000, 1/-10000, 2/-8000, 3/-6000, 4/-4000, 5/-2000}{
+      % Separators
+      \draw[line width=1pt, color=hlorange] (\i*\segmentwidth,0.1) -- (\i*\segmentwidth,-0.1);
+      % Events for timeline
+      \node[timeline_event, below, text=hlorange] at ({(\i)*\segmentwidth},-0.1) {\num{\century}};
+  }
+  \foreach \i/\century in {6/0, 7/1600, 8/1700, 9/1800, 10/1900, 11/2000, 12/2100}{
+      % Separators
+      \draw[line width=1pt] (\i*\segmentwidth,0.1) -- (\i*\segmentwidth,-0.1);
+      % Events for timeline
+      \node[timeline_event, below] at ({(\i)*\segmentwidth},-0.1) {\num{\century}};
+  }
+\end{tikzpicture}

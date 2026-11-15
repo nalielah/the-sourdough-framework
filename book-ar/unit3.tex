@@ -1,0 +1,28 @@
+% unit3.tex — R2 unit 3 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 3 per the reconstruction plan: ch. 1 preface, the first full
+% re-typesetting unit. Same preamble as the R1 smoke driver. Driver scheme
+% per the accepted edition (fidelity authority): NO \frontmatter — the
+% preface is numbered chapter 1 and page numbering runs continuously in
+% Western digits from the cover (accepted TOC entry "1 المقدمة … 7",
+% footer digits Amiri, no roman pages anywhere).
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{preface-ar.tex}
+
+\end{document}

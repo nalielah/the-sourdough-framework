@@ -16,6 +16,19 @@
 --     trailing % or ° joins the run; untaken discretionary hyphens are
 --     transparent. After reversing a segment the scan resumes at n.next.
 --
+--     R2 amendment (2026-11-15, owner-authorized): dir-node tracking
+--     handles luabidi's push/pop forms explicitly — "+TRT"/"TRT" set
+--     trt=true, "+TLT"/"TLT" set trt=false, and the pop forms "-TRT"/
+--     "-TLT" restore the line base. Before this fix the +TLT push fell
+--     into the else branch and restored the RTL base, so digit runs
+--     inside a bare \textenglish{} island in an RTL line were reversed
+--     (probe: \textenglish{Lili1232000,} extracted "0002321" before,
+--     "Lili1232000" after; an \mbox island was already correct because
+--     its own TLT hlist dir field reaches the recursion, while \LRE{}
+--     does not protect). Unit 4 boxes its one digit-bearing name as a
+--     content-layer workaround; this fix applies from the unit 5 build
+--     onward.
+--
 --     Engine findings (LuaHBTeX 1.17.0, TeX Live 2023), kept here so they
 --     are not re-derived: the base direction of a line rides the line
 --     hlist's own dir field ("TRT"/"TLT"), while luabidi's run switches
@@ -29,7 +42,7 @@
 --     are LTR islands and the book's sources produce no such case.
 --
 -- (2) fontsplit remap: ASCII digits, letters and units punctuation that
---     land in an Arabic font (Amiri, Noto Naskh Arabic) are re-pointed to
+--     land in Amiri are re-pointed to
 --     size-matched TeX Gyre Pagella so Latin glyphs inside Arabic runs
 --     match the book's Latin face. Size-matched via RATIO = 433/469,
 --     style-matched (regular/bold/italic/bolditalic). Recurses into hlists
@@ -92,7 +105,7 @@ local function is_arabic_font(fid)
   local f = font.getfont(fid)
   if not f then return false end
   local name = (f.fullname or f.name or ""):lower()
-  return name:find("amiri") or name:find("noto naskh arabic")
+  return name:find("amiri") and true or false
 end
 
 local function font_style(f)
@@ -178,8 +191,10 @@ local function fix_digits_list(head, trt_base)
       local d = tostring(n.dir)
       if d == "+TRT" or d == "TRT" then
         trt = true
+      elseif d == "+TLT" or d == "TLT" then
+        trt = false
       else
-        trt = trt_base or false
+        trt = trt_base or false  -- pop (-TRT/-TLT): restore the line base
       end
     elseif n.id == node.id("glyph") and trt then
       local code = node_code(n)
@@ -264,6 +279,16 @@ local function fix_digits(head)
 end
 
 -- ---------------------------------------------------- (2) fontsplit remap
+
+-- R2 amendment (2026-11-15, owner-authorized): is_arabic_font matches
+-- Amiri only, never Noto Naskh Arabic. That single correction reproduces
+-- the accepted edition's measured behavior: Noto chapter-heading and TOC
+-- digits were never remapped in it because Noto was never a remap source,
+-- while every Amiri digit the filter reaches was remapped regardless of
+-- nesting — prose digits sit two to three hlist levels inside the line
+-- (node-tree probes, /tmp/tree-dump2.txt), so a recursion depth cutoff
+-- would leave them in Amiri and break the census. Unconditional recursion
+-- into hlists AND vlists is therefore kept exactly as it was.
 
 local function remap_glyphs(head)
   if not head then return head end

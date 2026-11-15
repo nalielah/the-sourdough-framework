@@ -1,0 +1,37 @@
+% acknowledgments-ar.tex — Arabic edition of the acknowledgments
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Arabic layer of upstream intro/acknowledgments.tex (scaffold structure
+% and \label{ch:Acknowledgments} verbatim; text re-typeset from the
+% recovery reference text/02-acknowledgments.txt, Phase 28R unit 4 — no
+% retranslation). The supporters list is \input{supporters-ar.csv} — the
+% upstream csv's 150 names, each wrapped as \textenglish{Name,} with the
+% trailing comma inside the island. Measured against the accepted edition
+% (p. 12): bare Latin in the RTL paragraph renders fully reversed in the
+% rebuilt pipeline (probe-verified), while the accepted edition shows each
+% name LTR with the name sequence running RTL and each comma to the right
+% of its name — exactly the per-name-wrap island structure. The list
+% paragraph sets \hyphenpenalty/\exhyphenpenalty to 10000 (in effect at
+% \par, where the paragraph is broken): the accepted edition breaks names
+% only at spaces, never hyphenates them. The bold shout-out line keeps
+% the scaffold's \textbf{...\\} shape; its trailing colon rides
+% Pagella-Bold through the remap, as measured in the accepted edition
+% (p. 12).
+
+\chapter{الشكر والتقدير}%
+\label{ch:Acknowledgments}
+لَما كان هذا الكتاب ليحدث لولا مساعدتكم. فبفضل تبرعاتكم جميعًا استطعتُ التركيز على إتمام هذا الكتاب. ودعمكم المتواصل يمكّنني من التركيز على تحسينه أكثر فأكثر.
+
+كما ساهم كثير منكم في تحسين التعليمات، وصحّحوا أخطاء إملائية، وقدموا ملاحظات على المحتوى. كلٌّ منكم جعل هذا الكتاب أفضل.
+
+وبتقديم هذا الكتاب مجانًا، نستطيع تمكين المزيد من الناس حول العالم من خَبز خبز حامض لذيذ في بيوتهم.
+
+شكرًا جزيلًا على دعمكم!\\
+
+\textbf{شكر خاص لكل الداعمين الأوائل الذين ساعدوا في إطلاق هذا المشروع:\\}
+
+{\hyphenpenalty=10000 \exhyphenpenalty=10000
+\input{supporters-ar.csv}\par}
