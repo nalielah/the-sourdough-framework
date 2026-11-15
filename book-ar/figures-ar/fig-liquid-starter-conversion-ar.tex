@@ -1,0 +1,36 @@
+% fig-liquid-starter-conversion-ar.tex — Arabic edition of the liquid
+% starter conversion flowchart (ch. 6, المخطط الانسيابي 6.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-liquid-starter-conversion.tex (node styles from
+% figures/flowcharts_tikz.tex and the node/edge geometry verbatim,
+% including the ++(2.2,0) |- return edge, the above=2pt Yes label and
+% the (90:420:1cm) repeat arc), with the label text recovered from the
+% accepted edition's figure renders (label recovery, not retranslation;
+% the accepted edition book-ar-fixed.pdf is the fidelity authority).
+% Line splits inside nodes follow the accepted edition's render
+% exactly. Node ranges carry the single trailing unit
+% (\numrange{6}{12}~\unit{\hour}) per the settled FC convention; the
+% caption keeps the repeated-unit \qtyrange form.
+
+\begin{tikzpicture}[node distance = 5cm, auto]
+  \node [start] (init) {\textarabic{خذ بادئتك}\\ \textarabic{العادية أو}\\ \textarabic{الصلبة}};
+  \node [block, right of=init] (feed_new_ratio) {\textarabic{اخلط \LR{1 g}}\\ \textarabic{بادئة موجودة،}\\ \textarabic{و\LR{5 g} دقيق}\\ \textarabic{و\LR{25 g} ماء}};
+  \node [decision, below of=feed_new_ratio, node distance=5cm] (ready_signs) {\textarabic{رائحة حامضة}\\ \textarabic{لبنية زبادية}\\ \textarabic{وفقاعات}\\ \textarabic{ظاهرة على}\\ \textarabic{الدقيق؟}};
+  \node [block, right of=ready_signs, node distance=4cm] (feed_again) {\textarabic{غذِّ مجددًا}\\ \textarabic{بنسبة}\\ \LR{1:5:25}};
+  \node [block, left of=ready_signs, node distance=5cm] (last_feed) {\textarabic{غذِّ مرة}\\ \textarabic{أخيرة}};
+  \node [success, below of=last_feed, node distance=4cm] (bread_dough) {\textarabic{اصنع عجين}\\ \textarabic{الخبز}};
+  \path [line] (init) -- (feed_new_ratio);
+  \path [line] (feed_new_ratio) -- node{\textarabic{انتظر \LR{\qty{24}{\hour}}}} (ready_signs);
+  \path [line] (feed_again) -- node[anchor=east]  {} ++(2.2,0) |- (feed_new_ratio);
+  \path [line] (ready_signs) -- node{\textarabic{لا}} (feed_again);
+  \path [line] (ready_signs) -- node[above=2pt]{\textarabic{نعم}} (last_feed);
+  \path [line] (last_feed) -- node{\textarabic{بعد \LR{\numrange{6}{12}~\unit{\hour}}}} (bread_dough);
+
+  \node [above of=feed_again, text width=5em, align=center, node distance=3cm] (repeat_text) {\textarabic{كرر \LR{3} مرات}};
+  \draw [line] ($(repeat_text) +(0, 1 cm)$) arc (90:420:1cm);
+\end{tikzpicture}
