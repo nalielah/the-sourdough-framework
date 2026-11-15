@@ -1,0 +1,116 @@
+% fig-dutch-oven-process-ar.tex — Arabic edition of the dutch oven
+% baking process flowchart (ch. 12, المخطط الانسيابي 12.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 reconstruction. Node/edge geometry verbatim from
+% the upstream source figures/fig-dutch-oven-process.tex (node styles
+% from figures/flowcharts_tikz.tex, which sourdough-ar.sty inputs).
+% Label text recovered from the accepted edition's render of p. 146
+% (book-ar-fixed.pdf, b78c2a28b574288801d8000a7249af3a) — the flowchart
+% sits on accepted p. 146; the text layer extracts cleanly in logical
+% order, so the labels are recovered against the accepted text layer
+% plus 300/600-dpi render crops, not retranslated.
+%
+% Layout is NOT mirrored, per the accepted render: سخن الوعاء الهولندي
+% leftmost → أخرج الوعاء من الفرن → افتح الوعاء/ضع العجين فيه → شقّ
+% العجين → رشّ العجين بالماء rightmost, then the bake row, then the
+% decision row (هل بلغت الحرارة الداخلية 92°C (197°F)؟ leftmost, أزل
+% غطاء الوعاء, لون القشرة داكن بما يكفي؟, اخبز 5 دقائق أخرى rightmost),
+% with انتظر 5 دقائق / انتهى الخبز below. Manual line splits follow the
+% accepted render exactly.
+%
+% Note the verbatim orthography split between the two heat_oven nodes
+% of this chapter: FC 12.1 carries سخّن (with shadda), this flowchart
+% carries سخن (without) — both as the accepted render shows.
+%
+% DECISION NODES ARE NATURAL-WIDTH (unit 12 finding, 2026-11-15): the
+% accepted render's two decision diamonds are sized w+h from their
+% natural line boxes, NOT from the upstream style's text width=4.5em.
+% Evidence: dark_enough's 3-line ink is 41.7 pt tall, but a 4.5em box
+% (45 pt) would cap the diamond height at 77.9-45 = 32.9 pt — impossible;
+% and the two diamonds' width difference (103.4-77.9 = 25.5 pt) matches
+% their widest-line ink difference (55.1-34.7 = 20.4 pt) plus the taller
+% Latin-paren line of the first node. With text width=4.5em in force the
+% first decision wraps 'هل بلغت الحرارة' onto two lines where the
+% accepted keeps one. Fix at content layer: local style decisionnat =
+% upstream decision minus text width, plus align=center (needed for \\;
+% text badly centered alone does not enable line breaks without a text
+% width). Measured against accepted: is_ready 91.0 vs 103.4 pt, dark
+% 74.8 vs 77.9 pt — the residual is the documented scaled-Amiri family
+% (the accepted's taller line boxes ride its standalone 10.04 pt Amiri
+% metrics).
+%
+% PICTURE WIDTH / FC 12.2 CAPTION GAP (2026-11-15, corrected): this
+% picture's natural width is 463.50 pt against \textwidth 448.13 pt —
+% an overflow of 15.37 pt — and the accepted edition's own FC 12.2 ink
+% is likewise overwide (458.9 pt, x 62.0-520.9 on accepted p. 146), so
+% the width itself is NOT the problem. The caption-gap penalty equals
+% the natural-box overflow: a plain \centering float box overflows and
+% TeX charges the overflow into the float's vertical list, pushing the
+% caption ~15 pt low (our gap 30.5 vs accepted 15.7). The accepted's
+% float box FITS \textwidth while its ink overflows flush right and
+% spills left. Fix at the content layer in baking-ar.tex (not here):
+% \hbox to \textwidth{\input{...}\hss} — content FIRST, \hss SECOND, so
+% the RTL line rides the picture flush right and absorbs the overflow
+% left. Measured: ink x 63.3-520.5 vs accepted 62.0-520.9, caption gap
+% 15.1 vs 15.7. The upstream node distances (3.5cm for
+% dark_enough_decision and bake_5_more_minutes) and the three upstream
+% edge routings (bake.west loop into is_ready_check.north,
+% wait_5_minutes.west loop into is_ready_check.west,
+% bake_5_more_minutes.east loop into dark_enough_decision.north) are
+% kept verbatim from figures/fig-dutch-oven-process.tex.
+%
+% Arabic label text is wrapped in \textarabic{} per the established
+% flowchart convention (fig-starter-process-ar.tex, unit 10). Mixed
+% lines keep the RTL base inside \textarabic{} with Latin runs in
+% \textenglish{} islands — the unit 11 sans-context finding BINDS here:
+% flowcharts_tikz.tex sets every picture font=\footnotesize\sffamily,
+% so bare ASCII letters in a node would route to \arabicfontsf and
+% extract U+FFFD; \textenglish exits the Arabic routing and the ambient
+% sans supplies the Latin face. Temperature runs are literal text
+% (230°C (446°F), 92°C, (197°F), tight, as the accepted node render
+% shows — NOT \qty); the sentence-final ؟ rides the RTL base and lands
+% leftmost of the Latin island, exactly as the accepted decision node
+% renders. Digit runs ride \textarabic{} with bare Western digits
+% (numerals=maghrib). Edge labels نعم/لا are \textarabic{}.
+%
+% Documented residual (same family as the earlier flowchart units):
+% node text rides the scaled Amiri (10.79 pt) where the accepted
+% edition's standalone-figure builds show 10.04 pt.
+
+\begin{tikzpicture}[node distance=3cm, auto,
+  decisionnat/.style={diamond, draw=codeblack, fill=codeblack, text=white,
+    align=center, inner sep=0pt, line width=2mm}]
+  \node [start] (heat_oven) {\textarabic{سخن الوعاء}\\ \textarabic{الهولندي إلى}\\ \textenglish{230°C (446°F)}\\ \textarabic{لمدة 30 دقيقة}};
+  \node [block, right of=heat_oven] (remove_oven) {\textarabic{أخرج الوعاء}\\ \textarabic{من الفرن}};
+  \node [block, right of=remove_oven] (open_load_dough) {\textarabic{افتح الوعاء}\\ \textarabic{وضع العجين فيه}};
+  \node [block, right of=open_load_dough] (score) {\textarabic{شقّ العجين}};
+  \node [block, right of=score] (spritz) {\textarabic{رشّ العجين}\\ \textarabic{بالماء}};
+  \node [block, below of=spritz] (close) {\textarabic{أغلق الوعاء}};
+  \node [block, left of=close] (back_oven) {\textarabic{أعد الوعاء}\\ \textarabic{إلى الفرن}};
+  \node [block, left of=back_oven] (bake) {\textarabic{اخبز 30 دقيقة}\\ \textarabic{عند \textenglish{230°C}}\\ \textenglish{(446°F)}};
+  \node [decisionnat, below right=5cm and -1cm of heat_oven] (is_ready_check) {\textarabic{هل بلغت الحرارة}\\ \textarabic{الداخلية \textenglish{92°C}}\\ \textarabic{\textenglish{(197°F)}؟}};
+  \node [block, right of=is_ready_check, node distance=4cm] (remove_do_lid) {\textarabic{أزل غطاء}\\ \textarabic{الوعاء}};
+  \node [decisionnat, right of=remove_do_lid, node distance=3.5cm] (dark_enough_decision) {\textarabic{لون القشرة}\\ \textarabic{داكن بما}\\ \textarabic{يكفي؟}};
+  \node [block, right of=dark_enough_decision, node distance=3.5cm] (bake_5_more_minutes) {\textarabic{اخبز 5 دقائق}\\ \textarabic{أخرى}};
+  \node [block, below of=is_ready_check, node distance=4cm] (wait_5_minutes) {\textarabic{انتظر}\\ \textarabic{5 دقائق}};
+  \node [success, below of=dark_enough_decision, node distance=4cm] (finish_baking) {\textarabic{انتهى الخبز}};
+  \path [line] (heat_oven) -- (remove_oven);
+  \path [line] (remove_oven) -- (open_load_dough);
+  \path [line] (open_load_dough) -- (score);
+  \path [line] (score) -- (spritz);
+  \path [line] (spritz) -- (close);
+  \path [line] (close) -- (back_oven);
+  \path [line] (back_oven) -- (bake);
+  \path [line] (bake.west) -- node{} ++(-2, 0) -| (is_ready_check.north);
+  \path [line] (is_ready_check) -- node{\textarabic{نعم}} (remove_do_lid);
+  \path [line] (is_ready_check) -- node{\textarabic{لا}} (wait_5_minutes);
+  \path [line] (wait_5_minutes.west) -- node{} ++(-1.5, 0) |- (is_ready_check.west);
+  \path [line] (remove_do_lid) -- (dark_enough_decision);
+  \path [line] (dark_enough_decision) -- node{\textarabic{نعم}} (finish_baking);
+  \path [line] (dark_enough_decision) -- node{\textarabic{لا}} (bake_5_more_minutes);
+  \path [line] (bake_5_more_minutes.east) -- node{} ++(1, 0) -- node{} ++(0, 2.3) -| (dark_enough_decision.north);
+\end{tikzpicture}

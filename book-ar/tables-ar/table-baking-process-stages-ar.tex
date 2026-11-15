@@ -1,0 +1,37 @@
+% table-baking-process-stages-ar.tex — Arabic edition of the baking
+% stages table (ch. 12, جدول 12.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 reconstruction. Column geometry verbatim from the
+% upstream source tables/table-baking-process-stages.tex
+% ({@{}rlp{0.5\textwidth}@{}} with booktabs rules), mirrored per the
+% standing RTL table convention: columns visual LTR, the label column
+% (°C / °F) rightmost, the wide description column leftmost. Cell text
+% recovered verbatim from the accepted edition's render of p. 137
+% (book-ar-fixed.pdf, b78c2a28b574288801d8000a7249af3a) via the R0
+% recovery reference (recovery-r0/text/12-baking.txt) — the text layer
+% extracts cleanly, so the cells are recovered against the accepted
+% text layer, not retranslated.
+%
+% Every non-empty cell is wrapped {\textdir TRT ...} per the unit 9
+% cell-direction convention (BINDING). Latin/digit runs ride \LR{}
+% islands; the temperature ranges are literal text
+% \LR{\textenglish{N\textendash M}} per the unit 9 dash-font
+% convention, with the °C / °F pair separated by a spaced slash exactly
+% as the accepted header renders.
+
+\begin{tabular}{@{}p{0.5\textwidth}lr@{}}
+\toprule
+\thead{{\textdir TRT الوصف}} & \thead{{\textdir TRT المرحلة}} & \thead{{\textdir TRT \LR{\textenglish{°C / °F}}}} \\
+\midrule
+{\textdir TRT الحرارة مرتفعة أكثر مما تتحمله الكائنات الدقيقة في عجينك فتموت.} & {\textdir TRT التعقيم} & {\textdir TRT \LR{\textenglish{60 / 140}}} \\
+{\textdir TRT يتكوّن هلام على السطح يحفظ بنية عجينك. وهو لا يزال قابلًا للتمدد ويمكن أن ينتفخ في الفرن.} & {\textdir TRT بناء الهلام} & {\textdir TRT \LR{\textenglish{75 / 167}}} \\
+{\textdir TRT يبدأ الماء بالتبخر فينتفخ حويصلات عجينك الهوائية.} & {\textdir TRT تبخر الماء} & {\textdir TRT \LR{\textenglish{100 / 212}}} \\
+{\textdir TRT بمجرد أن يجف السطح يبدأ تفاعل مايار بتشويه النشويات والبروتينات. فيبدأ العجين بالاسمرار.} & {\textdir TRT تفاعل مايار} & {\textdir TRT \LR{\textenglish{105--120 / 221--248}}} \\
+{\textdir TRT الحمض ذو الطعم الخلّي يغلي. وقد غادر بعضه بالفعل مع البخار، غالبًا من القشرة. تنقص الحموضة.} & {\textdir TRT تبخر حمض الخليك} & {\textdir TRT \LR{\textenglish{118 / 244}}} \\
+{\textdir TRT تبدأ السكريات المتبقية بالتكرمل فتمنح خبزك نكهة مميزة.} & {\textdir TRT التكرمل} & {\textdir TRT \LR{\textenglish{170 / 338}}} \\
+\bottomrule
+\end{tabular}
