@@ -1,0 +1,51 @@
+% unit17.tex — R2 unit 17 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 17 per the reconstruction plan: backmatter, the book's last page
+% أسئلة أثناء الخَبز؟ (accepted p. 201). Single page, no chapter head, no
+% TOC entry, \thispagestyle{empty}: centered LARGE bold title, 0.72\textwidth
+% minipage, \href{https://loafy.ai/loafy?via=tsf-pdf-end}{\nolinkurl{...}}
+% link, black \qrcode[nolink,height=3cm] — the upstream PDF branch of
+% cover/ask-this-book.tex (the \ifdefined\HCode conditional takes the \else
+% branch under LuaLaTeX). ask-this-book-ar.tex was transcribed at R2 unit 2
+% (commit 9385908) from the recovery reference
+% (recovery-r0/text/17-ask-this-book.txt); this unit verifies it against the
+% accepted edition text layer (book-ar-fixed.pdf, b78c2a28…, PRIMARY) — no
+% retranslation. The one tatweel in the accepted p. 201 text layer
+% («الخَـبز») is an Amiri kashida extraction artifact, not a source
+% character: the accepted book's text layer carries 877 such tatweels
+% («لـكن», «الـكبيرة», «بـ20 g»), all in positions no author types; the
+% transcription keeps «الخَبز» plain, and the battery strips tatweel per the
+% matured methodology. Latin tokens (Loafy, The Sourdough Framework) wrapped
+% in \textenglish{}; the QR matrix macros ride \LRE{} (must typeset LTR; RTL
+% context corrupts them). qrcode is loaded by sourdough-ar.sty (line 373).
+% Built with the standing arabic-digits.lua (standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15).
+% Driver scheme per the accepted edition, same as units 3–16: NO
+% \frontmatter. Unit builds carry natural chapter numbering; the R3
+% full-book assembly regenerates true numbering. This page adds no chapter
+% and no TOC entry, so the unit TOC is empty by design.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15), inherited by units 10–17: literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this \textenglish range-phrase is the fallback
+% convention. Driver-level change only.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{ask-this-book-ar.tex}
+
+\end{document}
