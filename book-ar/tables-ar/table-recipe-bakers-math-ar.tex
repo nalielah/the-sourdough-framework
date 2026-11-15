@@ -1,0 +1,29 @@
+% table-recipe-bakers-math-ar.tex — Arabic edition of upstream
+% tables/table-recipe-bakers-math.tex (ch. 5, جدول 5.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL table mirror per the standing convention, as
+% table-bakers-math-example-ar.tex: the column order is the REVERSE of
+% upstream (label column last, labels rightmost), matching the accepted
+% edition's render of p. 34 (book-ar-fixed.pdf, b78c2a28…): visual order
+% left→right is result / = / factor / × / 1400 / percentage / label. The
+% \multicolumn{5}{l} header span is kept as upstream (it centers over its
+% span under the TRT cell patch, as the accepted render shows); each cell
+% holds a single run, so the \LR islands cover the quantities and the
+% bare \times / = cells stay single-symbol. Cell contents recovered from
+% the accepted render: header المكوّن / الحساب الخبازي / القيمة المحسوبة
+% and the calculation columns 1400 × factor = result — label recovery,
+% not retranslation. Geometry verified per-char against the accepted page
+% after the 2026-11-15 mirror fix.
+
+\begin{tabular}{@{}rcrcrrl@{}}
+\toprule
+\multicolumn{5}{l}{\thead{القيمة المحسوبة}} & \thead{الحساب الخبازي} & \thead{المكوّن} \\ \midrule
+\LR{\qty{1400}{g}} &=& \LR{1} &\times& \LR{1400} & \LR{\qty{100}{\percent}} & دقيق \\
+\LR{\qty{840}{g}}  &=& \LR{0.6} &\times& \LR{1400} & \LR{\qty{60}{\percent}}  & ماء \\
+\LR{\qty{140}{g}}  &=& \LR{0.1} &\times& \LR{1400} & \LR{\qty{10}{\percent}}  & البادئة \\
+\LR{\qty{28}{g}}   &=& \LR{0.02} &\times& \LR{1400} & \LR{\qty{2}{\percent}}   & ملح \\ \bottomrule
+\end{tabular}

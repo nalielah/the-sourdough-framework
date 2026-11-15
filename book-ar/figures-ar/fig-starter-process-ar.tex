@@ -1,0 +1,57 @@
+% fig-starter-process-ar.tex — Arabic edition of the sourdough starter
+% process flowchart (ch. 5, المخطط الانسيابي 5.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-starter-process.tex (node styles from
+% figures/flowcharts_tikz.tex, which sourdough-ar.sty inputs, and the
+% node/edge geometry verbatim), with the label text recovered from the
+% accepted edition's render of p. 35 (book-ar-fixed.pdf, b78c2a28…) —
+% label recovery against a visual reference, not retranslation. Line
+% splits inside nodes follow the accepted edition's render exactly.
+% Arabic label text is wrapped in \textarabic{}; digit/Latin runs ride
+% \LR{} islands (see fig-sourdough-history-timeline-ar.tex for the
+% probe evidence and the Ruling 1 uniform-Pagella closure, ACCEPTED
+% 2026-11-15). The U+0611 ARABIC SIGN ALAYHE ASSALLAM in تخؑلّص is
+% genuinely present in the accepted edition's text layer (verified
+% per-character with coordinates and against the 300-dpi render) and is
+% reproduced verbatim.
+
+\begin{tikzpicture}[node distance = 3.5cm, auto]
+  \node [start] (start_n) {\textarabic{امزج \LR{\qty{50}{\gram}} دقيق}\\
+                           \textarabic{مع \LR{\qty{50}{\gram}} ماء،}\\
+                           \textarabic{وقلّب جيدًا}};
+  \node [block, right of=start_n, node distance = 3.5cm] (wait_n) {\textarabic{انتظر}\\ \LR{\qty{24}{\hour}}};
+  \node [decision, right of=wait_n, node distance = 3.5cm] (readycheck_n) {\textarabic{جهوزية؟}};
+  \node [block, below of=wait_n, node distance = 3.2cm] (feed_n) {\textarabic{غّذِ الخليط}};
+  \node [decision, right of=feed_n, node distance = 3.5cm] (limitcheck_n) {\textarabic{\LR{>10} تغذيات؟}};
+  \node [fail, right of=limitcheck_n, node distance = 3.5cm] (abort_n) {\textarabic{تخؑلّص من الكل.}\\ \textarabic{وابدأ من جديد.}};
+  \node [success, right of=readycheck_n, node distance = 3.5cm] (final_n) {\textarabic{جاهزة للاستخدام}};
+
+  \draw [line] (start_n) -- (wait_n);
+  \draw [line] (wait_n) -- (readycheck_n);
+  \draw [line] (feed_n) -- (wait_n);
+  \draw [line] (readycheck_n) -- node {\textarabic{لا}} (limitcheck_n);
+  \draw [line] (limitcheck_n) -- node (feedok_n) {\textarabic{لا}} (feed_n) ;
+  \draw [line] (limitcheck_n) -- node {\textarabic{نعم}} (abort_n);
+  \draw [line] (readycheck_n) -- node {\textarabic{نعم}} (final_n);
+
+  % Legend: each line is ONE \textarabic{} run with the bold label inline,
+  % align=right so the lines hang from the right edge as in the accepted
+  % render. Separate \textbf{\textarabic{}} labels order LTR against the
+  % following run inside the node's LTR paragraph and land at line END;
+  % the accepted render has them at line START (rightmost), which the
+  % single-run form reproduces. Residual route deviations (documented,
+  % same family as Ruling 1): node text rides the scaled Amiri (10.79 pt,
+  % as in the ACCEPTED unit 5 flowcharts) where the accepted edition's
+  % standalone-figure builds show 10.04 pt, and the legend box hugs its
+  % text where the accepted box carries ~61 pt of dead space at the left
+  % (a standalone-route artifact with no source-side equivalent).
+  \node [below of=feedok_n, node distance=2cm, align=right] (details2) [shape=rectangle, draw, fill=maingray]{%
+    \textarabic{\textbf{جهوزية:} زاد الخليط حجمًا، وبه فقاعات، ورائحته حمض اللبنيك أو حمض الخليك.}\\
+    \textarabic{\textbf{تغذية الخليط:} تخؑلّص من كل شيء عدا \LR{10 g}، وامزج فيه \LR{50 g} دقيق و\LR{50 g} ماء.}
+  };
+\end{tikzpicture}

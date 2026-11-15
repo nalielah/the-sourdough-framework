@@ -1,0 +1,27 @@
+% table-bakers-math-example-ar.tex — Arabic edition of upstream
+% tables/table-bakers-math-example.tex (ch. 5, جدول 5.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL table mirror per the standing convention: the column order is the
+% REVERSE of upstream (label column last), so the labels sit rightmost as
+% in the accepted edition's render of p. 34 (book-ar-fixed.pdf,
+% b78c2a28…): visual order left→right is percentage / هو / calculation /
+% percentage / amount / label. Header cells keep the upstream \thead
+% constructs (their centering behavior is identical either way); every
+% \qty cell rides an \LR island. Cell contents recovered from the
+% accepted render: header المكوّن / النسبة / الحساب, calculation cells
+% «1000 g من 1000 g», the copula «هو», and the percentage column —
+% label recovery, not retranslation. Geometry verified per-char against
+% the accepted page after the 2026-11-15 mirror fix.
+
+\begin{tabular}{@{}rcrrrl@{}}
+\toprule
+             &  & \thead{الحساب} & \thead{النسبة} &  & \thead{المكوّن} \\ \midrule
+\LR{\qty{100}{\percent}} & هو & \LR{\qty{1000}{g}} من \LR{\qty{1000}{g}} & \LR{\qty{100}{\percent}} & \LR{\qty{1000}{g}} & دقيق \\
+\LR{\qty{60}{\percent}}  & هو & \LR{\qty{600}{g}} من \LR{\qty{1000}{g}}  & \LR{\qty{60}{\percent}}  & \LR{\qty{600}{g}}  & ماء \\
+\LR{\qty{10}{\percent}}  & هو & \LR{\qty{100}{g}} من \LR{\qty{1000}{g}}  & \LR{\qty{10}{\percent}}  & \LR{\qty{100}{g}}  & البادئة \\
+\LR{\qty{2}{\percent}}   & هو & \LR{\qty{20}{g}} من \LR{\qty{1000}{g}}   & \LR{\qty{2}{\percent}}   & \LR{\qty{20}{g}}   & ملح \\ \bottomrule
+\end{tabular}

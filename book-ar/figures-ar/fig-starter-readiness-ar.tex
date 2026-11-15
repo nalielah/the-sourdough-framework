@@ -1,0 +1,58 @@
+% fig-starter-readiness-ar.tex — Arabic edition of the sourdough starter
+% readiness flowchart (ch. 5, المخطط الانسيابي 5.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-starter-readiness.tex (node styles from
+% figures/flowcharts_tikz.tex and the node/edge geometry verbatim,
+% including the decision_start→feed_yes_branch.north west and the
+% size_check/smell_check south anchors), with the label text recovered
+% from the accepted edition's render of p. 40 (book-ar-fixed.pdf,
+% b78c2a28…) — label recovery against a visual reference, not
+% retranslation. Line splits inside nodes follow the accepted edition's
+% render exactly. The upstream r@{}l tabulars in the ratio nodes are set
+% as plain \\ lines: the accepted edition's render shows four plain
+% lines per ratio node. Arabic label text is wrapped in \textarabic{};
+% digit/Latin runs ride \LR{} islands (Ruling 1 uniform-Pagella figure
+% face, ACCEPTED 2026-11-15). The two feed-duration nodes render the
+% range with a single trailing unit («6–12 h»), as the accepted render's
+% per-char positions show; the caption keeps the repeated-unit
+% \qtyrange form («6 h–12 h») that the accepted caption shows.
+
+\begin{tikzpicture}[node distance = 3cm, auto]
+  \node [start] (init) {\textarabic{أنشئ}\\ \textarabic{بادئة}};
+  \node [decision_start, right of=init, node distance=3.5cm] (decision_start) {\textarabic{هل غُّذِيت}\\ \textarabic{البادئة}\\ \textarabic{خلال \LR{3} أيام؟}};
+  \node [block, right of=decision_start, text width=7em, node distance=4cm] (feed_no_branch)
+      {\textarabic{غّذِ البادئة مرتين:}\\ \textarabic{قبل \LR{\qty{48}{\hour}}}\\ \textarabic{وقبل \LR{\numrange{6}{12}~\unit{\hour}}}};
+  \node [block, below of=feed_no_branch, text width=7em, node distance=2.7cm] (feed_yes_branch)
+      {\textarabic{غّذِ البادئة}\\ \textarabic{بمدة \LR{\numrange{6}{12}~\unit{\hour}}}\\ \textarabic{قبل صنع العجين.}};
+  \node [block, right of=feed_no_branch, text width=7em, node distance=4cm] (high_ratio)
+    {\textarabic{اعتمد نسبة \LR{1:10:10}:}\\ \textarabic{\LR{10 g} بادئة،}\\ \textarabic{\LR{100 g} دقيق،}\\ \textarabic{\LR{100 g} ماء.}};
+  \node [block, right of=feed_yes_branch, text width=7em, node distance=4cm] (low_ratio)
+  {\textarabic{اعتمد نسبة \LR{1:5:5}:}\\ \textarabic{\LR{10 g} بادئة،}\\ \textarabic{\LR{50 g} دقيق،}\\ \textarabic{\LR{50 g} ماء.}};
+  \node [decision, below of=high_ratio, node distance=6cm] (size_check)
+    {\textarabic{فقاعات؟}\\ \textarabic{وزيادة في الحجم؟}};
+  \node [decision, below of=decision_start, node distance=6cm] (smell_check)
+    {\textarabic{رائحة خليكية}\\ \textarabic{أم لبنية زبادية؟}};
+  \node [success, below of=init, node distance=6cm] (make_dough)
+    {\textarabic{جهِّز العجين}};
+
+  \path [line] (init) -- (decision_start);
+  \path [line] (decision_start) -- node {\textarabic{لا}} (feed_no_branch);
+  \path [line] (decision_start) -- node[below=2pt]{\textarabic{نعم}} (feed_yes_branch.north west);
+  \path [line] (feed_yes_branch) -- (low_ratio);
+  \path [line] (feed_no_branch) -- (high_ratio);
+  \path [line] (high_ratio) -- node[anchor=east, above=2pt] {} ++(2.2,0) |-(size_check);
+  \path [line] (low_ratio) -- (size_check);
+  \path [line] (size_check) -- node {\textarabic{لا}} (feed_yes_branch.south east);
+  \path [line] (size_check) -- node {\textarabic{نعم}} (smell_check);
+  \path [line] (smell_check) -- node {\textarabic{لا}} (feed_yes_branch.south west);
+  \path [line] (smell_check) -- node {\textarabic{نعم}} (make_dough);
+
+  % braces
+  \draw[BC]   (size_check.south) --
+      node[below=1em]{\textarabic{تحّقق من جهوزية البادئة قبل الاستخدام}}(smell_check.south);
+\end{tikzpicture}
