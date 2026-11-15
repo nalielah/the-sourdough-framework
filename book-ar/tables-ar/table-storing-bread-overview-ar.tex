@@ -1,0 +1,35 @@
+% table-storing-bread-overview-ar.tex — Arabic edition of the bread
+% storage options table (ch. 13, جدول 13.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 13 reconstruction. Column geometry verbatim from the
+% upstream source tables/table-storing-bread-overview.tex
+% ({@{}p{0.23\textwidth}p{0.33\textwidth}p{0.33\textwidth}@{}} with
+% booktabs rules and \arraystretch 1.6), mirrored per the standing RTL
+% table convention: columns visual LTR, the label column (الطريقة)
+% rightmost, the two wide description columns (العيوب leftmost,
+% المزايا middle). Cell text recovered verbatim from the accepted
+% edition's render of p. 148 (book-ar-fixed.pdf,
+% b78c2a28b574288801d8000a7249af3a) via the R0 recovery reference
+% (recovery-r0/text/13-storing-bread.txt) — the text layer extracts
+% cleanly, so the cells are recovered against the accepted text layer,
+% not retranslated.
+%
+% Every non-empty cell is wrapped {\textdir TRT ...} per the unit 9
+% cell-direction convention (BINDING). No Latin or digit runs in this
+% table, so no \LR islands are needed.
+
+\def\arraystretch{1.6}
+\begin{tabular}{@{}p{0.33\textwidth}p{0.33\textwidth}p{0.23\textwidth}@{}}
+\toprule
+\thead{{\textdir TRT العيوب}} & \thead{{\textdir TRT المزايا}} & \thead{{\textdir TRT الطريقة}} \\
+\midrule
+{\textdir TRT يجفّ الخبز سريعًا جدًّا.} & {\textdir TRT الأسهل على الإطلاق. الأفضل للخبز الذي يُؤكل خلال يوم واحد. تبقى القشرة عادةً مقرمشة ما لم تكن الرطوبة مرتفعة جدًّا.} & {\textdir TRT درجة حرارة الغرفة} \\
+{\textdir TRT يتعين تحميص الخبز لتعود القشرة إلى مقرمشتها. يتعرّض للعَفَن بسرعة أكبر.} & {\textdir TRT جيد حتى أسبوع.} & {\textdir TRT درجة حرارة الغرفة داخل وعاء محكم الإغلاق} \\
+{\textdir TRT يتعين تحميص الخبز. يتطلب ثلاجة وطاقة.} & {\textdir TRT يبقى الخبز جيدًا لأسابيع. وقد يجفّ قليلًا عند عدم استخدام وعاء محكم الإغلاق.} & {\textdir TRT الثلاجة} \\
+{\textdir TRT يتطلب فكّ التجمّد ثم التحميص. يتطلب مُجمِّدًا وطاقة.} & {\textdir TRT يبقى الخبز جيدًا لسنوات.} & {\textdir TRT المُجمِّد} \\
+\bottomrule
+\end{tabular}
