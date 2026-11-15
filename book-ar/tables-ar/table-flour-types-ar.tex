@@ -1,0 +1,55 @@
+% table-flour-types-ar.tex — Arabic edition of upstream
+% tables/table-flour-types.tex (ch. 7, جدول 7.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics: the column order is
+% reversed in the declared LTR tabular (upstream {@{}llrrr@{}} becomes
+% {@{}rrrll@{}}) so إيطاليا renders rightmost and الولايات المتحدة
+% leftmost, matching the accepted edition's render of p. 56 (table 7.1
+% is mirrored; alignment follows the reversed columns: the three
+% T-number columns right-aligned, the two text columns left-aligned).
+%
+% CELL DIRECTION (unit 9 finding, 2026-11-15): the accepted edition
+% renders table cells as RTL paragraphs (first logical word rightmost:
+% دقيق الكعك shows الكعك leftmost, دقيق rightmost). The sty's
+% \insert@column patch appends \textdir TRT AFTER \@sharp — after the
+% cell text — and is therefore a silent no-op; every multi-word Arabic
+% cell in the delivered units 5–8 tables renders LTR word order
+% against the accepted RTL (latent deviation, reported for the R2/R3
+% rebuild). Until the sty ruling, unit 9 wraps every non-empty cell in
+% {\textdir TRT ...} at the content layer (probe9g/probe9h verified
+% the mechanism against the accepted orders, headers included).
+%
+% CONTENT NOTE — the accepted edition's Italy column diverges from
+% upstream: rows 1--2 carry دقيق الكعك and متعدد الاستخدامات where
+% upstream has the bare 00 and 0, and rows 4--5 are empty where
+% upstream has 1 and 2. The accepted PDF (p. 56) and the R0 recovery
+% reference agree line for line on this, so the accepted content is
+% reproduced here (the accepted edition is the fidelity authority).
+% This divergence also sets the Italy column's width (as wide as
+% متعدد الاستخدامات), which the per-char battery confirmed against
+% the accepted render.
+%
+% With TRT cells the mixed "or" cells carry the NATURAL logical order
+% (T405 أو T550, 00 أو 0) and render exactly as the accepted edition
+% (T550 أو T405 / 0 أو 00 in x-order) — the reversed-literal-order
+% workaround of probe9c is superseded by the TRT cells. Bare digit
+% runs ride on the lua's TRT digit handling (probe9g T5); bare
+% T-numbers still need per-token \LR islands (the letter–digit swap,
+% probe9b); Latin words ride in \LR islands per the unit 8 convention.
+
+\begin{tabular}{@{}rrrll@{}}
+\toprule
+\thead{{\textdir TRT إيطاليا}} & \thead{{\textdir TRT فرنسا}} & \thead{{\textdir TRT ألمانيا}} & \thead{{\textdir TRT بريطانيا}} & \thead{{\textdir TRT الولايات المتحدة}} \\
+\midrule
+{\textdir TRT دقيق الكعك} & {\textdir TRT \LR{T45}} & {\textdir TRT \LR{T405}} & {\textdir TRT دقيق طري} & {\textdir TRT كعك} \\
+{\textdir TRT متعدد الاستخدامات} & {\textdir TRT \LR{T55}} & {\textdir TRT \LR{T550}} & {\textdir TRT دقيق عادي} & {\textdir TRT متعدد الاستخدامات} \\
+{\textdir TRT 00 أو 0} & {\textdir TRT \LR{T45} أو \LR{T55}} & {\textdir TRT \LR{T405} أو \LR{T550}} & {\textdir TRT دقيق الخبز} & {\textdir TRT دقيق الخبز} \\
+ & {\textdir TRT \LR{T80}} & {\textdir TRT \LR{T812}} & & \\
+ & {\textdir TRT \LR{T110}} & {\textdir TRT \LR{T1050}} & & \\
+{\textdir TRT \LR{Integrale}} & {\textdir TRT \LR{T150}} & {\textdir TRT \LR{Vollkorn}} & {\textdir TRT كامل الحبة} & {\textdir TRT كامل الحبة} \\
+\bottomrule
+\end{tabular}
