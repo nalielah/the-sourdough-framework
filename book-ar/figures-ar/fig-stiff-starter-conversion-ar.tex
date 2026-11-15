@@ -1,0 +1,46 @@
+% fig-stiff-starter-conversion-ar.tex — Arabic edition of the stiff
+% starter conversion flowchart (ch. 6, المخطط الانسيابي 6.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream post-#492 source
+% figures/fig-stiff-starter-conversion.tex (node styles from
+% figures/flowcharts_tikz.tex and the node/edge geometry verbatim,
+% including the at (feed_new_ratio |- next_day) and
+% at (ready_signs -| add_water) placements, the
+% ++(0, 1.3) -| (too_dry.north) loop, the (feed_again |- last_feed)
+% -| (feed_again.south) return edge and the (90:-210:1cm) repeat arc),
+% with the label text recovered from the accepted edition's figure
+% renders (label recovery, not retranslation; the accepted edition
+% book-ar-fixed.pdf is the fidelity authority). Line splits inside
+% nodes follow the accepted edition's render exactly. Node ranges
+% carry the single trailing unit (\numrange{6}{12}~\unit{\hour}) per
+% the settled FC convention; the caption keeps the repeated-unit
+% \qtyrange form.
+
+\begin{tikzpicture}[node distance = 4cm, auto]
+  \node [start] (init) {\textarabic{خذ بادئتك}\\ \textarabic{العادية أو}\\ \textarabic{السائلة}};
+  \node [block, right of=init, node distance = 4cm] (feed_new_ratio) {\textarabic{اخلط \LR{10 g}}\\ \textarabic{بادئة موجودة،}\\ \textarabic{و\LR{50 g} دقيق}\\ \textarabic{و\LR{25 g} ماء}};
+  \node [decision, right of=feed_new_ratio, node distance=5cm] (too_dry) {\textarabic{البادئة جافة}\\ \textarabic{جدًا ويصعب}\\ \textarabic{خلطها؟}};
+  \node [block, right of=too_dry, node distance=4cm] (add_water) {\textarabic{أضف المزيد}\\ \textarabic{من الماء}};
+  \node [block, below of=too_dry] (next_day) {\textarabic{انتظر}\\ \LR{\qty{24}{\hour}}};
+  \node [block] at (feed_new_ratio |- next_day) (feed_again) {\textarabic{غذِّ مجددًا}\\ \textarabic{بنسبة}\\ \LR{1:5:2.5}};
+  \node [decision, below of=next_day, node distance=3.5cm] (ready_signs) {\textarabic{زيادة في الحجم}\\ \textarabic{ورائحة}\\ \textarabic{حامضة؟}};
+  \node [block] at (ready_signs -| add_water) (last_feed) {\textarabic{غذِّ مرة}\\ \textarabic{أخيرة}};
+  \node [success, below of=last_feed, node distance=3cm] (bread_dough) {\textarabic{اصنع عجين}\\ \textarabic{الخبز}};
+  \path [line] (init) -- (feed_new_ratio);
+  \path [line] (feed_again) -- (feed_new_ratio);
+  \path [line] (next_day) -- (ready_signs);
+  \path [line] (ready_signs) -- node{\textarabic{لا}} (feed_again |- last_feed) -| (feed_again.south);
+  \path [line] (ready_signs) -- node{\textarabic{نعم}} (last_feed);
+  \path [line] (last_feed) -- node{\textarabic{بعد \LR{\numrange{6}{12}~\unit{\hour}}}} (bread_dough);
+  \path [line] (feed_new_ratio) -- (too_dry);
+  \path [line] (add_water.north) -- node{} ++(0, 1.3) -| (too_dry.north);
+  \path [line] (too_dry) -- node{\textarabic{لا}} (next_day);
+  \path [line] (too_dry) -- node{\textarabic{نعم}} (add_water);
+
+  \node [text width=5em, align=center] (repeat_text) at ($(feed_new_ratio)!0.5!(next_day)$) {\textarabic{كرر \LR{3} مرات}};
+  \draw [line] ($(repeat_text) +(0, 1 cm)$) arc (90:-210:1cm);
+\end{tikzpicture}

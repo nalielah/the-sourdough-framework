@@ -1,0 +1,46 @@
+% unit8.tex — R2 unit 8 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 8 per the reconstruction plan: ch. 6 sourdough starter types.
+% Six raster figures (upstream artwork carried over unchanged at the
+% upstream widths: sourdough-starter-types at \textwidth,
+% sourdough-starter at 0.5\textwidth, sourdough-starter-liquid at
+% 0.5\textwidth, sourdough-starter-stiff at 0.55\textwidth,
+% stiff-starter-dry-check at 0.75\textwidth, stollen at \textwidth —
+% each verified to reproduce the accepted edition's placed image
+% geometry on pp. 46–54) and two TikZ flowcharts rebuilt under the
+% R1-FIGURES route with labels recovered from the accepted edition's
+% renders of pp. 49/53 (Ruling 1 uniform-Pagella figure digit/Latin
+% face). One RTL mirror table in tables-ar/ (columns visual LTR, labels
+% rightmost, number cells in \LR islands). Content layer re-typeset
+% verbatim from the recovery reference
+% (recovery-r0/text/06-starter-types.txt, R0 recovery mining of the
+% Phase 23 website build) — no retranslation; the accepted edition
+% book-ar-fixed.pdf (b78c2a28…) is the fidelity authority. Built with
+% the standing arabic-digits.lua (commit ecb0903, standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15):
+% --require-overrides dropped, the 0-CID/0-unresolved check retained.
+% Driver scheme per the accepted edition, same as units 3–7: NO
+% \frontmatter — chapters are numbered from 1 and page numbering runs
+% continuously in Western digits from the cover. Unit builds carry
+% natural chapter numbering (ch. 6 builds as ch. 1 here, floats as
+% 1.1–1.9); the R3 full-book assembly regenerates true numbering.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\sisetup{range-phrase={\textendash}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{starter-types-ar.tex}
+
+\end{document}

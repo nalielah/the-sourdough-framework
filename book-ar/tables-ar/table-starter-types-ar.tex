@@ -1,0 +1,28 @@
+% table-starter-types-ar.tex — Arabic edition of upstream
+% tables/table-starter-types.tex (ch. 6, جدول 6.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics: the column order is
+% reversed in the declared LTR tabular (upstream {@{}lclll@{}} becomes
+% {@{}lllcl@{}}) so نوع البادئة renders rightmost and البكتيريا
+% leftmost; the \insert@column TRT patch sets each cell's text
+% direction. The \multicolumn{2}{c} Activity span and its \cmidrule
+% move with the yeast/bacterial columns they cover (declared cols
+% 1--2 here). Row 3 flour-type cell reads جميع أنواع الدقيق per the
+% accepted edition (the R0 recovery reference's القمح is a recovery
+% artifact; the accepted edition is the fidelity authority).
+
+\begin{tabular}{@{}lllcl@{}}
+\toprule
+\multicolumn{2}{c}{\thead{النشاط}} & & & \\
+\cmidrule(ll){1-2}
+\thead{البكتيريا} & \thead{الخميرة} & \thead{نوع الدقيق} & \thead{الترطيب \LR{(\%)}} & \thead{نوع البادئة} \\
+\midrule
+متوازن & متوازن & قمح قوي & \LR{\num{100}} & عادية \\
+مرتفع & ضئيل & قمح قوي جدًا & \LR{\num{500}} & سائلة \\
+منخفض & مرتفع & جميع أنواع الدقيق & \LR{\numrange{50}{60}} & صلبة \\
+\bottomrule
+\end{tabular}
