@@ -1,0 +1,38 @@
+% fig-process-flat-bread-ar.tex — Arabic edition of the flatbread
+% process flowchart (ch. 8, المخطط الانسيابي 8.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 10 reconstruction. Node/edge geometry verbatim from
+% the upstream source figures/fig-process-flat-bread.tex (node styles
+% from figures/flowcharts_tikz.tex, which sourdough-ar.sty inputs);
+% label text recovered from the accepted edition's render of p. 63
+% (book-ar-fixed.pdf, b78c2a28b574288801d8000a7249af3a) — label
+% recovery against a visual reference, not retranslation.
+%
+% Layout is NOT mirrored, per the accepted render: اخلط المكونات
+% leftmost → انتظر حتى يجهز العجين middle → اخبز الخبز على الموقد
+% rightmost (same reading order as the upstream English flowchart).
+% Manual line splits follow the accepted render exactly: 2 lines /
+% 3 lines (انتظر / حتى يجهز / العجين) / 2 lines. Upstream picture
+% options (node distance=3cm, auto, every node inner sep=10, outer
+% sep=0) and per-node node distance=5cm are kept verbatim; the accepted
+% render shows 142.2 pt center-to-center spacing, matching 5 cm at the
+% scaled node text.
+%
+% Arabic label text is wrapped in \textarabic{} per the established
+% flowchart convention (fig-starter-process-ar.tex). Documented
+% residual (same family as the earlier flowchart units): node text
+% rides the scaled Amiri (10.79 pt) where the accepted edition's
+% standalone-figure builds show 10.04 pt.
+
+\begin{tikzpicture}[node distance=3cm, auto, every node/.style={inner sep=10, outer sep=0}]
+  \node [start] (init) {\textarabic{اخلط}\\ \textarabic{المكونات}};
+  \node [block, right of=init, node distance=5cm] (wait) {\textarabic{انتظر}\\ \textarabic{حتى يجهز}\\ \textarabic{العجين}};
+  \node [success, right of=wait, node distance=5cm] (bake_bread) {\textarabic{اخبز الخبز}\\ \textarabic{على الموقد}};
+
+  \draw [line] (init) -- (wait);
+  \draw [line] (wait) -- (bake_bread);
+\end{tikzpicture}

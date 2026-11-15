@@ -1,0 +1,61 @@
+% table-flat-bread-pancake-recipe-ar.tex — Arabic edition of upstream
+% tables/table-flat-bread-pancake-recipe.tex (ch. 8, جدول 8.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics: the column order is
+% reversed in the declared LTR tabular (upstream {@{}lll@{}} keeps
+% {@{}lll@{}} under reversal) so the label column renders rightmost
+% (x414.1), الخبز المُسطَّح the rightmost data column (header
+% 315.3–368.6) and الأقراص المسطّحة the leftmost (header 169.6–245.0),
+% matching the accepted edition's render of p. 63 (rules 144.8–454.3 at
+% y70.6/105.0/190.7).
+%
+% Header row (PROBE10E CORRECTION, 2026-11-15): the prior-session row
+% put الأقراص المسطّحة in the LABEL column (col3) with col1 empty —
+% structurally wrong. The accepted p. 63 render shows col1 =
+% الأقراص المسطّحة (ink 169.6–245.0, over the pancake amounts column),
+% col2 = الخبز المُسطَّح (ink 315.3–368.6) and the label column EMPTY:
+% the exact mirror of the upstream header `& \textbf{Flat breads} &
+% \textbf{Pancakes}`. The row is written all-plain (no \multicolumn):
+% probe10e V2/V3 render identically, and probe10d showed {c} wrappers
+% on first-column headers shift the ink +2.9 pt (table 8.1). The
+% centered appearance is an artifact of RTL content in l columns.
+%
+% Header geometry (measured against accepted p. 63): الأقراص المسطّحة
+% +24.8 to +100.2 from the col1 edge, الخبز المُسطَّح +33.5 to +86.8
+% from the col2 edge; probe10e V3 reproduces the pancake header
+% exactly.
+%
+% Cell construction (probe10b, verified at char level against accepted
+% p. 63/p. 68):
+%  - حتى 100 g (100 %) per form I: Arabic + ONE \LR island holding the
+%    whole number-paren-percent run, so the island's internal LTR order
+%    survives the TRT cell (bare parens BETWEEN islands flip island
+%    visual order in a TRT cell — probe10 A/B/F).
+%  - range cells per form K: \LR{\textenglish{5 g\textendash 20 g}
+%    {\arabicfont(}\textenglish{5 \%\textendash 20 \%}}{\arabicfont)}
+%    — literal-text ranges per the unit 9 dash-font convention (a bare
+%    \textendash inside \LR{} picks Amiri; \textenglish wrapping yields
+%    the Pagella dash the accepted edition shows).
+%  - حين يزداد حجم العجين 50 % per form M: mixed Arabic + \LR{50 \%}
+%    island.
+% Documented residual (paren-font): the accepted edition renders the
+% percent parens in Amiri (p63/p68); the lua fontsplit remap re-fonts
+% ASCII punctuation to Pagella unconditionally, so our build renders
+% them Pagella. Unfixable at the content layer; logged for the R3
+% harmonization agenda.
+
+\begin{tabular}{@{}lll@{}}
+\toprule
+{\thead{{\textdir TRT الأقراص المسطّحة}}} & {\thead{{\textdir TRT الخبز المُسطَّح}}} & \\
+\midrule
+{\textdir TRT \LR{\qty{100}{\gram}}} & {\textdir TRT \LR{\qty{100}{\gram}}} & {\textdir TRT الدقيق} \\
+{\textdir TRT \LR{\qty{300}{\gram}} {\arabicfont(}\qty{300}{\percent}{\arabicfont)}} & {\textdir TRT حتى \LR{100 g {\arabicfont(}100 \%{\arabicfont)}}} & {\textdir TRT الماء} \\
+{\textdir TRT \LR{\textenglish{5 g\textendash 20 g} {\arabicfont(}\textenglish{5 \%\textendash 20 \%}}{\arabicfont)}} & {\textdir TRT \LR{\textenglish{5 g\textendash 20 g} {\arabicfont(}\textenglish{5 \%\textendash 20 \%}}{\arabicfont)}} & {\textdir TRT البادئة} \\
+{\textdir TRT \LR{\qty{2}{\gram}} {\arabicfont(}\qty{2}{\percent}{\arabicfont)}} & {\textdir TRT \LR{\qty{2}{\gram}} {\arabicfont(}\qty{2}{\percent}{\arabicfont)}} & {\textdir TRT الملح} \\
+{\textdir TRT حين تظهر فقاعات على السطح} & {\textdir TRT حين يزداد حجم العجين \LR{50 \%}} & {\textdir TRT متى تخبز؟} \\
+\bottomrule
+\end{tabular}

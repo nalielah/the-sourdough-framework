@@ -1,0 +1,64 @@
+% table-overview-bread-types-ar.tex — Arabic edition of upstream
+% tables/table-overview-bread-types.tex (ch. 8, جدول 8.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics: the column order is
+% reversed in the declared LTR tabular (upstream {@{}llll@{}} keeps
+% {@{}llll@{}} under reversal) so طريقة الخبز renders rightmost and
+% القائم بذاته leftmost, matching the accepted edition's render of
+% p. 61: data columns القائم بذاته (x154.5–197.5 header), قالب الخبز
+% (222.8–266.3), المُسطَّح (317.2–347.4), label column rightmost (rule
+% starts 144.7, ends 454.4).
+%
+% Header geometry (measured against accepted p. 61): the span header
+% \multicolumn{3}{c}{\textbf{نوع الخبز}} centers at 266.7 — the exact
+% center of the three data columns INCLUDING the trailing \tabcolsep
+% (144.7–388.8), confirming the {@{}llll@{}} spec; its
+% \cmidrule(lll){1-3} spans 150.6–388.8 (left trim only, 5.9 pt). The
+% three subheaders are PLAIN \thead cells in the l columns — the exact
+% upstream mirror (upstream: `& \textbf{Flat} & \textbf{Loaf pan} &
+% \textbf{Free standing}`). PROBE10D FINDING (2026-11-15): the all-
+% plain row reproduces the accepted ink positions EXACTLY (col1
+% 154.5–197.5, col2 222.8–266.3, col3 317.2–347.4, i.e. +9.8/+3.6/
+% +35.4 from the column edges); their centered appearance in the
+% accepted render is an artifact of RTL content in l columns, not
+% \multicolumn centering. A \multicolumn{1}{c} wrapper on col1 renders
+% its ink +2.9 pt right of the accepted position (probe10c T1/T2/T3:
+% \thead vs \bfseries and @{}c@{} padding variants all identical);
+% on col2/col3 the {c} wrapper happens to render identically to plain
+% (probe10d T6), but the plain form is kept as the faithful upstream
+% mirror. The label column carries regular Amiri weight (no \thead)
+% per the accepted render.
+%
+% SPAN HEADER (PROBE10F FINDING, 2026-11-15): the span cell is
+% \thead{نوع الخبز}, NOT \textbf — the accepted toprule→cmidrule
+% distance is 28.4 pt with the span text 6.7 pt below the toprule;
+% \textbf gives 22.5 pt / 3.8 pt (the nested-tabular row of \thead
+% supplies the extra height). \thead leaves the span text's position
+% relative to the table unchanged (probe10f W1/W2: text center minus
+% table center identical), so the x-extents stay exact.
+%
+% CELL DIRECTION (BINDING, unit 9 verdict): every non-empty cell
+% wrapped in {\textdir TRT ...} at the content layer — the sty's
+% \insert@column \textdir TRT patch is a silent no-op. Digit runs ride
+% per-token \LR islands (probe10 H form: {\textdir TRT \LR{60} دقيقة}).
+% Documented residual: the accepted edition renders digits in Pagella
+% with the Arabic in Amiri; the delivered cells match (island digits
+% ride the lua remap to Pagella).
+
+\begin{tabular}{@{}llll@{}}
+\toprule
+\multicolumn{3}{c}{\thead{{\textdir TRT نوع الخبز}}} & \\
+\cmidrule(lll){1-3}
+{\thead{{\textdir TRT القائم بذاته}}} & {\thead{{\textdir TRT قالب الخبز}}} & {\thead{{\textdir TRT المُسطَّح}}} & \\
+\midrule
+{\textdir TRT الفرن} & {\textdir TRT الفرن} & {\textdir TRT المقلاة أو النار أو الشوّاية} & {\textdir TRT طريقة الخبز} \\
+{\textdir TRT \LR{60} دقيقة} & {\textdir TRT \LR{5} دقائق} & {\textdir TRT \LR{3} دقائق} & {\textdir TRT زمن العمل} \\
+{\textdir TRT الدقيق الغلوتيني} & {\textdir TRT جميع الأنواع} & {\textdir TRT جميع الأنواع} & {\textdir TRT أنواع الدقيق} \\
+{\textdir TRT صعبة} & {\textdir TRT سهلة} & {\textdir TRT سهلة جدًا} & {\textdir TRT درجة الصعوبة} \\
+{\textdir TRT مرتفعة} & {\textdir TRT متوسطة} & {\textdir TRT منخفضة} & {\textdir TRT الكلفة} \\
+\bottomrule
+\end{tabular}
