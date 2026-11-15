@@ -1,0 +1,47 @@
+% table-overview-w-values-ar.tex — Arabic edition of upstream
+% tables/table-overview-w-values.tex (ch. 7, جدول 7.3)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% NOT mirrored: the accepted edition renders this table in the upstream
+% column order (p. 59: قيمة W leftmost, مدة التخمير rightmost), unlike
+% tables 7.1 and 7.2 which are mirrored. The upstream spec
+% {@{}rcll@{}} is kept as declared.
+%
+% CELL DIRECTION: every non-empty cell wrapped in {\textdir TRT ...}
+% at the content layer — the accepted edition renders cells as RTL
+% paragraphs and the sty's \insert@column \textdir TRT patch is a
+% silent no-op (placed after \@sharp); see table-flour-types-ar.tex
+% for the full finding. probe9g/probe9h verified the mechanism,
+% headers included: the الترطيب (%) header renders )%(-mirrored
+% parens leftmost of الترطيب exactly as the accepted p. 59 header,
+% with the documented paren-font residual (accepted Amiri parens,
+% pipeline Pagella).
+%
+% Ranges ride in \LR islands as LITERAL TEXT ranges —
+% \LR{\textenglish{0\textendash 150}} etc. — per the unit 9 dash-font
+% finding (2026-11-15): the accepted edition renders each range as a
+% single Pagella token, and probe9l measured the literal text form at
+% the accepted widths exactly (150–250 → 41.8 vs accepted 41.9;
+% 0–150 / 50–60 / 60–70 / 70–90 → 29.9 vs 29.9) while \numrange with
+% the \textenglish range-phrase came out 0.9–2.7 pt wider (siunitx
+% digit spacing). The standing "--" → \textendash rule is preserved:
+% the dash IS \textendash, wrapped in \textenglish so it takes Pagella
+% rather than the Amiri a bare \textendash picks up inside a TRT cell
+% (probe9j J1/J3). The قصيرة–متوسطة dash carries the same
+% \textenglish{\textendash} wrapper (accepted p. 59, x 415.3–421.3,
+% Pagella between the two Amiri words). \num{50} and \LR{350+} matched
+% the accepted render as-is and stay.
+
+\begin{tabular}{@{}rcll@{}}
+\toprule
+\thead{{\textdir TRT قيمة W}} & \thead{{\textdir TRT الترطيب (\%)}} & \thead{{\textdir TRT الاستخدامات}} & \thead{{\textdir TRT مدة التخمير}} \\
+\midrule
+{\textdir TRT \LR{\textenglish{0\textendash 150}}} & {\textdir TRT \LR{\num{50}}} & {\textdir TRT البسكويت} & {\textdir TRT قصيرة جدًا} \\
+{\textdir TRT \LR{\textenglish{150\textendash 250}}} & {\textdir TRT \LR{\textenglish{50\textendash 60}}} & {\textdir TRT الكعك والخبز والبيتزا} & {\textdir TRT قصيرة\textenglish{\textendash}متوسطة} \\
+{\textdir TRT \LR{\textenglish{250\textendash 350}}} & {\textdir TRT \LR{\textenglish{60\textendash 70}}} & {\textdir TRT الخبز والبيتزا} & {\textdir TRT طويلة} \\
+{\textdir TRT \LR{350+}} & {\textdir TRT \LR{\textenglish{70\textendash 90}}} & {\textdir TRT الخبز والبيتزا} & {\textdir TRT طويلة جدًا} \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,47 @@
+% table-grains-bread-making-process-ar.tex — Arabic edition of upstream
+% tables/table-grains-bread-making-process.tex (ch. 7, جدول 7.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics: the column order is
+% reversed in the declared LTR tabular (upstream {@{}lcccc@{}} becomes
+% {@{}ccccc}) so نوع الحبّة renders rightmost and التشكيل leftmost,
+% matching the accepted edition's render of p. 58 (table 7.2 is
+% mirrored; all columns centered).
+%
+% SPEC NOTE (unit 9, 2026-11-15): the trailing @{} is dropped — the
+% accepted edition keeps the leading @{} (التشكيل touches the left
+% rule) but carries 6 pt of padding on the right edge (the widest
+% الجاودار... cell ends 6 pt before the right rule), and the centered
+% table then sits 3 pt left of the fully-@{}'d variant. Measured
+% against accepted p. 58: rules 103.0--496.0, every cell width
+% identical, all cells shifted exactly 3.0 pt left of the
+% {@{}ccccc@{}} variant. probe9i S1--S4 ruled out the other spec
+% variants (both @{}: 0 edge padding; no @{}: +12 pt; leading-only
+% drop: padding on the wrong side).
+%
+% CELL DIRECTION: every non-empty cell wrapped in {\textdir TRT ...}
+% at the content layer — the accepted edition renders cells as RTL
+% paragraphs and the sty's \insert@column \textdir TRT patch is a
+% silent no-op (placed after \@sharp); see table-flour-types-ar.tex
+% for the full finding. probe9g/probe9h verified the mechanism.
+%
+% The (> 70%) cell rides in a single \LR island after the Arabic
+% (island renders leftmost of the Arabic, matching the accepted cell
+% of p. 58). Documented residual: the accepted edition renders the
+% parentheses and > in Amiri with the digits and % in Pagella; every
+% \LR variant available to the pipeline sets the whole island in
+% Pagella (probe9e/probe9f, 2026-11-15, the \arabicfont wrap did not
+% take), so the delivered cell carries Pagella parentheses — recorded
+% as a paren-font residual, not a sequencing deviation.
+
+\begin{tabular}{@{}ccccc}
+\toprule
+\thead{{\textdir TRT التشكيل}} & \thead{{\textdir TRT الطيّ والشدّ}} & \thead{{\textdir TRT العجن}} & \thead{{\textdir TRT التجنيس}} & \thead{{\textdir TRT نوع الحبّة}} \\
+\midrule
+{\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT السبلت والقمح \LR{(\textgreater{}~70\%)}} \\
+{\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT نعم} & {\textdir TRT الجاودار والإممر والقمح الأحادي والأرز والذرة} \\
+\bottomrule
+\end{tabular}

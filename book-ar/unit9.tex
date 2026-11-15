@@ -1,0 +1,62 @@
+% unit9.tex — R2 unit 9 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 9 per the reconstruction plan: ch. 7 flour types. One raster
+% figure (upstream artwork carried over unchanged at the upstream
+% width: wheat-kernel-overview at 0.7\textwidth — verified against the
+% accepted edition's placed image geometry on p. 57) and three tables
+% rebuilt in tables-ar/: جدول 7.1 mirrored ({@{}rrrll@{}} so إيطاليا
+% renders rightmost; mixed "or" cells in natural logical order under
+% TRT cells — the probe9c reversed-literal workaround is superseded),
+% جدول 7.2 mirrored ({@{}ccccc} — trailing @{} dropped per the
+% accepted p. 58 geometry: 6 pt right-edge padding, cells 3 pt left of
+% the fully-@{}'d variant; the (> 70%) cell in one \LR island with a
+% documented paren-font residual), جدول 7.3 NOT mirrored (upstream
+% {@{}rcll@{}}
+% kept per the accepted edition's render of p. 59; unwrapped (\%)
+% header per the accepted render )%(). All three tables wrap every
+% non-empty cell in {\textdir TRT ...} per the unit 9 cell-direction
+% finding (the sty \insert@column patch is a silent no-op; units 5–8
+% latent LTR-cell deviation logged for the R2/R3 rebuild). No flowcharts in this chapter.
+% Content layer re-typeset verbatim from the recovery reference
+% (recovery-r0/text/07-flour-types.txt, R0 recovery mining of the
+% Phase 23 website build) — no retranslation; the accepted edition
+% book-ar-fixed.pdf (b78c2a28…) is the fidelity authority. Built with
+% the standing arabic-digits.lua (commit ecb0903, standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15):
+% --require-overrides dropped, the 0-CID/0-unresolved check retained.
+% Driver scheme per the accepted edition, same as units 3–8: NO
+% \frontmatter — chapters are numbered from 1 and page numbering runs
+% continuously in Western digits from the cover. Unit builds carry
+% natural chapter numbering (ch. 7 builds as ch. 1 here, floats as
+% 1.1–1.4); the R3 full-book assembly regenerates true numbering.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15): the accepted edition renders every dash in table 7.3
+% (the five ranges and the قصيرة–متوسطة text dash) in TeX Gyre Pagella,
+% while a bare \textendash inside a TRT cell picks up Amiri (probe9j
+% J1/J3). The table cells ultimately use LITERAL text ranges
+% (\LR{\textenglish{0\textendash 150}} etc.), which probe9l measured at
+% the accepted widths exactly; \numrange with this \textenglish
+% range-phrase is the fallback convention (0.9–2.7 pt wider than
+% accepted, siunitx digit spacing). Driver-level change only; unit 8's
+% accepted delivery carried the Amiri dash (bare \textendash) — logged
+% for the R2/R3 harmonization decision.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{flour-types-ar.tex}
+
+\end{document}
