@@ -1,0 +1,57 @@
+% unit10.tex — R2 unit 10 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 10 per the reconstruction plan: ch. 8 bread types. Seven raster
+% figures (upstream artwork carried over unchanged at the upstream
+% widths — verified byte-for-byte against the accepted edition's placed
+% images on pp. 62–71, including the loaf-pan two-image composite on
+% p. 69), two tables rebuilt in tables-ar/ (جدول 8.1 mirrored
+% {@{}llll@{}} with span header + \cmidrule(lll){1-3} and PLAIN
+% \thead subheader cells per the accepted p. 61 geometry (probe10d:
+% the centered appearance is an RTL-in-l-column artifact; a
+% \multicolumn{1}{c} wrapper shifts col1 ink +2.9 pt); جدول 8.2
+% mirrored {@{}lll@{}} with the plain header row (col1 الأقراص
+% المسطّحة, col2 الخبز المُسطَّح, label column empty — probe10e
+% correction of the prior-session structure), literal-text
+% range cells and the حتى 100 g (100 %) single-island form per the
+% accepted p. 63 geometry), one recipe (recipes-ar/flat-bread-ar.tex,
+% upstream {r@{}rl@{}} kept verbatim, row-1 leading ~ per the accepted
+% p. 68 geometry) and one flowchart (figures-ar/
+% fig-process-flat-bread-ar.tex, NOT mirrored, node distance=5cm,
+% manual line splits 2/3/2 per the accepted p. 63 render). All table
+% cells wrap {\textdir TRT ...} per the unit 9 cell-direction binding.
+% Content layer re-typeset verbatim from the recovery reference
+% (recovery-r0/text/08-bread-types.txt, R0 recovery mining of the
+% Phase 23 website build) — no retranslation; the accepted edition
+% book-ar-fixed.pdf (b78c2a28…) is the fidelity authority. Built with
+% the standing arabic-digits.lua (standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15).
+% Driver scheme per the accepted edition, same as units 3–9: NO
+% \frontmatter — chapters are numbered from 1 and page numbering runs
+% continuously in Western digits from the cover. Unit builds carry
+% natural chapter numbering (ch. 8 builds as ch. 1 here, floats as
+% 1.1–1.x); the R3 full-book assembly regenerates true numbering.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15), inherited by unit 10: literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this \textenglish range-phrase is the fallback
+% convention. Driver-level change only.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{bread-types-ar.tex}
+
+\end{document}

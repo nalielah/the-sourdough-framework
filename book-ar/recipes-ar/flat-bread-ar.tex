@@ -1,0 +1,54 @@
+% flat-bread-ar.tex — Arabic edition of upstream recipes/flat-bread.tex
+% (input by ch. 8 at subsec:flat-bread-recipe, وصفة الخبز المُسطَّح البسيطة)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 10 reconstruction. Text recovered verbatim from the
+% R0 recovery reference (recovery-r0/text/08-bread-types.txt, mined from
+% the Phase 23 website build of the accepted Arabic sources) with the
+% accepted edition book-ar-fixed.pdf (b78c2a28b574288801d8000a7249af3a)
+% as the fidelity authority; no text retranslated from the English.
+%
+% Ingredients tabular keeps the upstream column spec {r@{}rl@{}}
+% verbatim (NOT mirrored): the accepted render of p. 68 shows the
+% ingredient column flush right at x520.9 with the amounts leftmost,
+% exactly the upstream visual order. Every non-empty cell is wrapped
+% {\textdir TRT ...} per the unit 9 cell-direction binding. Row 1's
+% percent cell carries the upstream leading ~ (upstream writes
+% "&~(" for the 100% row): inside the TRT cell it renders as a
+% trailing visual space, which the accepted render shows (row 1's
+% closing paren ends x281.3 vs rows 2-4 at x285.0); rows 2-4 have no ~.
+% Documented residual (paren-font): the accepted edition renders these
+% ASCII parens in Amiri; the lua fontsplit remap re-fonts ASCII
+% punctuation to Pagella unconditionally, so our build renders them
+% Pagella. Unfixable at the content layer; logged for the R3
+% harmonization agenda.
+%
+% The الخطوات list is a description list per the established
+% convention (starter-ar.tex): \item[label:] with the sty's
+% style=nextline, leftmargin=0cm settings; the first item's label
+% carries no colon, matching the upstream "Prepare the dough".
+% \emph{ضبط زمن الطهي.} renders Amiri-Italic in the accepted render
+% (verified p. 68), matching the upstream \emph{Adjusting cook time.}
+
+\subsubsection*{المقادير}
+
+\begin{tabular}{r@{}rl}
+{\textdir TRT \LR{\qty{400}{\gram}}} & {\textdir TRT ~(\LR{\qty{100}{\percent}})} & {\textdir TRT دقيق (قمح، جاودار، ذرة، أيّ ما يكون متوفرًا لديك)} \\
+{\textdir TRT \LR{\qty{320}{\gram}}} & {\textdir TRT (\LR{\qty{80}{\percent}})} & {\textdir TRT ماء، ويُستحسن أن يكون بحرارة الغرفة} \\
+{\textdir TRT \LR{\qty{80}{\gram}}} & {\textdir TRT (\LR{\qty{20}{\percent}})} & {\textdir TRT بادئة خبز حامض نشيطة} \\
+{\textdir TRT \LR{\qty{8}{\gram}}} & {\textdir TRT (\LR{\qty{2}{\percent}})} & {\textdir TRT ملح} \\
+\end{tabular}
+
+\subsubsection*{الخطوات}
+
+\begin{description}
+\item[اعجن العجين] في وعاء خلط كبير، امزج الدقيق والماء. اخلط حتى تحصل على عجين غير منتظم القوام لا بقع جافة فيه. أضف بادئة الخبز الحامض والملح إلى الخليط. وامزجها جيدًا حتى تحصل على عجين أملس ومتجانس.
+\item[التخمير:] غطِّ الوعاء بغطاء أو بغلاف بلاستيكي. واترك العجين يرتاح ويتخمر حتى يزداد \LR{\qty{50}{\percent}} على الأقل في الحجم. وبحسب الحرارة ونشاط بادئتك، قد يستغرق ذلك ما بين \LR{\qty{4}{\hour}} و\LR{\qty{24}{\hour}}.
+\item[تحضير الطهي:] حين ينتفخ العجين، سخّن مقلاة على حرارة متوسطة. وادهن المقلاة بزيت خفيف، مع مسح أي زيت زائد بمنشفة ورقية.
+\item[التشكيل والطهي:] بمغرفة أو بيدك، اسحب جزءًا من العجين وضعه على المقلاة الساخن، ونثره برفق كما تفعل مع قرص مسطّح. غطِّ المقلاة بغطائها. فهو يحبس البخار ويضمن طهيًا متساويًا من الأعلى، ما يجعل قلبها لاحقًا أسهل. بعد نحو \LR{\qty{5}{\minute}}، أو حين يكتسب وجه الخبز المُسطَّح قشرة بنية ذهبية، اقلبه بحذر بسباتولا. \emph{ضبط زمن الطهي.} إذا بدا الخبز المُسطَّح داكنًا أكثر من اللازم، فتذكّر أن تقلل زمن الطهي قليلًا في القرص التالي. وبالعكس، إن كان شاحبًا، فدعه يطهى مدة أطول قليلًا قبل قلبه. اخبز الوجه المقلوب \LR{\qty{5}{\minute}} إضافية أو حتى يصير هو الآخر بنيًا ذهبيًا.
+\item[التخزين:] بمجرد نضج الخبز، أخرجه من المقلاة وضعه على منشفة مطبخ. ولفّ الأقراص في المنشفة يساعد على حفظ طراوتها ويمنعها من أن تصير قاسية أكثر من اللازم. وكرر عملية الطهي لما تبقى من العجين.
+\item[اقتراح للتقديم:] تناول أقراص الخبز الحامض المُسطَّحة ساخنة، مع الصلصات أو المربيات المفضلة لديك، أو بوصفها طبقًا جانبيًا لأي وجبة.
+\end{description}
