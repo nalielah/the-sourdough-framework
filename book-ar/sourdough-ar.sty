@@ -144,12 +144,15 @@
 
 % ------------------------------------------------------ dotted numbers, LTR
 % Section/figure/table numbers and the chapter number everywhere it is
-% typeset must read left-to-right inside the RTL page.
+% typeset must read left-to-right inside the RTL page. The float formats
+% keep KOMA's default label name (\figurename «شكل», \tablename «جدول»,
+% Amiri-Bold via captionlabel) before the \LR-wrapped number, matching the
+% accepted edition's caption construction (R2 ruling 2026-11-15).
 \renewcommand*{\sectionformat}{\LR{\thesection\autodot}}
 \renewcommand*{\subsectionformat}{\LR{\thesubsection\autodot}}
 \renewcommand*{\subsubsectionformat}{\LR{\thesubsubsection\autodot}}
-\renewcommand*{\figureformat}{\LR{\thefigure\autodot}}
-\renewcommand*{\tableformat}{\LR{\thetable\autodot}}
+\renewcommand*{\figureformat}{\figurename~\LR{\thefigure\autodot}}
+\renewcommand*{\tableformat}{\tablename~\LR{\thetable\autodot}}
 % Flowchart caption: keep KOMA's default label (\flowchartname~number) and
 % wrap only the number in \LR{}, mirroring the figureformat mechanism.
 % Wrapping the number alone is essential: without it the @ensure@LTR
