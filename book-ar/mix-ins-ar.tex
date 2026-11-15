@@ -1,0 +1,333 @@
+% mix-ins-ar.tex — Arabic edition of ch. 11, mix-ins
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 11 reconstruction. VERBATIM transcription of the R0
+% recovery reference (recovery-r0/text/11-mix-ins.txt, mined from the
+% Phase 23 website build of the accepted Arabic sources); no text
+% retranslated from the English. The accepted edition book-ar-fixed.pdf
+% (b78c2a28b574288801d8000a7249af3a) is the fidelity authority; ch. 11 =
+% accepted pp. 123–135. Short captions recovered from the accepted
+% edition's list-of-figures pages (قائمة الأشكال, entries 11.1–11.9);
+% the 11.3.1 TOC short title (إدخال البذور في العجين) from the accepted
+% TOC p. 6.
+%
+% No tables, no flowcharts, no recipes in this chapter. Nine raster
+% figures (upstream artwork carried over unchanged at the upstream
+% widths, all [htb!] per upstream): pumpkin-sourdough (\textwidth),
+% pumpkin-on-flour (0.6), seeded-sourdough (0.6), broa (0.85),
+% beer-bread (\textwidth), stollen-close-up (0.8), seeds-bread (0.75),
+% apple-swirl (0.6), surface-seeds (\textwidth). Upstream labels kept
+% verbatim including the subec:incorporate-seeds typo; upstream's
+% doubled \centering in the fig 11.2 block kept as the upstream mirror.
+%
+% Direction treatments verified against the accepted renders (dump
+% pp. 123–135):
+%  - itemize items are PLAIN (accepted Amiri-Bold appears only on the
+%    شكل caption labels — no bold lead words in items);
+%  - the quoting intro renders NotoNaskhArabic-Bold with its Latin
+%    "(mix-ins)" as ONE OpenSans-Bold token (accepted p. 123,
+%    (300.8,261.0)-(345.2,271.3)) — reproduced by wrapping the Latin
+%    run \textenglish{(mix-ins)}: polyglossia's language switch takes
+%    the run out of the Arabic font routing and the ambient sffamily
+%    (quoting env, sty font={sffamily,sbseries}) supplies Open Sans
+%    Bold. Probe-verified: bare ASCII in the sans context routes to
+%    \arabicfontsf (Noto) and extracts U+FFFD — the language wrap is
+%    required, no sty/lua change;
+%  - the 11.3.1 heading parens render OpenSans-Bold as separate tokens
+%    (accepted p. 132, '(' (320.9,474.5) ')' (289.7,474.5)) —
+%    reproduced by \textenglish{(}...\textenglish{)} around البذور;
+%    probe variants with \textsf or \normalfont were tested and
+%    \textenglish alone is sufficient (normalfont drops to Regular
+%    weight, wrong);
+%  - body Latin "(Broa de milho)" / "(Bolo do caco)" wrapped
+%    \textenglish{(...)} (accepted renders the Latin in Pagella, the
+%    parens in Amiri — our parens ride the documented paren-font
+%    residual);
+%  - the same-chapter ref renders \LR{\ref{sec:colors}} per the
+%    same-unit ref convention (unit build shows 1.2.3 where the
+%    accepted shows 11.2.3 — unit-numbering artifact, R3 assembly
+%    regenerates true numbering);
+%  - body ranges as literal-text LTR islands per the unit 9 dash-font
+%    convention, spaced forms matching the accepted tokenization
+%    ('10' '%–20' '%'): \LR{\textenglish{10 \%\textendash 20 \%}} and
+%    \LR{\textenglish{1 \%\textendash 5 \%}}; the fig 11.3 caption
+%    range is the no-space form \LR{\textenglish{1\%\textendash 2\%}}
+%    (accepted p. 125 renders '1%–2%' as ONE Pagella token);
+%  - single percentages ride \LR{\qty{N}{\percent}} islands — geometry
+%    verified against the accepted (p. 56 '100'→'g' gap identical to
+%    our unit 9 build): cocoa \qty{10}, Bolo do caco \qty{50} ×2,
+%    combinations \qty{20};
+%  - bare digit runs ride per-token \LR islands: \LR{10} دقائق (×5),
+%    \LR{30} دقيقة, حتى \LR{6} من الأشهر;
+%  - ellipsis is the literal … character attached to the word (accepted
+%    renders it in Amiri as part of the word token);
+%  - the ch. 11 footnote: the accepted render places the marker AFTER
+%    the sentence period (p. 135 token '1.' with '.' adjacent to
+%    وأطواقها; the tex4ht extraction agrees) — so \footnote follows the
+%    period here, unlike the upstream English (marker before period);
+%  - the accepted edition's own doubled-alef typo "أادقيق غير قمحية
+%    أخرى" (p. 126, verified at char level in the accepted render) is
+%    kept verbatim — fidelity authority over correction.
+%
+% DOCUMENTED DIVERGENCE (accepted-edition defect, not reproduced): on
+% accepted p. 129 the digit run of "نحو 10 دقائق" falls at the RTL line
+% break and the accepted render DROPS the '0' (the line reads «نحو 1» /
+% «دقائق» — verified in the raster). The recovery text has 10; our
+% \LR{10} island is unbreakable and renders the full run, so our line
+% breaks differently and the '0' is present. Battery will flag the '1'
+% '0' tokens; this entry is the explanation.
+% Documented residual (paren-font): ASCII parens in Arabic-font context
+% render Pagella here vs Amiri in the accepted edition (lua fontsplit
+% remap, unfixable at the content layer; R3 harmonization agenda).
+% Documented residual (Latin-island metrics, consequence of the above):
+% our Latin-island spaces render ~0.7pt narrower than the accepted and
+% the fig 11.4 caption parens 0.88pt narrower (Pagella vs Amiri), so the
+% fig 11.4 caption fits on ONE line here where the accepted wraps 'ذرة.'
+% to a second line (accepted p. 127 caption y 412.0 two lines, ours
+% p. 8 y 414.6 one line; the following السؤال 1.2.2 heading sits ~12pt
+% higher on our page). Not reproducible at the content layer: the lua
+% remap forces Pagella for any Amiri-set ASCII, and the space width is
+% a font metric. All other pages break identically (the 12pt is absorbed
+% before the next float). R3 harmonization agenda.
+% Battery note (this build): accepted fig 11.8 sits on accepted p. 133
+% and fig 11.9 on accepted p. 134 (direct pdfplumber probe of the
+% authority PDF); the earlier project-record page labels 134/135 for
+% these two rects were off by one. Our pages match at the uniform
+% offset -119: our p. 14 = acc p. 133, our p. 15 = acc p. 134, our
+% p. 16 = acc p. 135 (footnote page).
+
+\chapter{الإضافات}\label{ch:mix-ins}
+
+\begin{quoting}
+في هذا الفصل ستتعلّم عالم الإضافات \textenglish{(mix-ins)} الرائع في عالم الخبز الحامض. ستكتشف كيف يمكن لهذه الإضافات أن ترفع مستوى خبزك، فتعزّز نكهته، وتضيف إليه ألوانًا زاهية، وتخلق قوامًا مبهجًا يجعل من كل رغيف تحفةً طهيّة.
+\end{quoting}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=\textwidth]{pumpkin-sourdough}
+\caption[خبزات صغيرة بالقرع]{خبزات صغيرة حامضة طرية تُفصل بالشدّ، أُضيف إليها هريس القرع. فالقرع المهروس يضيف نكهة وترطيبًا إلى العجين.}%
+\end{figure}
+
+الرغيف القمحي الحامض له جمالية نقية للغاية. فالحرفية الجيدة والدقة تحوّلان المكوّنات إلى طعام بسيط لكنه لذيذ. ومع الإضافات، تصبح الوصفة الأساسية نقطة انطلاق إلى عالم كامل من التعديلات التي يمكنك تجربتها ودمجها معًا. فكّر في الرغيف بوصفه لوحة بيضاء تعبّر عليها عن نفسك.
+
+\section{التصنيفات}
+
+\begin{figure}[htb!]
+\centering
+\centering
+\includegraphics[width=0.6\textwidth]{pumpkin-on-flour}
+\caption[هريس القرع]{من الطرائق الشائعة أن تستبدل جزءًا من ماء العجين بسائل آخر، كالقرع المهروس. وعند إضافة الهريس، أضف أي ماء إضافي تدريجيًّا، لأن الهريس سيُطلق سائله الخاص في العجين مع مرور الوقت.}%
+\label{fig:pumpkin-on-flour}
+\end{figure}
+
+أحد المداخل لتصنيف الإضافات هو النظر إلى شكلها. غير أنّ الانتقال بين هذه التصنيفات فضفاضٌ بعض الشيء:
+
+\begin{itemize}
+\item السوائل: تندمج تجانسًا في العجين، وقد تستبدل بعض الماء أو كله. أمثلة: الحليب، الزبدة، الزيت، عصير السبانخ، عصير الطماطم، البيض
+\item المساحيق: تندمج تجانسًا في العجين، وقد تستبدل جزءًا من الدقيق. أمثلة: مسحوق الحليب، السميد، الكاكاو، التوابل
+\item القطع الصغيرة: تبقى مرئية كلٌّ على حدة في الرغيف النهائي، وهي صغيرة بما يكفي لتوزيع نفسها توزيعًا شبه متساوٍ في العجين. أمثلة: البذور (حبوب القمح، حبوب الجاودار، بذور الخشخاش، السمسم، بذور القرع، بذور الكتّان)، التوابل الكاملة (الكزبرة)
+\item القطع الكبيرة: قطع أكبر لا تظهر إلا في بعض اللقمة العابرة حين تأكل شريحة من خبزك. أمثلة: الطماطم المجففة، قطع الجبن، قطع الشوكولاتة
+\end{itemize}
+
+ومدخل آخر للتصنيف ينظر إلى ما تُحدثه الإضافات من تغيّرات في الخبز:
+
+\begin{itemize}
+\item النكهة: تغيّر مذاق الخبز تغيّرًا كبيرًا. أمثلة: دقيق الجاودار، دقيق الذرة، التوابل، السكر.
+\item اللون: تغيّر مظهر الخبز تغيّرًا كبيرًا. أمثلة: الكاكاو، حبر السبيط، عصير الشمندر، عصير الطماطم.
+\item القوام: تغيّر الإحساس في الفم عند الأكل تغيّرًا كبيرًا. أمثلة: الجبن (لزج)، البذور (مقرمشة)، الزيتون (قطع طريّة).
+\end{itemize}
+
+كثير من الإضافات المذكورة أعلاه لا يمكن إرجاعها إلى تصنيف واحد. فهي تغيّر أكثر من جانب واحد من الخبز النهائي في الوقت نفسه.
+
+\begin{figure}[htb!]
+\centering
+\centering
+\includegraphics[width=0.6\textwidth]{seeded-sourdough}
+\caption[خبز حامض بالبذور]{في هذه الحالة أُضيف إلى العجين مزيج من الكتّان ودوّار الشمس والسمسم. ستجفّف البذور العجين قليلًا أثناء التخمير، ولذا يُنصح بإضافة ماء قليل إضافي (\LR{\textenglish{1\%\textendash 2\%}}).}%
+\end{figure}
+
+تؤثر الإضافات في بنية العجين. أحد جوانب هذا التأثير هو أثره في الترطيب. فبعض الإضافات تمتص كمية كبيرة من الماء عند إضافتها إلى العجين، فتضطر إلى زيادة كمية الماء لتحقيق قوام العجين نفسه. والأثر الآخر يقع على شبكة الغلوتين، إذ تُربك القطعُ والفِطَمُ شبكةَ الغلوتين وقد تقلّل من الانتفاخ في الفرن أثناء الخَبز. وكل هذا يتوقف على كمية الإضافات المستخدمة. والقاعدة العامة الجيدة هي إضافة \LR{\textenglish{10 \%\textendash 20 \%}} من كمية الدقيق في معظم الإضافات، مخفَّضة إلى نحو \LR{\textenglish{1 \%\textendash 5 \%}} من كمية الدقيق في حالة التوابل.
+
+ومن العوامل المهمة أيضًا سلوك الإضافة أثناء الخَبز. فقد تخبز القطع الكبيرة على وجه الخصوص على نحو مختلف عن العجين، فتنصهر (كالجبن) تاركةً فراغات في الداخل، أو تتلوّن بالسواد حيث تبرز عبر القشرة (كالخضروات مثلًا). ويمكن التخفيف من هذه المشكلات إلى حد ما بالإعداد الصحيح (مثل التقطيع إلى قطع أصغر، أو نقف المكوّنات الجافة في الماء أو الزيت أولًا، أو عصر ما فيها من رطوبة زائدة).
+
+\section{أمثلة}
+
+فيما يلي قائمة بالإضافات الشائعة وخصائصها الخاصة. ويمكن دمجها بحسب تفضيلك.
+
+\subsection{الأدقيق}
+هذه مساحيق. عادةً ما تريد ببساطة استبدال جزء من دقيق الخبز المعتاد به. والأدقيق المختلفة تغيّر مذاق الخبز وتؤثر عادةً في لونه باعتدال.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.85\textwidth]{broa}
+\caption[بروا دي ميليو]{بروا دي ميليو \textenglish{(Broa de milho)} خبز برتغالي تقليدي مصنوع من نصف دقيق جاودار ونصف دقيق ذرة.}%
+\end{figure}
+
+\begin{itemize}
+\item دقيق القمح كامل الحبة (استبدل به أي كمية، يجعل مذاق الخبز أكثر تعقيدًا، بنكهة جوزية)
+\item دقيق الجاودار (مذاق ريفي دافئ جوزي شعيري جدًّا)
+\item الشعير المالت الإنزيمي (مذاق شعيري، يحسّن النشاط الإنزيمي). والمالت إضافة رائعة عند صنع عجائن أسرع مبنية على الخميرة.
+\item السميد (يدعم النكهات المتوسطية)
+\item الكاكاو (استبدل به \LR{\qty{10}{\percent}} من الدقيق لرغيف أسود، ويتمازج بامتياز مع الإضافات الحلوة)
+\item أادقيق غير قمحية أخرى مثل: الحمّص، الذرة، القنّب، البطاطس…
+\end{itemize}
+
+\subsection{السوائل}
+
+بدلًا من استخدام الماء، يمكنك استبداله بسائل مختلف، فتؤثر في الطعم والقوام.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=\textwidth]{beer-bread}
+\caption[خبز الجعة السوداء]{الجعة السوداء الداكنة الوفيرة تعمل بامتياز بديلًا للماء عند صنع الخبز الحامض. ويتميز الرغيف الناتج بمذاق شعيري ريفي دافئ.}%
+\end{figure}
+
+\begin{itemize}
+\item الجعة
+\item الزبدة
+\item الحليب المخيض
+\item حليب الحبوب (الحليب المتبقي من تناول حبوب الإفطار بالحليب)
+\item القهوة
+\item البيض
+\item عصائر الفواكه/الخضروات (انظر أيضًا القسم~\LR{\ref{sec:colors}})
+\item الحليب (للخبزات الحلوة الطرية)
+\item بدائل الحليب مثل: اللوز، الشوفان، الصويا…
+\item البطاطس المهروسة
+\item البطاطا الحلوة المهروسة. بولو دو كاكو \textenglish{(Bolo do caco)} خبز نموذجي من ماديرا، مصنوع من \LR{\qty{50}{\percent}} دقيق قمح و\LR{\qty{50}{\percent}} بطاطس مهروسة.
+\item زيت الزيتون (متوسطي)
+\item خضروات مهروسة أخرى مثل: الشمندر، القرع…
+\end{itemize}
+
+\subsection{الألوان}%
+\label{sec:colors}
+بعض الإضافات ستغيّر لون خبزك ونكهته. ومن الصبغات الشائعة:
+
+\begin{itemize}
+\item مسحوق الفحم المنشّط (أسود)
+\item عصير الشمندر (أحمر)
+\item عصير العنب البري (أزرق)
+\item مسحوق زهرة البازلاء الفراشية الزرقاء (أزرق)
+\item عصير الجزر (برتقالي)
+\item عصير الإجاص (وردي)
+\item عصير السبانخ (أخضر)
+\item حبر السبيط (أسود)
+\item عصير الفراولة (أحمر)
+\item عصير الطماطم (أحمر)
+\end{itemize}
+
+\subsection{البذور والمكسّرات}
+هذه قطع صغيرة، بعضها يقترب من بلوغ حدود تصنيف القطع الكبيرة. وتستفيد بعض البذور من سلقها نحو \LR{10} دقائق قبل إضافتها إلى العجين.
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.8\textwidth]{stollen-close-up}
+\caption[شتولن عن قرب]{الشتولن خبز عيد ميلاد ألماني حلو تقليدي يضمّ تنوّعًا من الإضافات. يحتوي العجين عادةً على ليمون مسكّر، وبرتقال مسكّر، وزبيب. وتُنقّع الإضافات في الروم قبل إضافتها إلى العجين. وحين ينضج الشتولن بعد الخَبز (حتى \LR{6} من الأشهر) تُطلق المكوّنات المسكّرة رائحتها إلى المنتج المخبوز.}%
+\end{figure}
+
+\begin{itemize}
+\item حبات الكاكاو
+\item بذور الشيا
+\item مكسّرات مقطعة أو كاملة مثل: اللوز، البندق، الجوز
+\item بذور الكتّان
+\item بذور القنّب
+\item بذور الخشخاش
+\item بذور القرع
+\item السمسم
+\item بذور دوّار الشمس
+\item حبوب الجاودار الكاملة (تُسلق \LR{10} دقائق)
+\item حبوب القمح الكاملة (تُسلق \LR{10} دقائق)
+\end{itemize}
+
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.75\textwidth]{seeds-bread}
+\caption[جاودار كامل بحبوب الجاودار]{خبز حامض مصنوع من نصف دقيق جاودار كامل الحبة ونصف حبوب جاودار. تُسلق الحبوب عادةً \LR{10} دقائق لتتيح لها أن تطرى قليلًا. وعند خبز رغيف يُنصح باستخدام مقياس حرارة لقياس ما إذا كان قد نضج من الخَبز. يتميز الخبز النهائي بنكهة حامضة ريفية دافئة وبلُبّ رطب.}%
+\end{figure}
+
+\subsection{التوابل والإضافات المنكّهة}
+هذه غالبًا مساحيق أو قطع صغيرة.
+
+\begin{itemize}
+\item قشور العنب البري (اعصرها عبر مصفاة لإزالة العصير)، وحبوب العنب البري النيئة
+\item البصل المحمّص
+\item فواكه مسكّرة مثل: الليمون، البرتقال، الأناناس…
+\item القرفة
+\item جبن صلب مبشور مثل: غرويير، بارميزان…
+\item أعشاب متوسطية مثل: المردقوش، الأوريغانو، إكليل الجبل، الزعتر…
+\item الميسو
+\item دبس السكر
+\item السكر
+\item توابل مثل: اليانسون، الشمر، القرفة، الكزبرة، الكمّون…
+\item قشور الحمضيات مثل: اللايم، الليمون، البرتقال…
+\end{itemize}
+
+\subsection{اللمسات البارزة}
+هذه غالبًا قطع كبيرة تضيف تباينًا كبيرًا ولمسة نكهة بارزة إلى الخبز الأساسي. وعادةً ما تريد استخدام واحدة فقط من هذه (اثنتين على الأكثر). وكثيرًا ما يمكن أن تُكمَّل الاقتراحات بإضافة نكهة أو دقيق ما.
+
+\begin{itemize}
+\item قطع الشوكولاتة أو رقائقها
+\item قطع الثوم الأسود
+\item قطع الجبن مثل: الشيدر، الفيتا…
+\item رقائق الذرة
+\item فواكه مجففة مثل: التوت البري، التمر، الزبيب…
+\item الزيتون
+\item الببروني المخلل
+\item الطماطم المشمسة المجففة (اعصر الزيت منها إن كانت مخللة، أو انقع المجفف منها في الماء)
+\end{itemize}
+
+\subsection{التوليفات}
+بضع توليفات تكمل فيها الإضافات المتعددة بعضها البعض:
+
+\begin{itemize}
+\item الزبدة والحليب. ثم أضف القرفة والسكر البني قبل التشكيل
+\item الشيدر والببروني
+\item الشيدر والهالابينيو
+\item الكاكاو، حبات الكاكاو، حبات البندق الكاملة
+\item التوت البري والجوز
+\item السميد، الأعشاب المتوسطية، الزيتون، الطماطم المشمسة المجففة
+\item عصير الطماطم بدلًا من الماء مع \LR{\qty{20}{\percent}} دقيق جاودار
+\end{itemize}
+
+\section{التقنيات}
+
+إضافة الإضافات إلى العجين هي المدخل الأبسط فحسب. أضف الإضافات مباشرة عند عجن العجين. وبعد العجن الأول انتظر \LR{30} دقيقة لترى إن كان العجين يملك ماء كافيًا أو أكثر من اللازم. وفي حالة الحبوب المنقوعة كاملة (كالجاودار أو القمح مثلًا) فالمرجّح أن تُطلق الحبوب بعض الماء فتصبح العجين أرطب. في هذه الحالة ستريد إضافة قليل من الدقيق إلى العجين لتعويض الترطيب العالي.
+
+\subsection[إدخال البذور في العجين]{ما أفضل مرحلة لإدخال الإضافات \textenglish{(}البذور\textenglish{)} في العجين؟}%
+\label{subec:incorporate-seeds}
+
+يمكنك إدخال البذور مباشرة في البداية عند خلط العجين. وإن استخدمت بذورًا كاملة مثل حبات القمح أو الجاودار، فانقعها في الماء طوال الليل ثم اغسلها قبل إضافتها إلى العجين. فهذا يضمن ألا تكون مقرمشة بل طرية بما يكفي عند أكل الخبز. وإن نسيت نقعها فيمكنك سلق البذور \LR{10} دقائق في ماء ساخن. واغسلها بالماء البارد قبل إضافتها إلى عجينك.
+
+وإن أردت تحلية العجين، فخيارك الأفضل إضافة السكر أثناء مرحلة التشكيل. فالسكر المضاف مبكرًا جدًّا في العملية يُخمَّر عادةً حتى لا يبقى منه شيء. عدّل تقنية التشكيل لديك قليلًا وافرد خليط السكر على عجين مفرود. ويمكنك بعد ذلك لفّ العجين معًا، مُدخلًا طبقات من السكر.
+
+\subsection{الإضافة قبل التشكيل}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=0.6\textwidth]{apple-swirl}
+\caption[خبزات لولبية بالتفاح]{تقنية رائعة هي إضافة بعض إضافاتك مباشرة قبل التشكيل. في هذه الحالة طُبّقت خليط من التفاح والقرفة والسكر البني. ثم لفّ العجين معًا. وبعد ذلك قطّع اللفافة إلى قطع أصغر باستخدام سكين حادة أو كاشط عجين أو خيط تنظيف الأسنان. ضع كل قطعة عجين بجوار الأخرى في وعاء مدهون ليتيح لها التخمير النهائي. ثم اخبزها كما تفعل عادةً. وميزة هذه التقنية أن الإضافات لن تُخمَّر. وهذا مطلوب عادةً في حالة السكر، إذ تريد أن تحتفظ المخبوزات النهائية بحلاوتها. فإن أُدخلت عند الخلط الأولي فسيُخمَّر معظم السكر ولن يذوق الخبز حلوًا.}%
+\label{fig:apple-swirl}
+\end{figure}
+
+مدخل آخر هو فرد العجين مسطحًا بعد التخمير الأول. ثم تستخدم سباتولا لفرد مكوّناتك على العجين المسطح. وتواصل تشكيلك المعتاد و/أو تلفّ العجين. وعند إنشاء لفافة يمكنك استخدام سكين حادة لتقطيع العجين، وخيط تنظيف الأسنان يعمل بامتياز أيضًا. وبعد ذلك ضع اللفّات اللولبية الصغيرة في وعاء لتترك للتخمير النهائي وتصبح أكثر انتفاخًا. وهذه طريقة ممتازة لإضافة الإضافات الحلوة لأن الكائنات الدقيقة لن تخمرها. فعند إضافة السكر إلى العجين الأولي سيُخمَّر ولن يذوق العجين الناتج حلوًا (بحسب مدة التخمير). وهذا المدخل ممتاز للفّات الثوم/الجبن، ولفّات الثوم/الأعشاب، ورولات القرفة
+
+\subsection{تغطية السطح}
+
+\begin{figure}[htb!]
+\centering
+\includegraphics[width=\textwidth]{surface-seeds}
+\caption[بذور السطح]{هذه خبزات مفتتة تُصنع بتفتيت عجين مُبطأ إلى قطع أصغر قبل الخَبز. ثم يُغمس كل قطعة عجين بسرعة في الماء ثم تُلفّ في وعاء من البذور. وبعد ذلك يُخبز العجين مباشرة في الفرن المسخّن مسبقًا. تضيف هذه التغطيات نكهة إضافية رائعة ويمكن تعديلها بحسب تفضيلك. أحب إضافة مزيج من بذور دوّار الشمس والكتّان والسمسم.}%
+\label{fig:surface-seeds}
+\end{figure}
+
+يعمل هذا بأفضل صورة مع المساحيق أو القطع الصغيرة. وبعد التشكيل لفّ تغطياتك على سطح العجين. ويعمل هذا جيدًا أيضًا عند تغطية سلة التخمير أو قالب الخبز بالبذور أو الشوفان. وعند استخدام قالب الخبز أو سلة التخمير تساعد هذه التغطيات أيضًا على أن يلتصق الوعاء أقل التصاقًا.
+
+ومدخل آخر شائع الاستخدام مع الخبزات الصغيرة هو تبليل السطح أو غمس العجين في الماء. وبعد ذلك اغمس قطعة العجين الرطبة في وعاء إضافاتك. وهذا لا يعمل مع كل الإضافات، إذ لا تتحمل بعضها درجات الحرارة العالية أثناء الخَبز فتتلوّن بالسواد. والأكثر شيوعًا أن يُجرى مع البذور (كالسمسم، الشوفان، بذور الكتّان مثلًا).
+
+\subsection{الألوان الملتفّة}
+الإضافات التي تغيّر لون العجين تتيح فرصة لمزيد من الإبداع عبر دمج العجين قبل التشكيل.
+
+تابع وافصل عجينك الأساسي قبل إضافة مكوّن ملوّن. خمّر العجين أولًا في أوعية منفصلة. ثم ادمج العجينين (أو أكثر) الملوّنين باختلاف اللون بالتطبيق والتراكيب للأوراق الملوّنة من العجين قبل الطيّة الأخيرة، قبيل التشكيل مباشرة. وبهذا لن تمتزج الطبقات الملوّنة وسيكون للعجين الناتج طبقات ملوّنة ومتذوّقة باختلاف ألوانها وأطواقها.\footnote{صنعتُ مرة عجينًا تجريبيًّا بدمج عجين قمحي وعجين جاودار وعجين سبلت وعجين قمح أحادي في عجين واحد. وجاء العجين الناتج ذا طبقات متمايزة الألوان والأقوام والنكهات.}
