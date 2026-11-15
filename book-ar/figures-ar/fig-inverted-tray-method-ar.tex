@@ -1,0 +1,65 @@
+% fig-inverted-tray-method-ar.tex — Arabic edition of the inverted tray
+% method flowchart (ch. 12, المخطط الانسيابي 12.3)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 reconstruction. Node/edge geometry verbatim from
+% the upstream source figures/fig-inverted-tray-method.tex (node styles
+% from figures/flowcharts_tikz.tex, which sourdough-ar.sty inputs).
+% Label text recovered from the accepted edition's render of p. 147
+% (book-ar-fixed.pdf, b78c2a28b574288801d8000a7249af3a) — the flowchart
+% sits on accepted p. 147, sharing the page with table 12.2; the text
+% layer extracts cleanly in logical order, so the labels are recovered
+% against the accepted text layer, not retranslated.
+%
+% Layout is NOT mirrored, per the accepted render: the top row runs
+% left to right ضع صينية الماء والحجر في الفرن → سخّن الفرن إلى 230°C
+% (446°F) لمدة 30 دقيقة → شقّ العجين → رشّ عجينك بالماء → ضع الصينية
+% المقلوبة غير المسخّنة في الفرن, then the return row runs right to
+% left ضع الأرغفة في الفرن → ضع الماء المغلي في صينية الماء المسخّنة →
+% اخبز 30 دقيقة أو حتى تبلغ الحرارة الداخلية 92°C (197°F) → أزل مصدر
+% البخار والصينية العلوية → اخبز 10 دقائق أخرى على الأقل حتى تبلغ
+% القشرة اللون الذي تريده leftmost. Manual line splits follow the
+% accepted render exactly: init 2 lines, heat_oven 3, score 1, spritz
+% 2, load_tray 4, load_doughs 2, load_water 3, bake 5, remove_steam 2,
+% finish 4.
+%
+% Arabic label text is wrapped in \textarabic{} per the established
+% flowchart convention (fig-starter-process-ar.tex, unit 10). Mixed
+% lines keep the RTL base inside \textarabic{} with Latin runs in
+% \textenglish{} islands — the unit 11 sans-context finding BINDS here:
+% flowcharts_tikz.tex sets every picture font=\footnotesize\sffamily,
+% so bare ASCII letters in a node would route to \arabicfontsf and
+% extract U+FFFD; \textenglish exits the Arabic routing and the ambient
+% sans supplies the Latin face. Temperature runs are literal text
+% (230°C (446°F), 92°C, (197°F), tight, as the accepted node render
+% shows — NOT \qty). Digit runs ride \textarabic{} with bare Western
+% digits (numerals=maghrib).
+%
+% Documented residual (same family as the earlier flowchart units):
+% node text rides the scaled Amiri (10.79 pt) where the accepted
+% edition's standalone-figure builds show 10.04 pt.
+
+\begin{tikzpicture}[node distance=3cm, auto]
+  \node [start] (init) {\textarabic{ضع صينية الماء}\\ \textarabic{والحجر في الفرن}};
+  \node [block, right of=init] (heat_oven) {\textarabic{سخّن الفرن إلى}\\ \textenglish{230°C (446°F)}\\ \textarabic{لمدة 30 دقيقة}};
+  \node [block, right of=heat_oven] (score_your_dough) {\textarabic{شقّ العجين}};
+  \node [block, right of=score_your_dough] (spritz) {\textarabic{رشّ عجينك}\\ \textarabic{بالماء}};
+  \node [block, right of=spritz] (load_tray) {\textarabic{ضع الصينية}\\ \textarabic{المقلوبة غير}\\ \textarabic{المسخّنة}\\ \textarabic{في الفرن}};
+  \node [block, below of=load_tray, node distance=4cm] (load_doughs) {\textarabic{ضع الأرغفة}\\ \textarabic{في الفرن}};
+  \node [block, left of=load_doughs] (load_water) {\textarabic{ضع الماء المغلي}\\ \textarabic{في صينية الماء}\\ \textarabic{المسخّنة}};
+  \node [block, left of=load_water] (bake) {\textarabic{اخبز 30 دقيقة}\\ \textarabic{أو حتى تبلغ}\\ \textarabic{الحرارة الداخلية}\\ \textarabic{\textenglish{92°C}}\\ \textenglish{(197°F)}};
+  \node [block, left of=bake] (remove_steam) {\textarabic{أزل مصدر البخار}\\ \textarabic{والصينية العلوية}};
+  \node [success, left of=remove_steam] (finish) {\textarabic{اخبز 10 دقائق}\\ \textarabic{أخرى على الأقل}\\ \textarabic{حتى تبلغ القشرة}\\ \textarabic{اللون الذي تريده}};
+  \path [line] (init) -- (heat_oven);
+  \path [line] (heat_oven) -- (score_your_dough);
+  \path [line] (score_your_dough) -- (spritz);
+  \path [line] (spritz) -- (load_tray);
+  \path [line] (load_tray) -- (load_doughs);
+  \path [line] (load_doughs) -- (load_water);
+  \path [line] (load_water) -- (bake);
+  \path [line] (bake) -- (remove_steam);
+  \path [line] (remove_steam) -- (finish);
+\end{tikzpicture}

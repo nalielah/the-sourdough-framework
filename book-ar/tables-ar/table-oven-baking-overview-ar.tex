@@ -1,0 +1,33 @@
+% table-oven-baking-overview-ar.tex — Arabic edition of the oven baking
+% overview table (ch. 12, جدول 12.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 reconstruction. Column geometry verbatim from the
+% upstream source tables/table-oven-baking-overview.tex
+% ({@{}p{0.25\textwidth}ccc@{}} with booktabs rules), mirrored per the
+% standing RTL table convention: columns visual LTR, the label column
+% (نوع الفرن) rightmost, the three yes/no data columns to its left in
+% mirrored order (وعاء خبز هولندي leftmost, then الصينية المقلوبة, then
+% عادي (بدون أدوات)). Cell text recovered from the accepted edition's
+% render of p. 147 (book-ar-fixed.pdf,
+% b78c2a28b574288801d8000a7249af3a) — the table shares the page with
+% flowchart 12.3; the text layer extracts cleanly, so the cells are
+% recovered against the accepted text layer, not retranslated.
+%
+% Every non-empty cell is wrapped {\textdir TRT ...} per the unit 9
+% cell-direction convention (BINDING). The table carries no \label in
+% the upstream source and none here.
+
+\begin{tabular}{@{}cccp{0.25\textwidth}@{}}
+\toprule
+\thead{{\textdir TRT وعاء خبز هولندي}} & \thead{{\textdir TRT الصينية المقلوبة}} & \thead{{\textdir TRT عادي (بدون أدوات)}} & \thead{{\textdir TRT نوع الفرن}} \\
+\midrule
+{\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT غاز} \\
+{\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT لا} & {\textdir TRT حمل حراري (المروحة تعمل دائمًا)} \\
+{\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT لا} & {\textdir TRT حمل حراري (يمكن إيقاف المروحة)} \\
+{\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT نعم} & {\textdir TRT بخار} \\
+\bottomrule
+\end{tabular}

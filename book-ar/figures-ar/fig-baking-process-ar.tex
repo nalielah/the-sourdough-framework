@@ -1,0 +1,67 @@
+% fig-baking-process-ar.tex — Arabic edition of the baking process
+% flowchart (ch. 12, المخطط الانسيابي 12.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 reconstruction. Node/edge geometry verbatim from
+% the upstream source figures/fig-baking-process.tex (node styles from
+% figures/flowcharts_tikz.tex, which sourdough-ar.sty inputs; the BC
+% calligraphic brace included). Label text recovered from the accepted
+% edition's render of p. 142 (book-ar-fixed.pdf,
+% b78c2a28b574288801d8000a7249af3a) — the flowchart sits on accepted
+% p. 142, NOT p. 140 as the pre-recovery asset inventory had it; the
+% text layer extracts cleanly in logical order, so the labels are
+% recovered against the accepted text layer plus 300/600-dpi render
+% crops, not retranslated.
+%
+% Layout is NOT mirrored, per the accepted render: سخّن الفرن إلى
+% leftmost → شقّ العجين → اختر طريقة توليد البخار → the three steam
+% sources → اخبز العجين بالبخار → أزل مصدر البخار → أوقف الخبز بعد
+% 10–30 دقيقة rightmost (same reading order as the upstream English
+% flowchart). Manual line splits follow the accepted render exactly:
+% heat_oven 3 lines, score_dough 1, decide_steam 2, dutch_oven 2,
+% inverted_tray 2, steam_injection 1, bake_30 3, remove_steam 1,
+% finish_baking 4.
+%
+% Arabic label text is wrapped in \textarabic{} per the established
+% flowchart convention (fig-starter-process-ar.tex, unit 10). Mixed
+% lines keep the RTL base inside \textarabic{} with Latin runs in
+% \textenglish{} islands — the unit 11 sans-context finding BINDS here:
+% flowcharts_tikz.tex sets every picture font=\footnotesize\sffamily,
+% so bare ASCII letters in a node would route to \arabicfontsf and
+% extract U+FFFD; \textenglish exits the Arabic routing and the ambient
+% sans supplies the Latin face. Temperature runs are literal text
+% (230°C (446°F), tight, as the accepted node render shows — NOT
+% \qty, whose thin space the accepted nodes do not carry); the range
+% 10–30 is literal text \textenglish{N\textendash M} per the unit 9
+% dash-font convention. Digit runs ride \textarabic{} with bare Western
+% digits (numerals=maghrib).
+%
+% Documented residual (same family as the earlier flowchart units):
+% node text rides the scaled Amiri (10.79 pt) where the accepted
+% edition's standalone-figure builds show 10.04 pt.
+
+\begin{tikzpicture}[node distance = 4cm, auto]
+  \node [start] (heat_oven) {\textarabic{سخّن الفرن إلى}\\ \textenglish{230°C (446°F)}\\ \textarabic{لمدة 30 دقيقة}};
+  \node [block, right of=heat_oven] (score_dough) {\textarabic{شقّ العجين}};
+  \node [decision, right of=score_dough, node distance=4cm] (decide_steam) {\textarabic{اختر طريقة}\\ \textarabic{توليد البخار}};
+  \node [block, below of=decide_steam, node distance=3.5cm] (dutch_oven) {\textarabic{وعاء الخبز}\\ \textarabic{الهولندي}};
+  \node [block, left of=dutch_oven] (inverted_tray_method) {\textarabic{الصينية}\\ \textarabic{المقلوبة}};
+  \node [block, right of=dutch_oven] (steam_injection) {\textarabic{فرن بخاري}};
+  \node [block, below of=dutch_oven, node distance=3cm] (bake_30) {\textarabic{اخبز العجين}\\ \textarabic{لمدة 30 دقيقة}\\ \textarabic{بالبخار}};
+  \node [block, below of=bake_30, node distance=3cm] (remove_steam) {\textarabic{أزل مصدر البخار}};
+  \node [success, right of=remove_steam] (finish_baking) {\textarabic{أوقف الخبز بعد}\\ \textarabic{\textenglish{10\textendash 30} دقيقة}\\ \textarabic{حسب تفضيل}\\ \textarabic{القشرة}};
+  \path [line] (heat_oven) -- (score_dough);
+  \path [line] (score_dough) -- (decide_steam);
+  \path [line] (decide_steam) -- (inverted_tray_method.north east);
+  \path [line] (decide_steam) -- (dutch_oven);
+  \path [line] (decide_steam) -- (steam_injection.north west);
+  \path [line] (steam_injection.south west) -- (bake_30.north east);
+  \path [line] (inverted_tray_method.south east) -- (bake_30.north west);
+  \path [line] (dutch_oven) -- (bake_30);
+  \path [line] (bake_30) -- (remove_steam);
+  \path [line] (remove_steam) -- (finish_baking);
+  \draw[BC, decoration=mirror] (remove_steam.south west) ++(0, -0.3) -- node[below=1em]{\textarabic{بناء القشرة}}(finish_baking.south east);
+\end{tikzpicture}

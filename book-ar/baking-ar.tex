@@ -1,0 +1,248 @@
+% baking-ar.tex — الفصل 12: الخَبز (Arabic edition of ch. 12, Baking)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Phase 28R R2 unit 12 RECONSTRUCTION (recovery-first, binding): the
+% 2026-11-13 workspace loss destroyed the original Arabic source tree;
+% this file is recovered from the accepted edition, NOT retranslated.
+% Fidelity authority: book-ar-fixed.pdf (201 pp, 29,793,352 B,
+% md5 b78c2a28b574288801d8000a7249af3a), accepted ch. 12 = pp. 136-147
+% (ch. 13 starts p. 148). Body text, captions, table cells, the tools
+% itemize, the 12-step enumerate and all six footnotes are verbatim
+% from the accepted render via the R0 recovery reference
+% (recovery-r0/text/12-baking.txt, mined 2026-11-14 from the phase-23
+% website build, itself a tex4ht conversion of the accepted Arabic
+% sources) cross-checked against the accepted text layer (which
+% extracts cleanly in logical order) and the 100-dpi page renders
+% acc-p136..147. Terminology anchored to the promoted glossary
+% (0890c23d).
+%
+% Page-mapping corrections this unit (supersede the pre-recovery asset
+% inventory): fig 12.1 plot p. 138; fig 12.2 p. 140 (vector, no raster);
+% fig 12.3 p. 141; FC 12.1 p. 142 (NOT p. 140); fig 12.4 p. 143;
+% fig 12.5 p. 144; figs 12.6 + 12.7 both p. 145; FC 12.2 p. 146;
+% FC 12.3 + table 12.2 both p. 147 (NOT p. 146 for the table).
+%
+% Assets: the five raster-bearing figures ride the upstream vector PDFs
+% in ../book/baking/ (baking-process-stage-2 \textwidth,
+% baking-too-hot 0.85, baking-example 0.85 twice — figs 12.4 and 12.7
+% share the file, baking-process-steam \textwidth,
+% dutch-oven-example 0.85); fig 12.1 inputs the upstream pgfplots chart
+% plots/fig-temperature-surface.tex VERBATIM — the accepted edition
+% keeps it fully English (title "Surface temperature", axes, legend).
+% The three flowcharts are rebuilt as TikZ per the unit 10 pattern
+% (figures-ar/fig-baking-process-ar.tex, fig-dutch-oven-process-ar.tex,
+% fig-inverted-tray-method-ar.tex), node/edge geometry verbatim from
+% upstream, labels recovered from the accepted render.
+%
+% Conventions applied (all standing): footnote marker AFTER the
+% sentence period; \qty islands \LR{\qty{N}{\degreeCelsius}}
+% (\LR{\qty{M}{\degF}}); \qtyrange via the driver sisetup
+% range-phrase=\textendash (105 °C–120 °C as accepted); \LR{\ch{CO2}}
+% per the history/bread-types convention; literal Latin glosses in
+% \textenglish{}; cites ~\cite{...} with the upstream keys; same-unit
+% refs \LR{\ref{...}} (render 1.x in this unit build, ch. 12 as ch. 1 —
+% R3 assembly regenerates true numbering); the cross-chapter ref to
+% القسم 8.2.2 as literal text per the bread-types convention; tables
+% with the {\textdir TRT ...} cell pattern; dash ranges literal
+% \LR{\textenglish{N\textendash M}} in body text.
+%
+% Documented residuals (R3 agenda, unchanged): flowchart node text
+% rides the scaled Amiri (10.79 pt) vs the accepted standalone 10.04 pt;
+% body/flowchart ASCII parens and Latin islands render Pagella where
+% the accepted shows Amiri (lua REMAP font metrics; the fig 11.4-class
+% one-line-fit consequence is watched for the fig 12.1 caption).
+
+\chapter{الخَبز}%
+\label{ch:baking}
+\begin{quoting}
+يتناول مصطلح الخَبز الجزء من العملية الذي تحمّل فيه عجينك إلى الفرن.\footnote{رغم أن بعض الخبزات، كالخبز المسطّح، يمكن خبزها أيضًا على الموقد. يركّز هذا الفصل على الفرن المنزلي.} ويُجرى الخَبز عادةً بعد أن يمرّ عجينك بمرحلتي التخمير الأول والتخمير النهائي. سيسدّد هذا الفصل ما يحدث لعجينك أثناء الخَبز، إضافةً إلى عدة تقنيات تُستخدم لتحسين النتيجة النهائية.
+\end{quoting}
+
+\section{عملية الخَبز}
+بمجرد أن يبدأ ارتفاع درجة الحرارة يمرّ عجينك بعدة مراحل كما يلخّصها الجدول~\LR{\ref{tab:baking-stages}}. فمع سخونة العجين يبدأ الماء والحموض الموجودان فيه بالتبخر. وعند خَبز عجين قائم على الغلوتين تبدأ الفقاعات في عجينك بالاتساع. ويبدأ العجين بالارتفاع عموديًّا، ويُسمّى هذا الانتفاخ في الفرن. ويبدأ خبزك بتكوين قشرة ذات قوام يشبه الهلام، وهي قشرة لا تزال قابلة للتمدد ويمكن شدّها.
+
+\begin{table}[htp!]
+    \centering
+        \input{tables-ar/table-baking-process-stages-ar.tex}
+        \caption[مراحل العجين خلال الخَبز]{المراحل المختلفة التي يمرّ بها عجينك خلال عملية الخَبز.}%
+        \label{tab:baking-stages}
+\end{table}
+
+عند حوالي \LR{\qty{60}{\degreeCelsius}} (\LR{\qty{140}{\degF}}) تبدأ الكائنات الدقيقة في عجينك بالموت. وتشاع الأقاويل بأن هذه الكائنات تنتج قبل حدوث ذلك كميةً كبيرة من \LR{\ch{CO2}}، ما يؤدي إلى تمدد العجين. غير أن هذه الحرارة تُبلَغ بسرعة. وعلاوةً على ذلك فإن الإجهاد يدفع الكائنات الدقيقة إلى الدخول في طور التبويغ \textenglish{(sporulation)} لتركّز على نشر جيناتها. ما يزال يلزم إجراء مزيد من البحث هنا للتحقق من هذه الدعوى أو نفيها.
+
+عند \LR{\qty{75}{\degreeCelsius}} (\LR{\qty{167}{\degF}}) يتحول سطح عجينك إلى هلام. يلتحم جيدًا لكنه لا يزال قابلًا للتمدد. وهذا الهلام أساسي للانتفاخ في الفرن لأنه يحتجز الغاز داخل عجينك.
+
+عند حوالي \LR{\qty{100}{\degreeCelsius}} (\LR{\qty{212}{\degF}}) يبدأ الماء بالتبخر من عجينك. ولولا ذلك لذاق خبزك طعمًا طريًّا وعجينيًّا. وكلما زاد ترطيب عجينك زاد ما يحويه خبزك من ماء بعد الخَبز، فتتغير قوامته. ونتيجةً لذلك سيذوق اللُبّ رطبًا بعض الشيء.
+
+وهناك خطوة أخرى تُستهان بها غالبًا وهي تبخر الحموض. فحمض الخليك يغلي عند \LR{\qty{118}{\degreeCelsius}} (\LR{\qty{244}{\degF}})، لكنه لا ينتظر تلك الحرارة. فهو حمض متطاير يغادر عجينك مع بخار الماء، غالبًا من القشرة التي تجف. أما حمض اللبنيك فبالكاد يتبخر. ونقطة الغليان البالغة \LR{\qty{122}{\degreeCelsius}} (\LR{\qty{252}{\degF}}) التي تقرأها أحيانًا لحمض اللبنيك تُقاس تحت تفريغ قوي~\cite{pubchem+lactic+acid}. وعندما تفصل مختبرات النبيذ الحموض بالبخار، يحمل البخار معه ما لا يقل عن \LR{\qty{99.5}{\percent}} من حمض الخليك، لكن ما لا يتجاوز \LR{\qty{0.5}{\percent}} من حمض اللبنيك~\cite{oiv+volatile+acidity}. وتُظهر قياسات الخبز الحامض المخبوز أيضًا حموضة أقل في القشرة منها في اللُبّ~\cite{vriesekoop+spent+grain}. ومن الضروري فهم ذلك، إذ يفتح الباب أمام طرق عديدة ممتعة للتأثير في طعم خبزك النهائي. فكلما طالت مدة خَبزك للرغيف زاد ما يتبخر من ماء وزاد ما يغادر معه من حمض الخليك، بينما يبقى حمض اللبنيك الألطف في مكانه. وكلما طال الخَبز قلّت حموضة خبزك. وبالتحكم في زمن الخَبز يمكنك التأثير في مستوى الحموضة الذي تودّ الوصول إليه.
+
+سيكون من التجارب الشيّقة للغاية قياس الحموض في القشرة وفي اللُبّ بعد أزمنة خَبز مختلفة. فكم يتبقى من حمض الخليك بعد خَبز قصير؟ وماذا لو تخلصت تمامًا من حمض الخليك؟ كيف سيتغير الطعم؟
+
+\begin{figure}[!htb]
+  \input{plots/fig-temperature-surface.tex}
+  \caption[حرارة السطح لطرق توليد البخار المختلفة]{يوضح هذا المخطط كيف تتغير حرارة السطح عند استخدام طرق مختلفة لتوليد البخار. استخدمتُ هنا وعاء خبز هولندي وتفاحة بديلة عن العجين. وجاءت جميع التفاحات من الثلاجة. وقِستُ الحرارة باستخدام مقياس حرارة الشوّاء \textenglish{(barbecue thermometer)}. وكلما زاد البخار زادت سرعة ارتفاع حرارة سطح التفاحة.}
+\end{figure}
+
+ومع زيادة الحرارة أكثر تتسمك القشرة. ويدخل تفاعل مايار حيّز التفعيل، فيشوّه البروتينات والنشويات. ويبدأ خارج عجينك بالاكتساب لونًا أغمق وقوامًا أكثر هشاشة. وتبدأ هذه العملية بمجرد أن يجف السطح وتقترب درجة حرارته من \qtyrange{105}{120}{\degreeCelsius} (\qtyrange{221}{248}{\degF})، وتتسارع كلما سخنت القشرة أكثر~\cite{purlis+browning}.
+
+وعندما ترتفع الحرارة أكثر فأكثر إلى حوالي \LR{\qty{170}{\degreeCelsius}} (\LR{\qty{338}{\degF}}) تبدأ عملية التكرمل \textenglish{(caramelization)}، فيكتسب السكريات المتبقية والكائنات الدقيقة التي لم تتحول بعد لونًا بنيًّا معتّمًا. ويمكنك مواصلة الخَبز ما شئت من الوقت للوصول إلى لون القشرة الذي يعجبك.\footnote{هذا يعتمد فعلًا على ذوقك الشخصي إلى حد كبير. فبعض الناس يفضّلون قشرة أغمق، وآخرون يفضّلون قشرة أبهت. ومن الأفضل بناء قشرة أقل من بنائها أكثر من اللازم. فبإمكانك دائمًا تسخين خبزك في الفرن مرة أخرى لمواصلة بناء قشرة أغمق.}
+
+وأفضل طريقة لمعرفة أن عجينك قد اكتمل هي قياس حرارته، ويمكنك استخدام مقياس حرارة الشوّاء لقياسها. فبمجرد بلوغ الحرارة الداخلية حوالي \LR{\qty{92}{\degreeCelsius}} (\LR{\qty{197}{\degF}}) يمكنك إيقاف عملية الخَبز. لكن هذا لا يُجرى عادةً، لأن القشرة لم تكتمل بعد.\footnote{يكون مقياس الحرارة مهمًّا بوجه خاص عند استخدام قالب خبز كبير. فأحيانًا يصعب جدًّا الحكم من الخارج على اكتمال العجين. لقد أخفقتُ مرارًا وانتهيتُ بعجين نصف مخبوز.}
+
+وبمجرد انتهاء عجينك من الخَبز يصبح جاهزًا للأكل: فقد تحوّل عجينك إلى خبز. وعند هذه النقطة يكون خبزك معقمًا، إذ كانت الحرارة مرتفعة أكثر مما يتحمله الكائنات الدقيقة لتبقى حية.\footnote{وقد أتساءل فعلًا إن كان يمكن زراعة بادئة حامضة من جديد من شريحة خبز. فتحت الإجهاد الحراري تبدأ الكائنات الدقيقة بالتبويغ. وربما تنجو بعض الأبواغ من عملية الخَبز ويمكن إعادة تنشيطها لاحقًا؟ فإن نجح هذا، أمكنك استخدام أي خبز حامض تشتريه من المتجر مصدرًا لبادئة جديدة.}
+
+\section{دور البخار}
+البخار أساسي عند الخَبز لأنه يساعد على صدّ تكوّن القشرة قبل أوانه. فخلال المرحلة الأولى من الخَبز يزداد حجم العجين مع تبخر الماء الموجود فيه ودفع العجين كله إلى الأعلى.
+
+وعند الحرارة العالية ستتكون قشرة في العادة. تمامًا كما لو خبزتَ خضروات في فرنك المنزلي، ففي لحظة ما تصبح أغمق وأكثر هشاشة. وهذا ما يحدث لعجينك بالضبط، وتريد تأخير هذه العملية أطول ما يمكن حتى يكفّ عجينك عن التمدد. ويتوقف التمدد حين يكون معظم الكائنات الدقيقة قد مات والبخار المتصاعد لم يعد يحتجز داخل الحويصلات الهوائية \textenglish{(alveoli)}.
+
+وكلما قويت شبكة الغلوتين زاد ما يمكن احتجازه من غاز خلال عملية الخَبز. غير أن هذه الشبكة تفقد في لحظة ما قدرتها على احتواء الغاز مع ارتفاع الحرارة. فيكفّ العجين عن الزيادة في الحجم. ويلعب البخار دورًا مهمًّا إذ يتكاثف ويتبخر فوق عجينك. فترتفع حرارة السطح بسرعة إلى حوالي \LR{\qty{75}{\degreeCelsius}} (\LR{\qty{167}{\degF}}). وعند هذه الحرارة يبدأ الهلام بالتكون، وهو لا يزال قابلًا للتمدد ويسمح بالتمدد. وبدون البخار لن يدخل عجينك طور الهلام أبدًا، بل سينتقل مباشرة إلى منطقة تفاعل مايار. وتريد أن يبقى عجينك في طور الهلام أطول ما يمكن لبلوغ أقصى تمدد.\footnote{يمكنك إخراج عجينك من الفرن بعد \LR{5} دقائق لترى الهلام. ستلاحظ أنه يحفظ بنية العجين وأن قوامه مثير للاهتمام للغاية.}
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{baking-process-stage-2}
+  \caption[خطوة الخَبز الثانية، بدون بخار]{تُجرى المرحلة الثانية من الخَبز بدون بخار لبناء قشرة أسمك وأغمق.}
+\end{figure}
+
+وعندما لا تكفي كمية البخار ستلاحظ أن شقوق التشريط لا تنفتح انفتاحًا صحيحًا أثناء الخَبز. فهي تبقى مغلقة لأن العجين عاجز عن الدفع عبر القشرة. وهناك دليل آخر شائع، كما تراه في الشكل~\LR{\ref{fig:too-little-steam}}، وهو وجود جيوب هوائية أكبر باتجاه قشرة عجينك. فمع ارتفاع العجين عموديًّا يحجب القشرةُ التمددَ. وتندمج جيوب الهواء في جيوب أكبر مع زيادة الضغط. ويمكن أن يحدث هذا أيضًا عند الخَبز عند حرارة مرتفعة جدًّا.
+
+وكلما بخرتَ أكثر صارت قشرة عجينك أطرى. ولن تدخل مرحلتي مايار والتكرمل قط. وهذا سبب إزالة مصدر البخار للمرحلة الثانية من الخَبز. فلا يمكن حدوث مزيد من التمدد ويمكنك التركيز على بناء قشرة. وإن أردت قشرة طرية فيمكنك توليد البخار لعجينك طوال الوقت.
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.85\textwidth]{baking-too-hot}
+  \caption[خبز مخبوز على حرارة مرتفعة جدًّا]{إرسالية من \textenglish{Karomizu} تظهر خبزًا خُبز عند حرارة مرتفعة جدًّا أو ببخار قليل. لاحظ جيوب الهواء الكبيرة باتجاه القشرة. فهي دليل نموذجي على ذلك.}%
+      \label{fig:too-little-steam}
+\end{figure}
+
+\section{بناء البخار}
+\begin{flowchart}[!htb]
+\centering
+  \input{figures-ar/fig-baking-process-ar.tex}
+  \caption[طرق توليد البخار المختلفة]{تمثيل تخطيطي لعملية الخَبز باستخدام مصادر مختلفة للبخار في فرن منزلي.}%
+  \label{fig:baking-process}
+\end{flowchart}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.85\textwidth]{baking-example}
+  \caption[مثال على الخَبز في فرن منزلي لتعظيم البخار]{إعدادتي الافتراضية للفرن المنزلي. فصينية الحجارة والصينية فوق الأرغفة تحسّنان كثيرًا قدرة توليد البخار. وبهذه الطريقة يمكن للخبز أن يرتفع أكثر خلال المرحلة الأولى من عملية الخَبز.}
+\end{figure}
+
+\begin{figure}[!htb]
+  \includegraphics[width=\textwidth]{baking-process-steam}
+  \caption[بناء البخار بالصينية المقلوبة]{كيف يتكوّن البخار في فرنك باستخدام طريقة الصينية المقلوبة الموصوفة لاحقًا.}%
+      \label{flc:inverted-tray}
+\end{figure}
+
+\subsection{أوعية الخبز الهولندية}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.85\textwidth]{dutch-oven-example}
+  \caption[صورة وعاء خبز هولندي]{مثال على وعاء خبز هولندي. بعضها مصنوع من حديد زهر مطلي بالميناء \textenglish{(enameled cast iron)}، وبعضها مصنوع من الطين، وبعضها يتضمن غطاءً زجاجيًّا. ويعملها جميعًا بطريقة متشابهة إذ يحتجز بعض البخار المتكوّن خلال عملية الخَبز. ويتيح هذا الجو البخاري للخبز أن يرتفع أكثر، فيحصل على انتفاخ أكبر في الفرن ولُبّ أطرى.}%
+\end{figure}
+
+\begin{flowchart}[!htb]
+% FC 12.2 caption-gap fix (unit 12 finding, 2026-11-15): this picture's
+% natural width (463.50 pt) exceeds \textwidth (448.13 pt) by 15.37 pt,
+% and a plain \centering float box overflows, charging the overflow
+% against the vertical list and pushing the caption ~15 pt low vs the
+% accepted (gap 30.5 vs 15.7). The accepted's float box FITS \textwidth
+% while its ink overflows flush right and spills left (ink x 62.0-520.9
+% on accepted p. 146). \hbox to \textwidth{PICTURE\hss} reproduces that:
+% in the RTL line the first list item sits rightmost, so the picture
+% rides flush right and \hss absorbs the overflow to the left. Measured
+% against accepted p. 146: ink x 63.3-520.5 vs 62.0-520.9, caption gap
+% 15.1 vs 15.7. Ordering matters: \hss FIRST would put the picture
+% flush LEFT overflowing right (LTR habit) — content first, \hss second.
+\hbox to \textwidth{\input{figures-ar/fig-dutch-oven-process-ar.tex}\hss}%
+  \caption[عملية الخَبز بوعاء خبز هولندي]{تمثيل لعملية الخَبز باستخدام وعاء خبز هولندي \textenglish{(DO)}. يُبخَّر العجين في النصف الأول من الخَبز ثم يُخبز بدون غطاء في النصف الثاني. ودرجة الغمقان والسُّمك المرغوبَين في القشرة يعتمدان على ذوقك الشخصي. فبعض الخبازين يفضّلون قشرة أبهت وآخرون أغمق.}%
+  \label{fig:dutch-oven-process}
+\end{flowchart}
+
+أوعية الخبز الهولندية وسيلة مثالية للخَبز ببخار وفير. فهي ليست محكمة الإغلاق تمامًا، ومع ذلك، كلما تبخر الماء من عجينك ستكوّن جوًّا بخاريًّا يتيح لعجينك الارتفاع. وهذا يجعل الخَبز في فرن منزلي سهلًا للغاية.
+
+عند استخدام وعاء خبز هولندي احرص على تسخينه مسبقًا كما يجب، وبهذا لن يلتصق عجينك به. ويمكنك أيضًا استخدام دقيق سميد إضافي أو ورق الخَبز. وحيلة جيدة أخرى هي رشّ عجينك بقليل من الماء. ولتوليد مزيد من البخار يمكنك أيضًا وضع مكعب ثلج صغير بجانب عجينك الرئيسي.
+
+لقد كنت أستخدم وعاء خبز هولندي بنفسي منذ زمن طويل. لكن لها مشكلات. فهي ثقيلة نسبيًّا. وتشغيل أواني الحديد الزهر الساخنة أمر خطير. وبوجه خاص عند التعامل مع البخار عليك توخّي الحذر الشديد. وعلاوةً على ذلك فهي مكلفة الشراء. وإن كان وعاؤك الهولندي من الحديد الزهر فعليك إجراء معالجة له \textenglish{(seasoning)} من وقت لآخر، وهذا يستغرق وقتًا.
+
+أما أكبر عيب فيه فهو السعة. فلا يمكنك خبز سوى رغيف واحد في كل مرة، إذ إن حجم وعاء الخبز الهولندي محدود. وفي حالات كثيرة من المنطقي خبز أرغفة متعددة دفعة واحدة، فهذا يجعل العملية كلها أكثر كفاءة لأنك تعجن أقل لكل رغيف. وينخفض متوسط الزمن المستغرق لصنع رغيف واحد انخفاضًا كبيرًا. وعلاوة على ذلك فلن تحتاج إلى طاقة مقدارها ذاته، إذ لن تضطر إلى تسخين فرنك مرتين لكل رغيف.
+
+إضافة إلى عيوب أوعية الخبز الهولندية ما تحتاجه من نقل حديد زهر ثقيل وساخن جدًّا.\footnote{بعضها قد يزن حتى \LR{10} كيلوغرامات. ونقلها تمرين متعب للغاية. وبوجه خاص إذا كان الحديد الزهر ساخنًا فعليك الدقة الشديدة في حركاتك. وعلى الرغم من أنني أبذل قصارى جهد فقد تركت لي بعض الجروح في يديّ وذراعيّ من تشغيل الأواني الهولندية.}
+ستحتاج إلى توخي الحذر الشديد، والأفضل استخدام قفازات مقاومة للحرارة عند لمس وعائك الهولندي.
+
+وعلاوة على ذلك فإن بعض أوعية الخبز الهولندية تأتي بسعر باهظ. وبوجه خاص بالنسبة إلى الخبازين الجدد فإن شراء وعاء خبز هولندي فوق غيره من الأدوات قد يكون استثمارًا كبيرًا. لهذا السبب أدعو إلى طريقة الصينية المقلوبة الموضحة في القسم التالي. وإن لم تملك فرنًا ففكر في تجربة وصفة الخبز المسطّح البسيطة التي تُخبز في مقلاة. راجع القسم~\LR{8.2.2} لمزيد من التفاصيل.
+
+
+\subsection{طريقة الصينية المقلوبة}
+
+تحاكي طريقة الصينية المقلوبة وعاء الخبز الهولندي. فبوضع صينية أخرى فوق عجينك يبقى البخار المتكوّن من العجين ومصدر الماء حول عجينك.
+
+\begin{flowchart}[!htb]
+\centering
+  \input{figures-ar/fig-inverted-tray-method-ar.tex}
+  \caption[عملية الخَبز بالصينية المقلوبة]{تمثيل تخطيطي لطريقة الخَبز بالصينية المقلوبة التي تعمل بشكل رائع في الأفران المنزلية.}%
+  \label{fig:inverted-tray-process}
+\end{flowchart}
+
+
+وأكبر ميزة لهذه الطريقة مقارنة بوعاء الخبز الهولندي هي قابلية التوسع. فيمكنك خبز أرغفة متعددة في الوقت ذاته. وفي حالتي حوالي رغيفين قائمين بذاتهما و\LR{4} أرغفة في قالب الخبز.
+
+ستحتاج لطريقة الصينية المقلوبة إلى الأدوات التالية:
+\begin{itemize}
+\item صينيتان
+\item وعاء مقاوم للحرارة
+\item ماء مغلي
+\item قفازات الفرن
+\item (اختياري) ورق الخَبز \textenglish{(parchment paper)}
+\end{itemize}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.85\textwidth]{baking-example}
+  \caption{إعدادتي في الفرن المنزلي.}
+\end{figure}
+
+وهذه الخطوات التي تتبعها مع طريقة الصينية المقلوبة:
+\begin{enumerate}
+\item سخّن الفرن إلى حوالي \LR{\qty{230}{\degreeCelsius}} (\LR{\qty{446}{\degF}}) وسخّن إحدى الصينيتين مسبقًا.
+\item اغلي الماء.
+\item ضع أرغفك على قطعة من ورق الخَبز. ويمكنك أيضًا وضع كل رغيف على قطعة صغيرة من ورق الخَبز، فهذا يسهّل تحميل العجين. وإن لم يكن لديك أو لم ترغب في استخدامه فيمكنك اختيار دقيق السميد، فهو يساعد على جعل الصينية غير لاصقة.
+\item أخرج صينيتك الساخنة وضعها على رف تبريد أو على شيء آخر مقاوم للحرارة.
+\item شريّط عجائنك.
+\item ضع عجائنك على الصينية الساخنة.
+\item ضع الصينية الباردة في فرنك في وضع مقلوب.
+\item أعد صينيتك الساخنة بما تحويه من أرغفة إلى الفرن.
+\item ضع الماء المغلي في الوعاء المقاوم للحرارة. لقد أضفتُ حجارة إليه، لأنه يساعد على تحسين البخار أكثر. وهذا اختياري.
+\item أغلق الفرن.
+\item بعد \LR{30} دقيقة أزل الصينية العلوية. وأزل أيضًا الوعاء الذي فيه الماء.
+\item أكمل خَبز خبزك حتى تبلغ لون القشرة الذي تريده. وفي حالتي يكون ذلك عادةً \LR{\textenglish{15\textendash 25}} دقيقة أخرى.
+\end{enumerate}
+
+\section{الخلاصة}
+
+% TABLE 12.2 PLACEMENT (unit 12 finding, 2026-11-15): the upstream spec
+% is [!htb] (baking/baking.tex line 345), but with '!' LaTeX ignores
+% \topfraction and the table stacks under FC 12.2 in the top area of
+% the FC 12.2 page (FC 12.2 + table = 87% of the page), squeezing the
+% text area to nothing and pushing the الخلاصة heading to the next
+% page. The accepted render shows the opposite: the heading stays on
+% accepted p. 146 (y 525) and the table defers to p. 147, stacking
+% under FC 12.3 (49% of the page, within \topfraction 0.7). Dropping
+% the '!' reproduces the accepted placement; documented as a deviation
+% from the upstream spec, warranted by the accepted edition as the
+% fidelity authority.
+\begin{table}[htb]
+    \centering
+        \input{tables-ar/table-oven-baking-overview-ar.tex}
+        \caption[أنواع الأفران المختلفة]{نظرة عامة على أنواع الفرن المختلفة وطرق خَبزها المختلفة.}
+\end{table}
+
+وبحسب فرنك المنزلي يمكن استخدام طريقة مختلفة لتوليد البخار. ففي العادة صُمم معظم الأفران ليطرح معظم البخار خارجًا أثناء الخَبز. فهي ليست مغلقة تمامًا في العادة. وأثناء الخَبز تريد أن يجفّ ما تخبزه. وهذا مثالي إذا كنت تحمّص خضروات وأردتها أن تجف. أما للخَبز فهذا مشكل للغاية. فكما وصفت سابقًا، تريد أن يكون هناك أكبر قدر ممكن من البخار.
+
+وإذا كنت تستخدم فرنًا يعمل بالغاز فالخيار الوحيد هو استخدام وعاء خبز هولندي. والشيء نفسه ينطبق عندما تستخدم فرن حمل حراري بمروحة لا يمكن إيقافها. وعند استخدام فرن حمل حراري بمروحة يمكن إيقافها، يمكنك اختيار طريقة الصينية المقلوبة الاقتصادية.
+
+وإذا كنت من المحظوظين بامتلاك فرن بخاري فالأمر أسهل. ما عليك إلا تفعيل وظيفة البخار وتمضي. ووضع صينية إضافية فوق عجينك أثناء الخَبز يساعد على الخَبز بحرارة غير مباشرة. وتبقى في منطقة الهلام مدة أطول وستشهد انتفاخًا أكبر في الفرن.
