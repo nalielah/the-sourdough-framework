@@ -1,0 +1,49 @@
+% unit16.tex — R2 unit 16 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 16 per the reconstruction plan: ch. 15 glossary (accepted
+% pp. 180–190). Seventy-two description entries (upstream's 78 \item
+% lines collapse because the nested \item[] sub-items of Baking, Float
+% test and P/L Value fold into the parent entries' list structures),
+% quoting intro, one enumerate (Baking stages, 1.–7.), two unmarked-item
+% itemize groups (Float test results; P/L breakdown) each with a closing
+% paragraph outside the list, one cite cluster (Non-diastatic Malt:
+% wheat+amylase+singh, innograin+enzymes, reichenberger+amylase), no
+% figures, no tables. Content layer transcribed from the accepted
+% edition text layer (book-ar-fixed.pdf, b78c2a28…, PRIMARY; verified
+% against renders of pp. 180–187) with the recovery reference
+% (recovery-r0/text/15-glossary.txt) as cross-check and spacing/wording
+% arbiter — no retranslation; upstream glossary.tex gives structure only
+% (entry order, list nesting, qty values, pH values, cite keys, \emph{}
+% terms). Built with the standing arabic-digits.lua (standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2
+% (2026-11-15). Driver scheme per the accepted edition, same as units
+% 3–15: NO \frontmatter — chapters are numbered from 1 and page
+% numbering runs continuously in Western digits from the cover. Unit
+% builds carry natural chapter numbering (ch. 15 builds as ch. 1 here,
+% cites as [1]/[2]…); the R3 full-book assembly regenerates true
+% numbering.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15), inherited by units 10–16: literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this \textenglish range-phrase is the fallback
+% convention. Driver-level change only.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{glossary-ar.tex}
+
+\end{document}
