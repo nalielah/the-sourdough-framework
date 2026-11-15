@@ -150,6 +150,15 @@
 \renewcommand*{\subsubsectionformat}{\LR{\thesubsubsection\autodot}}
 \renewcommand*{\figureformat}{\LR{\thefigure\autodot}}
 \renewcommand*{\tableformat}{\LR{\thetable\autodot}}
+% Flowchart caption: keep KOMA's default label (\flowchartname~number) and
+% wrap only the number in \LR{}, mirroring the figureformat mechanism.
+% Wrapping the number alone is essential: without it the @ensure@LTR
+% \LRE-fragments reverse around the bare dot in the RTL caption line,
+% rendering "2.1" for logical 1.2 (R2 pipeline ruling 2026-11-15, Route
+% (a) authorized). The name is KEPT: the KOMA default \flowchartformat
+% includes it, the delivered unit 8 build showed it, and the accepted
+% edition renders it («المخطط الانسيابي 6.1:», Amiri-Bold).
+\renewcommand*{\flowchartformat}{\flowchartname~\LR{\theflowchart\autodot}}
 \renewcommand*{\chaptermarkformat}{\LR{\thechapter\autodot}\enskip}
 
 % ------------------------------------------------- KAO CHAPTER HEADING STYLES
