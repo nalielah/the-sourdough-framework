@@ -18,6 +18,13 @@
 %   - \insert@column TRT patch for RTL table cells
 %   - arabic-digits.lua post-filter loaded
 %   - PDF metadata Title in Arabic
+%   - R3 sty session (2026-11-16, owner-authorized consolidated session):
+%     siunitx range-phrase promoted from the driver; the settled
+%     content-layer conventions recorded here as binding (cell-direction,
+%     sans-context Latin routing, dash-font/literal ranges); the
+%     paren-font residual ruled a lua exception (documented at the Lua
+%     hook below); Latin-island metrics and the recipe-inline construct
+%     ruled content-layer (documented in the completion report).
 %
 % STANDING RULES FOR THIS FILE:
 %   - No \makeatletter here. A .sty already has @ as a letter; adding it
@@ -36,6 +43,15 @@
 \usepackage[mode=match, reset-text-family=false]{siunitx}
 \usepackage{fontspec}
 \usepackage{calc}
+% Sans-context Latin routing convention (units 11/14, BINDING for all
+% future units): Latin text in sans contexts — quoting-environment intro
+% lines and parenthesized fragments in chapter/section headings — is
+% wrapped in \textenglish{...} at the content layer so it routes to Open
+% Sans (sb series via the quoting font option below), matching the
+% accepted edition's OpenSans-Bold render. Heading parens are wrapped
+% per glyph: \textenglish{(}...\textenglish{)}. Verified matched against
+% the accepted edition on all 16 OpenSans-Bold paren pages (R3 census,
+% 2026-11-16).
 \usepackage[font={sffamily, sbseries}]{quoting}
 % microtype is DISABLED in the Arabic edition: protrusion/expansion has no
 % support for Arabic scripts under LuaLaTeX. (Upstream loads microtype.)
@@ -134,6 +150,25 @@
 % onto size-matched TeX Gyre Pagella (RATIO 433/469), hlist AND vlist
 % recursion, style-matched. Loaded from the build directory.
 \directlua{dofile("arabic-digits.lua")}
+
+% Paren-font decomposition (R3 whole-book per-character font census,
+% 2026-11-16): the accepted edition typesets parentheses context-natively
+% — Amiri in Arabic prose (88 pages, plus Amiri-Bold/Italic where the
+% context is bold/italic), Pagella inside Latin islands (54 pages),
+% OpenSans-Bold in headings (16 pages, matched by the convention above).
+% This layer's remap sends every paren landing in Amiri to Pagella (the
+% lua REMAP set carries 0x28/0x29), so our Arabic-prose parens render
+% Pagella where the accepted edition renders Amiri (unit 19 parked
+% agenda: the 4.7pt percent-anchor offset and ~3pt-narrower quantity
+% gaps on accepted p. 119 are this residual). Closing it requires
+% removing 0x28/0x29 from the REMAP set in arabic-digits.lua — a
+% no-touch file whose md5 is a standing anchor — and the lua chunk's
+% locals are not reachable from the sty, so no sty-layer mechanism
+% exists. A second post_linebreak_filter reverting the remap was
+% considered and REJECTED: it would fight the lua filter on font
+% identity the letter-stream battery cannot audit. Ruled a LUA EXCEPTION
+% pending owner authorization; arabic-digits.lua stays untouched
+% (md5 a2e3d1daeb3e24ced21873376170cab8).
 
 % --------------------------------------------------------------- TikZ fix
 % Flowchart node text stays LTR; Arabic labels inside nodes are wrapped in
@@ -356,6 +391,14 @@
   {\ignorespaces \@sharp \unskip \textdir TRT}%
   {}{\PackageError{sourdough-ar}{\string\insert@column\space patch failed (array.sty changed?)}{}}
 
+% Cell-direction convention (unit 9 ruling, BINDING for all table units):
+% columns are declared in visual left-to-right order with the labels
+% rightmost, and \qty cells are wrapped in \LR{} islands at the source
+% level. The \insert@column patch above starts every cell body in TRT;
+% cells whose whole body — Arabic text and its Latin islands together —
+% needs explicit direction control wrap it in {\textdir TRT ...} at the
+% content layer, per the settled unit 9/12 pattern.
+
 % Kerning in footnotes
 \usepackage{fnpct}
 
@@ -413,6 +456,15 @@
 \addtokomafont{caption}{\small}
 
 \DeclareSIUnit\degF{\text{°}F}
+
+% Dash-font convention (unit 9 finding, promoted from the driver at the
+% R3 sty session 2026-11-16): siunitx range phrases take the en-dash
+% through \textenglish so the range dash is typeset in the Latin face,
+% matching the accepted edition. Literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this range-phrase is the fallback. Standing rule:
+% "--" in sources means \textendash.
+\sisetup{range-phrase={\textenglish{\textendash}}}
 
 % By default start with the lines style
 \setchapterstyle{lines}

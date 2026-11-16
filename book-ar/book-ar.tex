@@ -24,20 +24,19 @@
 % artifact disappears).
 % Built with the standing arabic-digits.lua (standing md5
 % a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15).
-% No sty/lua change; the parked sty-level harmonization agenda
-% (cell-direction, dash-font, paren-font incl. heading-paren, sans-context
-% Latin routing, Latin-island metrics, recipe-inline construct
-% generalizability) awaits owner rulings and is NOT applied here.
+% R3 sty session (2026-11-16, owner docket ruling): the dash-font
+% range-phrase is promoted into sourdough-ar.sty; the cell-direction and
+% sans-context Latin routing conventions are recorded there as binding;
+% the paren-font residual is ruled a lua exception and the Latin-island
+% metrics and recipe-inline construct stay content-layer (all documented
+% in the sty and the session completion report). arabic-digits.lua
+% untouched.
 
 \documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
                 bibliography=totoc, listof=totoc]{scrbook}
 \usepackage{sourdough-ar}
-% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
-% (2026-11-15), inherited by units 10–19: literal-text ranges
-% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
-% \numrange with this \textenglish range-phrase is the fallback
-% convention. Driver-level change only.
-\sisetup{range-phrase={\textenglish{\textendash}}}
+% The siunitx range-phrase (unit 9 dash-font convention) lives in
+% sourdough-ar.sty since the R3 sty session (2026-11-16).
 \author{Hendrik Kleinw\"achter}
 \title{منظومة عمل الخبز الحامض}
 
