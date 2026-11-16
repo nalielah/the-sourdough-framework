@@ -1,0 +1,32 @@
+% table-starter-usage-activity-ar.tex — Arabic edition of upstream
+% tables/table-starter-usage-activity.tex (ch. 9, جدول 9.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics (unit 9): the column order
+% is reversed in the declared LTR tabular (upstream {@{}cSS@{}} becomes
+% {@{}ccc@{}} with the starving column leftmost) so the °C/°F label
+% column renders rightmost and the Amount (%) span covers the two
+% value columns it covers upstream (declared cols 1--2 here, \cmidrule
+% moved with them). Every non-empty cell wrapped {\textdir TRT ...}
+% per the unit 9 cell-direction convention; numerals ride \LR{} islands
+% (siunitx output must stay LTR inside RTL paragraphs); the °C/°F
+% header and the "30 / 86" temperature pairs are Latin/symbol content
+% and ride \LR{} islands whole. The recently-fed/starving column order
+% and all cell values follow the accepted edition's render of p. 84
+% (values 5/10/15 recently fed, 2.5/5/10 starving); the visual column
+% order is render-verified against accepted p. 84 in the unit battery.
+
+\begin{tabular}{@{}ccc@{}}
+\toprule
+\multicolumn{2}{c}{\thead{{\textdir TRT الكمية \LR{(\%)} للبادئة}}} & \\
+\cmidrule(lr){1-2}
+\thead{{\textdir TRT جائعة}} & \thead{{\textdir TRT تغذيت حديثًا}} & \thead{{\textdir TRT \LR{°C / °F}}} \\
+\midrule
+{\textdir TRT \LR{\num{2.5}}} & {\textdir TRT \LR{\num{5}}}  & {\textdir TRT \LR{30 / 86}} \\
+{\textdir TRT \LR{\num{5}}}   & {\textdir TRT \LR{\num{10}}} & {\textdir TRT \LR{25 / 77}} \\
+{\textdir TRT \LR{\num{10}}}  & {\textdir TRT \LR{\num{15}}} & {\textdir TRT \LR{20 / 68}} \\
+\bottomrule
+\end{tabular}

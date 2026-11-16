@@ -1,0 +1,52 @@
+% fig-bulk-fermentation-ar.tex — Arabic edition of upstream
+% figures/fig-bulk-fermentation.tex (ch. 9, المخطط الانسيابي 9.4)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-bulk-fermentation.tex (node styles from
+% figures/flowcharts_tikz.tex, node/edge geometry verbatim including the
+% no-double-line draw tricks), with the label text recovered from the
+% accepted edition's render of p. 92 (book-ar-fixed.pdf, b78c2a28…).
+% Line splits follow the accepted render (التخمير/الأول، افحص/العجين،
+% افحص/زيادة الحجم، افحص/قيمة pH، افحص/رائحة العجين، هل العجين/جاهز؟،
+% قسّم/وشكّل مسبقًا، هل سُطِّح/العجين؟، انتظر/60 دقيقة، الطيّات/
+% والشدّات). Arabic label text wrapped in \textarabic{}; the pH symbol
+% and the 60-minute digit ride \LR{} islands (Ruling 1 uniform-Pagella
+% figure face, ACCEPTED 2026-11-15). The أو edge labels and نعم/لا
+% decision labels follow the accepted render. The decision node
+% هل سُطِّح العجين؟ carries a kasra+shadda on the س in the accepted
+% render's text layer (هل س ّطح) — flagged for render verification in
+% the unit battery.
+
+\begin{tikzpicture}[node distance = 3cm, auto]
+  \node [start] (init) {\textarabic{التخمير}\\ \textarabic{الأول}};
+  \node [block, right of=init, node distance=4cm] (check_dough) {\textarabic{افحص}\\ \textarabic{العجين}};
+  \node [block, right of=check_dough, node distance=4cm] (size_increase) {\textarabic{افحص}\\ \textarabic{زيادة الحجم}};
+  \node [block, below of=size_increase, node distance=2cm] (ph_value) {\textarabic{افحص}\\ \textarabic{قيمة \LR{pH}}};
+  \node [block, below of=ph_value, node distance=2cm] (smell) {\textarabic{افحص}\\ \textarabic{رائحة العجين}};
+  \node [decision, right of=size_increase, node distance=4cm] (dough_ready) {\textarabic{هل العجين}\\ \textarabic{جاهز؟}};
+  \node [success] at(dough_ready |- smell) (divide_preshape) {\textarabic{قسّم}\\ \textarabic{وشكّل مسبقًا}};
+  \node [decision, above of=size_increase] (dough_flattened) {\textarabic{هل سُطِّح}\\ \textarabic{العجين؟}};
+  \node [block, above of=check_dough] (wait_60_minutes) {\textarabic{انتظر}\\ \LR{60} \textarabic{دقيقة}};
+  \node [block, above of=wait_60_minutes] (stretch_fold) {\textarabic{الطيّات}\\ \textarabic{والشدّات}};
+
+  \path [line] (init) -- (check_dough);
+  \path [line] (check_dough) -- (size_increase);
+  % Tricks not to get double lines
+  \path [line] (check_dough) ++(2, -2) -- node{\textarabic{أو}} (ph_value);
+  \path [line] (check_dough) ++(2, 0) -- node{} ++(0, -4) -- node{\textarabic{أو}} (smell);
+  \path [line] (check_dough) ++(2, -4) -- node{\textarabic{أو}} (smell);
+  \path [line] (size_increase) -- (dough_ready);
+  % Same tricks not to get double lines and also we do _not_ want arrows
+  \path [draw, thick] (ph_value) -- node{} ++(2, 0);
+  \path [draw, thick] (smell) -| node{} ++(2, 4);
+  \path [line] (dough_ready) -- node{\textarabic{نعم}} (divide_preshape);
+  \path [line] (dough_ready) |- node[right=3pt]{\textarabic{لا}} (dough_flattened);
+  \path [line] (dough_flattened) |- node[right=3pt]{\textarabic{نعم}} (stretch_fold);
+  \path [line] (dough_flattened) -- node{\textarabic{لا}} (wait_60_minutes);
+  \path [line] (stretch_fold) -- (wait_60_minutes);
+  \path [line] (wait_60_minutes) -- (check_dough);
+\end{tikzpicture}

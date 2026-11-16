@@ -1,0 +1,55 @@
+% fig-kneading-process-ar.tex — Arabic edition of upstream
+% figures/fig-kneading-process.tex (ch. 9, المخطط الانسيابي 9.3)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-kneading-process.tex (node styles from
+% figures/flowcharts_tikz.tex, node/edge geometry verbatim), with the
+% label text recovered from the accepted edition's render of p. 86
+% (book-ar-fixed.pdf, b78c2a28…). Line splits follow the accepted
+% render (اخلط/المكونات pattern: امزج/مكونات الوصفة، انتظر/15 دقيقة،
+% اعجن/5 دقائق، اختبار/النافذة؟، الباسيناج/لمزيد من الماء؟، اصنع كرة/
+% عجين ملساء، جرّبة/الأليكوت؟، ابدأ/التخمير الأول). Arabic label text
+% wrapped in \textarabic{}; digit runs ride \LR{} islands (Ruling 1
+% uniform-Pagella figure face, ACCEPTED 2026-11-15). Decision edge
+% labels نعم/لا follow the accepted render.
+%
+% ACCEPTED-EDITION DIVERGENCE (2026-11-16): the accepted edition renders
+% the second wait node (upstream "Wait 15 minutes", wait2) as an EMPTY
+% box — its text is absent from both the accepted text layer and the
+% render of acc. p. 86. The node is kept (box drawn) with empty text to
+% match the accepted edition; upstream geometry retained. The accepted
+% render also displaces the knead node's «5 دقائق» line outside its box
+% (accepted-build artifact); here it stays inside the اعجن node, letters
+% unchanged.
+
+\begin{tikzpicture}[node distance = 4cm, auto]
+  \node [start] (init) {\textarabic{امزج}\\ \textarabic{مكونات الوصفة}};
+  \node [block, right of=init] (wait1) {\textarabic{انتظر}\\ \LR{15} \textarabic{دقيقة}};
+  \path [line] (init) -- (wait1);
+  \node [block, right of=wait1] (knead) {\textarabic{اعجن}\\ \LR{5} \textarabic{دقائق}};
+  \path [line] (wait1) -- (knead);
+  % accepted edition renders this node's box empty (text layer + render of acc. p. 86):
+  \node [block, right of=knead] (wait2) {};
+  \path [line] (knead) -- (wait2);
+  \node [decision, below of=wait2, node distance=4cm] (windowpane_test) {\textarabic{اختبار}\\ \textarabic{النافذة؟}};
+  \path [line] (wait2) -- (windowpane_test);
+  \path [line] (windowpane_test.east) -- node{\textarabic{لا}} ++(1, 0) -- node{} ++(0, 5.7) -|  (knead.north);
+  \node [decision] at (windowpane_test -| knead) (more_water) {\textarabic{الباسيناج}\\ \textarabic{لمزيد من الماء؟}};
+  \path [line] (windowpane_test) -- node{\textarabic{نعم}} (more_water);
+  \node [block] at (wait1 |- more_water) (add_water) {\textarabic{أضف الماء}};
+  \path [line] (more_water) -- node{\textarabic{نعم}} (add_water);
+  \path [line] (add_water.north east) -- (knead.south west);
+  \node [decision, below of=more_water, node distance=4.5cm] (dough_sample) {\textarabic{جرّبة}\\ \textarabic{الأليكوت؟}};
+  \path [line] (more_water) -- node{\textarabic{لا}} (dough_sample);
+  \node [block] at (dough_sample -| wait2) (dough_ball) {\textarabic{اصنع كرة}\\ \textarabic{عجين ملساء}};
+  \path [line] (dough_sample) -- node{\textarabic{لا}} (dough_ball);
+  \node [block, below of=dough_sample] (extract_sample) {\textarabic{استخرج جرّبة}};
+  \path [line] (dough_sample) -- node{\textarabic{نعم}} (extract_sample);
+  \path [line] (extract_sample.north east) -- (dough_ball.south west);
+  \node [success, below of=dough_ball] (begin_bulk) {\textarabic{ابدأ}\\ \textarabic{التخمير الأول}};
+  \path [line] (dough_ball) -- (begin_bulk);
+\end{tikzpicture}

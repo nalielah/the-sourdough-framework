@@ -1,0 +1,41 @@
+% fig-wheat-sourdough-process-ar.tex — Arabic edition of upstream
+% figures/fig-wheat-sourdough-process.tex (ch. 9, المخطط الانسيابي 9.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-wheat-sourdough-process.tex (node styles from
+% figures/flowcharts_tikz.tex and the node/edge geometry verbatim), with
+% the label text recovered from the accepted edition's render of p. 73
+% (book-ar-fixed.pdf, b78c2a28…) — label recovery against a visual
+% reference, not retranslation. Line splits inside nodes follow the
+% accepted edition's render exactly (اخلط/المكونات، ابِن قوة/العجين،
+% هل تخبز/رغيفًا واحدًا؟). Arabic label text is wrapped in
+% \textarabic{}; digit/Latin runs ride \LR{} islands (Ruling 1
+% uniform-Pagella figure face, ACCEPTED 2026-11-15). The decision edge
+% labels نعم/لا follow the accepted render.
+
+\begin{tikzpicture}[node distance = 3.2cm, auto]
+  \node [start] (init) {\textarabic{بادئة جاهزة}};
+  \node [block, right of=init] (mix_ingredients) {\textarabic{اخلط}\\ \textarabic{المكونات}};
+  \node [block, right of=mix_ingredients] (dough_strength) {\textarabic{ابِن قوة}\\ \textarabic{العجين}};
+  \node [block, right of=dough_strength] (bulk) {\textarabic{التخمير الأول}};
+  \node [decision, below of=bulk] (divide_test) {\textarabic{هل تخبز}\\ \textarabic{رغيفًا واحدًا؟}};
+  \node [block, right of=divide_test] (divide) {\textarabic{قسّم}};
+  \node [block, below of=divide] (preshape) {\textarabic{التشكيل المسبق}};
+  \node [block, below of=divide_test] (shape) {\textarabic{شكّل}};
+  \node [block, left of=shape] (proof) {\textarabic{التخمير النهائي}};
+  \node [success, left of=proof] (bake) {\textarabic{اخبز}};
+  \path [line] (init) -- (mix_ingredients);
+  \path [line] (mix_ingredients) -- (dough_strength);
+  \path [line] (dough_strength) -- (bulk);
+  \path [line] (bulk) -- (divide_test);
+  \path [line] (divide_test) -- node{\textarabic{نعم}} (shape);
+  \path [line] (divide_test) -- node{\textarabic{لا}} (divide);
+  \path [line] (divide) -- (preshape);
+  \path [line] (preshape) -- (shape);
+  \path [line] (shape) -- (proof);
+  \path [line] (proof) -- (bake);
+\end{tikzpicture}

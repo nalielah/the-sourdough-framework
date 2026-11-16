@@ -1,0 +1,32 @@
+% table-ph-values-dough-ar.tex — Arabic edition of upstream
+% tables/table-ph-values-dough.tex (ch. 9, جدول 9.4)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics (unit 9): the column order
+% is reversed in the declared LTR tabular (upstream {@{}lr@{}} becomes
+% {@{}rl@{}}) so the step label column renders rightmost and the pH
+% value column leftmost, matching the accepted edition's render of
+% p. 95. Every non-empty cell wrapped {\textdir TRT ...} per the unit 9
+% cell-direction convention; the pH values ride \LR{} islands
+% (siunitx output must stay LTR inside RTL paragraphs) and the pH
+% header keeps the Latin symbol in an \LR{} island per the glossary
+% (never translate the symbol). Cell text follows the accepted
+% edition's render of p. 95 line for line; the caption lives in the
+% chapter file.
+
+\begin{tabular}{@{}rl@{}}
+\toprule
+\thead{{\textdir TRT المرحلة}} & \thead{{\textdir TRT قيمة \LR{pH}}} \\
+\midrule
+{\textdir TRT البادئة جاهزة}          & {\textdir TRT \LR{\num{4.20}}} \\
+{\textdir TRT الخلط}                  & {\textdir TRT \LR{\num{6.00}}} \\
+{\textdir TRT التقسيم والتشكيل المسبق} & {\textdir TRT \LR{\num{4.10}}} \\
+{\textdir TRT التشكيل}                & {\textdir TRT \LR{\num{4.05}}} \\
+{\textdir TRT قبل التخمير النهائي}     & {\textdir TRT \LR{\num{4.03}}} \\
+{\textdir TRT بعد التخمير النهائي}     & {\textdir TRT \LR{\num{3.80}}} \\
+{\textdir TRT بعد الخَبز}              & {\textdir TRT \LR{\num{3.90}}} \\
+\bottomrule
+\end{tabular}

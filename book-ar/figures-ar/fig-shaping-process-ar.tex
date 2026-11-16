@@ -1,0 +1,39 @@
+% fig-shaping-process-ar.tex — Arabic edition of upstream
+% figures/fig-shaping-process.tex (ch. 9, المخطط الانسيابي 9.6)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-shaping-process.tex (node styles from
+% figures/flowcharts_tikz.tex, node/edge geometry verbatim), with the
+% label text recovered from the accepted edition's render of p. 104
+% (book-ar-fixed.pdf, b78c2a28…). Line splits follow the accepted
+% render (هل العجين لزجًا/أكثر من اللازم/أو يتمزق؟، عجينك على الأرجح/
+% مفرط التخمير، انقل إلى قالب/الخبز، ثم تخمير/نهائي قصير،/واخبز مباشرة،
+% تابع بتقنية/التشكيل، رشّ العجين/المشكَّل بالدقيق، ضعه مقلوبًا/
+% في سلة التخمير). Arabic label text wrapped in \textarabic{} (Ruling 1
+% uniform-Pagella figure face, ACCEPTED 2026-11-15). Decision edge
+% labels نعم/لا follow the accepted render. The wide decision node
+% keeps the standard decision style; if the build shows the unit 12
+% line-break problem, the local decisionnat style is the settled
+% fallback (unit 12 convention).
+
+\begin{tikzpicture}[node distance = 3cm, auto]
+  \node [start] (init) {\textarabic{ابدأ التشكيل}};
+  \node [decision, right of=init, node distance=4cm] (overfermented_decision) {\textarabic{هل العجين لزجًا}\\ \textarabic{أكثر من اللازم}\\ \textarabic{أو يتمزق؟}};
+  \node [block, right of=overfermented_decision, node distance=4cm] (overfermented) {\textarabic{عجينك على الأرجح}\\ \textarabic{مفرط التخمير}};
+  \node [fail, right of=overfermented, node distance=4cm] (loafpan) {\textarabic{انقل إلى قالب}\\ \textarabic{الخبز، ثم تخمير}\\ \textarabic{نهائي قصير،}\\ \textarabic{واخبز مباشرة}};
+  \node [block, below of=overfermented_decision, node distance=4cm] (shaping_technique) {\textarabic{تابع بتقنية}\\ \textarabic{التشكيل}};
+  \node [block, right of=shaping_technique] (flour) {\textarabic{رشّ العجين}\\ \textarabic{المشكَّل بالدقيق}};
+  \node [block, right of=flour] (banneton) {\textarabic{ضعه مقلوبًا}\\ \textarabic{في سلة التخمير}};
+  \node [success, right of=banneton] (proof) {\textarabic{ابدأ التخمير النهائي}};
+  \path [line] (init) -- (overfermented_decision);
+  \path [line] (overfermented_decision) -- node{\textarabic{نعم}} (overfermented);
+  \path [line] (overfermented_decision) -- node{\textarabic{لا}} (shaping_technique);
+  \path [line] (shaping_technique) -- (flour);
+  \path [line] (flour) -- (banneton);
+  \path [line] (banneton) -- (proof);
+  \path [line] (overfermented) -- (loafpan);
+\end{tikzpicture}

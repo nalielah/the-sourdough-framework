@@ -1,0 +1,25 @@
+% fig-dividing-preshaping-ar.tex — Arabic edition of upstream
+% figures/fig-dividing-preshaping.tex (ch. 9, المخطط الانسيابي 9.5)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-dividing-preshaping.tex (node styles from
+% figures/flowcharts_tikz.tex, node/edge geometry verbatim), with the
+% label text recovered from the accepted edition's render of p. 101
+% (book-ar-fixed.pdf, b78c2a28…). Line splits follow the accepted
+% render (أكثر من/رغيف واحد؟). Arabic label text wrapped in
+% \textarabic{}; the digit 1 rides an \LR{} island (Ruling 1
+% uniform-Pagella figure face, ACCEPTED 2026-11-15).
+
+\begin{tikzpicture}[node distance = 3cm, auto]
+  \node [start] (init) {\textarabic{هل يلزم التقسيم؟}};
+  \node [decision, right of=init, node distance=5cm] (more_than_one_loaf) {\textarabic{أكثر من}\\ \textarabic{رغيف واحد؟}};
+  \node [success, right of=more_than_one_loaf, node distance=5cm] (yes) {\textarabic{نعم}};
+  \node [success, below of=yes] (no) {\textarabic{لا}};
+  \path [line] (init) -- (more_than_one_loaf);
+  \path [line] (more_than_one_loaf) -- (yes);
+  \path [line] (more_than_one_loaf.south) -- node{} ++(0, -1) |- (no);
+\end{tikzpicture}

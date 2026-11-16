@@ -1,0 +1,28 @@
+% table-dough-size-increase-ar.tex — Arabic edition of upstream
+% tables/table-dough-size-increase.tex (ch. 9, جدول 9.3)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics (unit 9): the column order
+% is reversed in the declared LTR tabular (upstream {@{}cc@{}} becomes
+% {@{}cc@{}} with the size-increase column leftmost) so the flour
+% protein content label column renders rightmost. Every non-empty cell
+% wrapped {\textdir TRT ...} per the unit 9 cell-direction convention.
+% The percentage ranges are literal-text ranges per the unit 9
+% dash-font convention: \LR{\textenglish{N\textendash M\%}} keeps the
+% en-dash and the percent sign in the Latin island; the "> 15%" cells
+% ride \LR{} islands whole. Cell text follows the accepted edition's
+% render of p. 93; the caption lives in the chapter file.
+
+\begin{tabular}{@{}cc@{}}
+\toprule
+\thead{{\textdir TRT الزيادة النسبية في حجم العينة}} & \thead{{\textdir TRT نسبة البروتين في الدقيق}} \\
+\midrule
+{\textdir TRT \LR{25\%}}  & {\textdir TRT \LR{\textenglish{8\textendash 10\%}}} \\
+{\textdir TRT \LR{50\%}}  & {\textdir TRT \LR{\textenglish{10\textendash 12\%}}} \\
+{\textdir TRT \LR{100\%}} & {\textdir TRT \LR{\textenglish{12\textendash 15\%}}} \\
+{\textdir TRT \LR{> 100\%}} & {\textdir TRT \LR{\textenglish{> 15\%}}} \\
+\bottomrule
+\end{tabular}
