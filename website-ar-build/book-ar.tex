@@ -1,0 +1,114 @@
+% book-ar.tex — WEBSITE-ONLY driver (make4ht), The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Website-mode driver for the make4ht build (website.cfg + book-ar.mk4,
+% run TWICE with `biber book-ar` IN the build cwd between the passes;
+% `touch book-ar.tex` before a pass to defeat the latexmk up-to-date skip).
+% The PDF driver is book-ar/book-ar.tex (R3 assembly, md5
+% e52aa601198fc6608ba2bf6b98569874) and never reads this file. This copy
+% diverges from the PDF driver ONLY in the five website-mode adjustments
+% below, each warranted by the accepted Phase 23 website build
+% (phase23-website-build.zip; book-ar.html, المسرد.html, المصادر.html dumped
+% byte-level) and the Phase 24 TOC audit (I5 rulings):
+%
+%   1. Main-page TOC: tex4ht-native \TableOfContents[chapter,likechapter]
+%      instead of \tableofcontents. scrbook.4ht's \tableofcontents emits
+%      \chapter*{\contentsname}, which splits a spurious المحتويات page
+%      (contentsname.html) and leaves an anchor + rule block at the call
+%      site; the accepted landing page carries the nav.TOC with NO such
+%      heading or stub (verified byte-level against the accepted
+%      book-ar.html). \TableOfContents renders the nav straight from the
+%      .4ct with no chapter* emission. The likechapter token is required
+%      for the أسئلة entry (probe3-verified); the accepted landing nav is
+%      15 chapterToc + 1 likechapterToc, chapter level only.
+%   2. Lists: the three \listof calls are OMITTED. The accepted website
+%      build has no list pages, no list nav entries and no list stubs.
+%      (Upstream's own website build DOES carry them — book.tex calls the
+%      lists unconditionally and its build ships listfigurename.html etc. —
+%      so this is an accepted-edition deviation from upstream, warranted by
+%      the accepted build, not an upstream parity item.)
+%   3. Glossary: glossary-ar.tex's \addchap is overridden, scoped to this
+%      one \input, to \begingroup\@mainmatterfalse\chapter{...}\endgroup
+%      (through \csname, no \makeatletter anywhere). The accepted
+%      المسرد.html heading is chapterHead with NO titlemark span and its
+%      nav entry is chapterToc with an empty number; \addchap would give
+%      addchapHead (0 rules for it in style.css — the heading renders
+%      unstyled) and a tocaddchap entry (no level in collapsetoc — dropped,
+%      which broke the nav tree and emptied hrefs downstream). tex4ht
+%      redefines \thechapter to be empty when \@mainmatter is false and
+%      guards the whole \TitleMark (span + separator) with \if@mainmatter
+%      (html4.4ht), so the one flag suppresses mark and number in one
+%      stroke (probe4-verified: heading and tocchapter bytes match the
+%      accepted pattern). The PDF driver keeps \addchap (accepted PDF TOC
+%      «المسرد … 180»). Zero \ref{ch:Glossary} anywhere (grep-verified) —
+%      no cross-reference impact.
+%   4. Bibliography: \printbibliography[heading=bibintoc,title={المصادر}]
+%      per the Phase 23 Step 2 fix ruling (phase23-step2-qa-report.md §3):
+%      names the page المصادر.html, carries the 62 cite targets, and ships
+%      NO TOC entry (I5-4: المصادر stays ABSENT from every website TOC
+%      surface; the one attempted addchap route produced a duplicate page
+%      and was fully reverted).
+%   5. ask-this-book-ar.tex unchanged: its \ifdefined\HCode branch is
+%      website-active and emits \chapter*{أسئلة أثناء الخَبز؟}
+%      (likechapterHead on its page; tex4ht auto-writes the toclikechapter
+%      .4ct entry that the main nav renders).
+%
+% sourdough-ar.sty (standing md5 540d7ae42fa33641f403b6b691452b1d) and
+% arabic-digits.lua (standing md5 a2e3d1daeb3e24ced21873376170cab8)
+% untouched. No \makeatletter anywhere in this file.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+% Adjustment 1: website main-page TOC — nav.TOC only, no chapter* emission.
+\ifdefined\HCode\TableOfContents[chapter,likechapter]\fi
+% Adjustment 1a: disarm the auto-TOC hook. html4.4ht arms \:StartSec through
+% \Configure{tableofcontents*}{part,likepart,chapter,likechapter,addchap,
+% appendix} (scrbook.4ht arming block: \let\au:StartSec\:StartSec, then
+% \def\:StartSec{\:tableofcontents ...}), so the FIRST \chapter after this
+% call emits a SECOND nav.TOC straight from the .4ct with the tocdepth-
+% default filter list — that nav carried the المصادر addchapToc entry and
+% dragged a second <main class="main-content"> with it (the double-nav/
+% double-main residual; the accepted landing page has exactly one nav and
+% one main). The empty-argument \Configure{tableofcontents*}{} is tex4ht's
+% own disarm path (same \NewConfigure block: empty arg ⇒ \gdef\:StartSec
+% {\au:StartSec}, restoring the core definition saved at arming time). It
+% must run before the first \chapter, i.e. here. No \makeatletter; the
+% armed/disarmed state is verified by the rebuilt book-ar.html carrying
+% exactly one nav.TOC and one main.
+\ifdefined\HCode\Configure{tableofcontents*}{}\fi
+
+\input{preface-ar.tex}
+\input{acknowledgments-ar.tex}
+\input{history-ar.tex}
+\input{basics-ar.tex}
+\input{starter-ar.tex}
+\input{starter-types-ar.tex}
+\input{flour-types-ar.tex}
+\input{bread-types-ar.tex}
+\input{wheat-sourdough-ar.tex}
+\input{non-wheat-sourdough-ar.tex}
+\input{mix-ins-ar.tex}
+\input{baking-ar.tex}
+\input{storing-bread-ar.tex}
+\input{troubleshooting-ar.tex}
+
+% Adjustment 3: glossary — scoped \addchap override, website only.
+{\renewcommand\addchap[1]{\begingroup\csname @mainmatterfalse\endcsname\chapter{#1}\endgroup}%
+\input{glossary-ar.tex}}
+
+% Adjustment 4: bibliography — Phase 23 Step 2 fix construct.
+\ifdefined\HCode\printbibliography[heading=bibintoc,title={المصادر}]\fi
+
+\input{ask-this-book-ar.tex}
+
+\end{document}
