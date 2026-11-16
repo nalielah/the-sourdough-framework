@@ -1,0 +1,74 @@
+% book-ar.tex — R3 full-book assembly driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R3 final assembly per the owner ruling of 2026-11-16 (unit 19 verdict):
+% all 19 R2 unit chapters assembled in the accepted edition's order, true
+% numbering regenerated. Structure mirrors upstream book.tex with the
+% accepted-edition deviations of record:
+%   - NO \frontmatter/\mainmatter/\backmatter: the preface is numbered
+%     chapter 1 and page numbering runs continuously in Western digits
+%     from the cover (accepted TOC entry «1 المقدمة … 7»; unit 3 finding).
+%   - troubleshooting-ar.tex carries its own \chapter (upstream puts it in
+%     book.tex before \input{troubleshooting/misc}).
+%   - glossary uses \addchap (unnumbered, accepted «المسرد … 180»).
+%   - lists in the accepted order: قائمة المخططات الانسيابية (191),
+%     قائمة الجداول (192), قائمة الأشكال (193); المصادر (196) via
+%     \printbibliography (bibliography=totoc); ask-this-book last,
+%     unnumbered \chapter*, no TOC entry (accepted p. 201).
+% The 35 \caption[...] short captions surface here in the lists (LOF
+% short-caption reconciliation docket item). Cross-chapter refs and cite
+% numbers regenerate true values at assembly (unit-build cite 22→1
+% artifact disappears).
+% Built with the standing arabic-digits.lua (standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15).
+% No sty/lua change; the parked sty-level harmonization agenda
+% (cell-direction, dash-font, paren-font incl. heading-paren, sans-context
+% Latin routing, Latin-island metrics, recipe-inline construct
+% generalizability) awaits owner rulings and is NOT applied here.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15), inherited by units 10–19: literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this \textenglish range-phrase is the fallback
+% convention. Driver-level change only.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{preface-ar.tex}
+\input{acknowledgments-ar.tex}
+\input{history-ar.tex}
+\input{basics-ar.tex}
+\input{starter-ar.tex}
+\input{starter-types-ar.tex}
+\input{flour-types-ar.tex}
+\input{bread-types-ar.tex}
+\input{wheat-sourdough-ar.tex}
+\input{non-wheat-sourdough-ar.tex}
+\input{mix-ins-ar.tex}
+\input{baking-ar.tex}
+\input{storing-bread-ar.tex}
+\input{troubleshooting-ar.tex}
+\input{glossary-ar.tex}
+
+{\hypersetup{hidelinks}
+\listofflowcharts
+\listoftables
+\listoffigures}
+
+\printbibliography
+
+\input{ask-this-book-ar.tex}
+
+\end{document}
