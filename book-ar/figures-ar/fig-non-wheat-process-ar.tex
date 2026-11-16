@@ -1,0 +1,33 @@
+% fig-non-wheat-process-ar.tex — Arabic edition of upstream
+% figures/fig-non-wheat-process.tex (ch. 10, المخطط الانسيابي 10.1)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-non-wheat-process.tex (node styles from
+% figures/flowcharts_tikz.tex and the node/edge geometry verbatim), with
+% the label text recovered from the accepted edition's render of p. 118
+% (book-ar-fixed.pdf, b78c2a28…) — label recovery against a visual
+% reference, not retranslation. The upstream geometry is kept UNMIRRORED
+% per the accepted render: init اخلط/المكونات top-left, قسّم top-middle,
+% التخمير النهائي top-right; التخمير الأول below init, شكّل below divide,
+% اخبز (success) bottom-right; the two diagonal edges rise from the
+% bottom row's northeast corners to the top row's southwest corners,
+% exactly as upstream. Arabic label text is wrapped in \textarabic{};
+% the init node keeps the upstream two-line split (اخلط/المكونات).
+
+\begin{tikzpicture}[node distance = 3.8cm, auto]
+  \node [start] (init) {\textarabic{اخلط}\\ \textarabic{المكونات}};
+  \node [block, below of=init, node distance = 3cm] (bulk_ferment) {\textarabic{التخمير الأول}};
+  \node [block, right of=init] (divide) {\textarabic{قسّم}};
+  \node [block] at (divide |- bulk_ferment) (shape) {\textarabic{شكّل}};
+  \node [block, right of=divide] (proof) {\textarabic{التخمير النهائي}};
+  \node [success] at (proof |- bulk_ferment) (bake) {\textarabic{اخبز}};
+  \path [line] (init) -- (bulk_ferment);
+  \path [line] (bulk_ferment.north east) -- (divide.south west);
+  \path [line] (divide) -- (shape);
+  \path [line] (shape.north east) -- (proof.south west);
+  \path [line] (proof) -- (bake);
+\end{tikzpicture}

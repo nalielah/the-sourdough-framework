@@ -1,0 +1,119 @@
+% non-wheat-sourdough-ar.tex — Arabic edition of upstream
+% non-wheat-sourdough/non-wheat-sourdough.tex (ch. 10)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 19 per the owner ruling of 2026-11-15 (ch. 9/10 gap):
+% الخبز الحامض غير القمحي, accepted pp. 118–122 of book-ar-fixed.pdf
+% (b78c2a28…). Transcribed under the reconstruction-first method:
+% accepted edition text layer PRIMARY, recovery reference
+% (recovery-r0/text/10-non-wheat-sourdough.txt) as cross-check and
+% spacing arbiter, upstream non-wheat-sourdough.tex for structure only
+% — no retranslation. Floats: 1 flowchart (10.1, tikz geometry
+% unmirrored per the accepted render), 4 figures at the upstream widths
+% (\textwidth / 0.7 / 0.9 / 0.75), 1 inline recipe tabular with the
+% upstream {r@{}rl@{}} column order kept as-is (labels rightmost,
+% quantities left, per the accepted p. 119 glyph measurements). The
+% accepted p. 119 renders the recipe intro and the tabular on ONE RTL
+% line — intro rightmost (x 390.4–520.9), tabular to its left (right
+% edge 385.3), tabular vertically centered against the text line
+% (intro baseline 388 = row-1 baseline 364 + 24.0, sitting between
+% rows 2 and 3; intro top 375.0). Reproduced here by keeping intro and
+% tabular in one paragraph, the intro lowered \raisebox{-19.8pt} and
+% the tabular \raisebox{-19.4pt}, with \hspace{1.4pt} restoring the
+% accepted 5.1pt intro–table gap after the intro box boundary ate it.
+% Geometry verified per-glyph against the accepted page: digits
+% 186.6/352.3 (acc 186.6/352.4), g 216.3 (acc 216.3), labels 281.1/350.8
+% (acc 281.1/351.0), intro 390.4/375.3 (acc 390.4/375.0), next
+% paragraph 426.0 (acc 426.1). All five short captions recovered from
+% the accepted edition's flowchart
+% list and LOF (pp. 191–195). Cross-references are LITERAL per the
+% accepted text layer (المخطط 10.1، الشكل 10.4، الفصل 12); visible
+% numbers are by-design artifacts of the unit build. Placement specs:
+% upstream [!htb] → [htb], the accepted-edition-warranted documented
+% deviation (unit 12 settled convention). Documented residual
+% (paren-font): the accepted edition renders the percent/quantity
+% parens in Amiri (p. 119); the lua fontsplit remap renders them
+% Pagella — visible as the %) anchor at 255.7 vs accepted 251.0 and the
+% ~3pt-narrower quantity gaps. Unfixable at the content layer; logged
+% for the R3 harmonization agenda.
+
+\chapter{الخبز الحامض غير القمحي}%
+\label{ch:non-wheat-sourdough}
+
+\begin{quoting}
+في هذا الفصل ستتعلّم كيفية صنع خبز حامض أساسي باستخدام دقيق غير قمحي، أي عمليًّا كل الأدقيق ما عدا السبلت. ويَكمُن الفرق الجوهري بين الدقيق القمحي والدقيق غير القمحي في كمية الغلوتين: فالقمحي غنيّ بالغلوتين، بينما الأدقيق غير القمحي فقيرة منه.
+\end{quoting}
+
+العملية كلها (انظر المخطط 10.1) أسهل بكثير: تخلط المكوّنات ثم تنتظر مدة معيّنة حتى يبلغ العجين مستوى الحمضية الذي تحبّه. بعد ذلك، تُشكّل العجين أو تصبّه في قالب الخبز. وبعد مدة تخمير نهائي قصيرة يصبح الخبز جاهزًا للخَبز. ولبُعد نموّ الغلوتين، سيكون لُبّ الخبز النهائي أكثر كثافة ممّا هو عليه في الخبز القمحي، كما ترى في الشكل 10.4.
+
+\begin{flowchart}[htb]
+\centering
+  \input{figures-ar/fig-non-wheat-process-ar.tex}
+  \caption[العملية لصنع الخبز الحامض غير القمحي]{تصوّر للعملية التي يُصنع بها الخبز الحامض غير القمحي. العملية أبسط بكثير من صنع الخبز الحامض القمحي: فلا تطوير للغلوتين، بل تُخلط المكوّنات معًا فحسب.}%
+  \label{flc:non-wheat-sourdough}
+\end{flowchart}
+
+بالنسبة إلى الأدقيق غير القمحي، ومنها الجاودار والإممر والقمح الأحادي، لا يلزم أي تطوير للغلوتين، بمعنى أنه لا عجن ولا تخمير بإفراط ولا مشكلات في صنع الخبز المسطَّح. وفي حالة دقيق الجاودار، تمنع سكريات تُسمّى البنتوزانات روابط الغلوتين من التشكّل على نحو سليم~\cite{rye+pentosans}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=\textwidth]{final-bread}
+  \caption[خبز الجاودار الحامض]{خبز جاودار حامض مصنوع في قالب الخبز. خبز الجاودار غير مُشرَّط. تُفتح القشرة عادةً أثناء الخَبز.}%
+  \label{fig:non-wheat-final-bread}
+\end{figure}
+
+سيركز هذا الفصل على صنع خبز الجاودار، ويمكن استبدال الدقيق بالقمح الأحادي أو الإممر حسب تفضيلك.
+
+\raisebox{-19.8pt}{ستُعطيك الوصفة الآتية رغيفين:}\hspace{1.4pt}
+\raisebox{-19.4pt}{\begin{tabular}{r@{}rl@{}}
+    \LR{\qty{1000}{\gram}} &~(\LR{\qty{100}{\percent}}) & دقيق جاودار كامل الحبة\\
+    \LR{\qty{800}{\gram}}  &~(\LR{\qty{80}{\percent}})  & ماء بدرجة حرارة الغرفة\\
+    \LR{\qty{200}{\gram}}  &~(\LR{\qty{20}{\percent}})  & بادئة حامضة\\
+    \LR{\qty{20}{\gram}}   &~(\LR{\qty{2}{\percent}})   & ملح\\
+\end{tabular}}
+
+يمكن أن تكون البادئة الحامضة في حالة نشطة أو غير نشطة. فقد تبقى في درجة حرارة الغرفة أسبوعًا كاملًا دون تغذية وتكون سليمًا، وكذلك إن جاءت للتوّ من الثلاجة فلا مشكلة أيضًا. إنّ هذا العجين متسامح جدًّا.
+
+إذا اتبعتَ الكميات المُقترحة في الوصفة فستحصل على عجين جاودار رطب نسبيًّا. إنه رطب لدرجة أنه لا يمكن صنعه إلا في قالب الخبز. وإن أردت صنع رغيف جاودار قائم بذاته، ففكّر في خفض الترطيب إلى نحو \LR{60\,\%}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{ingredients}
+  \caption[مكوّنات العجين غير القمحي]{في العجين غير القمحي تُخلط المكوّنات معًا. فلا حاجة إلى تنمية أي قوة في العجين، وهذا يُبسّط عملية صنع الخبز بأكملها.}%
+  \label{fig:non-wheat-ingredients}
+\end{figure}
+
+اخلط جميع المكوّنات بيديك، أو استخدم سباتولا لتسهيل الأمر. فدقيق الجاودار نفسه لزج جدًّا ومزجُه باليد غير مستساغ، وسيَلتصق العجين بيديك كثيرًا. وإن استخدمتَ بادئة صلبة، فقد يكون أسهل أن تُذيبها أولًا في ماء العجين ثم تضيف بقية المكوّنات.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.9\textwidth]{sticky-hands}
+  \caption[العجين اللزج]{يحتوي دقيق الجاودار على جزيء سكري يُعرف بالبنتوزان \textenglish{(pentosan)}. وهذه البنتوزانات تمنع دقيق الجاودار من تكوين روابط غلوتين، ونتيجة لذلك لا يتمتع العجين أبدًا بلُبّ مفتوح، ويبقى لزجًا جدًّا عند مزجه باليد.}%
+  \label{fig:non-wheat-sticky-hands}
+\end{figure}
+
+الهدف من عملية المزج هو ببساطة تجانس العجين، فلا حاجة إلى تنمية أي قوة فيه. وحين تلاحظ أن بادئتك الحامضة قد امتزجت جيدًا بالعجين، يصبح جاهزًا لبدء التخمير الأول.
+
+يمكنك ترك العجين يتخمّر من بضع ساعات إلى أسابيع. وكلما مدّتَ مدة التخمير الأول، زادت الحمضية التي سيَتميز بها الرغيف النهائي. فبعد نحو \LR{48} ساعة تتوقف الحمضية عن الزيادة، لأن معظم المغذّيات تكون قد التهمتها الكائنات الدقيقة في عجينك. ويمكنك ترك العجين مدة أطول، لكن ذلك لن يغيّر طابع النكهة النهائي كثيرًا.
+
+أنصح بالانتظار حتى يزداد حجم العجين بنسبة \LR{50\,\%} تقريبًا. وإن كنت جسورًا فيمكنك تذوّق العجين لتصوّر طابع حموضته؛ سيبدو على الأرجح حامضًا جدًّا. غير أن كثيرًا من الحمض سيتطاير أثناء الخَبز، ولن يكون الرغيف النهائي حامضًا كالعجين الذي ذقته.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.75\textwidth]{crumb}
+  \caption[خبز الجاودار]{بنية لُبّ خبز الجاودار. فكلما كان العجين أرطب، تبخّر ماء أكثر أثناء الخَبز، فيكون اللُّبّ أكثر انفتاحًا بعض الشيء. عمومًا، لا يكون خبز الجاودار منفوشًا أبدًا كخبز الحامض القمحي. قشرة هذا الخبز باهتة قليلًا، ويمكن التحكّم في لونها بإطالة مدة الخَبز.}%
+  \label{fig:rye-crumb}
+\end{figure}
+
+حين ترضى عن مستوى الحمضية، انتقل إلى تقسيم العجين وتشكيله. وإن صنعْت عجينًا أجفّ، فاستخدم ما يلزم من الدقيق لتجفيفه قليلًا وتكوين كرة عجين. لا طيّ في هذا العجين؛ كل ما عليك هو ضمّ أطرافه قدر ما يلزم ليأخذ شكل سلة التخمير لديك.
+
+وقد لا يكون التشكيل ممكنًا إن اخترت العجين الأرطب. فارد العجين بعناية بسباتولا داخل قالب الخبز المُدهّن، مع تبليل السباتولا لتسهيل هذه العملية. افرد العجين حتى يبدو سطحه أملس لامعًا.
+
+للتخمير النهائي أنصح بالانتظار نحو \LR{60} دقيقة. فإطالة مدة التخمير النهائي لا معنى لها إلا إن أردت زيادة حمضية العجين أكثر. فالعجين لن يصبح منفوشًا أكثر كلما طال تخميره النهائي. غير أنه مع مدة التخمير النهائي القصيرة يصبح العجين أكثر تجانسًا قليلًا، فيبدو الخبز النهائي أكثر اتساقًا. وتتيح مدة التخمير النهائي أيضًا للعجين أن يتمدد تمامًا فيملأ حواف قالب الخبز. وأحبّ أيضًا نقل العجين إلى الثلاجة للتخمير النهائي؛ إذ يبقى صالحًا فيها لأسابيع، ويمكنك حينئذٍ خبزه في الوقت المناسب لك.
+
+حين ترضى عن مرحلة التخمير النهائي، انتقل إلى خبز عجينك كالمعتاد؛ وستجد التفاصيل الكاملة في الفصل 12. ومن الجوانب الصعبة في استخدام قالب الخبز التأكد من نضُج وسط العجين نضجًا تامًّا. ولهذا السبب من الأفضل استخدام مقياس حرارة \textenglish{(thermometer)} وقياس درجة الحرارة الداخلية. يكون الخبز جاهزًا حين تبلغ درجة الحرارة الداخلية \LR{\qty{92}{\degreeCelsius}} (\LR{\qty{197}{\degF}}). أنصح بإخراج الخبز من قالب الخبز فور بلوغه الحرارة المطلوبة، ثم مواصلة خبز الرغيف دون القالب ودون البخار. وبهذا تحصل على قشرة رائعة حول الرغيف كله، ويمكنك الخبز ما شئت من الوقت حتى تبلغ لون القشرة الذي تفضّله. فكلما اكتسح اللون، كانت القشرة أكثر قرمشة ونكهة. وإن شعرت أن عجينك ربما صار حمضيًا بإفراط، فيمكنك إطالة مدة الخَبز؛ فكلما طال الخَبز تطاير حمض أكثر.
+
+هذا أحد خبزاتي المفضّلة التي آكلها يوميًّا تقريبًا. فالجهد اللازم لصنع خبز كهذا أقل بكثير ممّا يتطلبه عجين قمحي. وفي بعض الحالات أوسّع الوصفة وأضيف بادئة زائدة إلى العجين. ويمكنك إضافة ما تشاء من البادئة الزائدة. سيَتميز الخبز النهائي بطابع نكهة معقّد جدًّا لكنه لذيذ.
