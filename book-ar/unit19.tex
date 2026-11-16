@@ -1,0 +1,46 @@
+% unit19.tex — R2 unit 19 build driver, The Sourdough Framework: Arabic Edition
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% Unit 19 per the owner ruling of 2026-11-15 (ch. 9/10 gap): chapter 10
+% الخبز الحامض غير القمحي (accepted pp. 118–122 of book-ar-fixed.pdf,
+% b78c2a28…). non-wheat-sourdough-ar.tex transcribed under the
+% reconstruction-first method: accepted edition text layer PRIMARY,
+% recovery reference (recovery-r0/text/10-non-wheat-sourdough.txt) as
+% cross-check and spacing arbiter, upstream non-wheat-sourdough.tex for
+% structure only — no retranslation. Floats: 1 flowchart (10.1), 4
+% figures, 1 inline recipe tabular ({r@{}rl@{}} kept as-is per the
+% accepted p. 119 glyph measurements). Short captions recovered from
+% the accepted edition's flowchart list and LOF (pp. 191–195). Caption
+% name-word construction per the
+% \figureformat/\tableformat/\flowchartformat hooks at deb8445.
+% Built with the standing arabic-digits.lua (standing md5
+% a2e3d1daeb3e24ced21873376170cab8) and run.sh per Ruling 2 (2026-11-15).
+% Driver scheme per the accepted edition, same as units 3–18: NO
+% \frontmatter. Unit builds carry natural chapter numbering; the R3
+% full-book assembly regenerates true numbering. Chapter 10 builds as
+% chapter 1; chapter/float/cite numbers and the chapter-head rule
+% x-start are by-design artifacts of the unit build.
+
+\documentclass[paper=a4, twoside=false, fontsize=12pt, parskip=half,
+                bibliography=totoc, listof=totoc]{scrbook}
+\usepackage{sourdough-ar}
+% range-phrase wrapped in \textenglish per the unit 9 dash-font finding
+% (2026-11-15), inherited by units 10–19: literal-text ranges
+% (\LR{\textenglish{N\textendash M}}) are the accepted convention;
+% \numrange with this \textenglish range-phrase is the fallback
+% convention. Driver-level change only.
+\sisetup{range-phrase={\textenglish{\textendash}}}
+\author{Hendrik Kleinw\"achter}
+\title{منظومة عمل الخبز الحامض}
+
+\begin{document}
+\input{cover-ar.tex}
+
+{\hypersetup{hidelinks}\tableofcontents}
+
+\input{non-wheat-sourdough-ar.tex}
+
+\end{document}
