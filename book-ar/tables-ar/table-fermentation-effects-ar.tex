@@ -1,0 +1,52 @@
+% table-fermentation-effects-ar.tex — Arabic edition of upstream
+% tables/table-fermentation-effects.tex (ch. 9, جدول 9.2)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% RTL mirror per the settled table mechanics (unit 9): the column order
+% is reversed in the declared LTR tabular (upstream
+% {@{}>{\bfseries}p{0.12\textwidth}p{0.273\textwidth}
+% p{0.273\textwidth}p{0.273\textwidth}@{}} becomes
+% {@{}p{0.273\textwidth}p{0.273\textwidth}p{0.273\textwidth}
+% >{\bfseries}p{0.12\textwidth}@{}}) so the row-label column renders
+% rightmost and keeps its bold \bfseries prefix, and the Fermentation
+% span covers the three value columns it covers upstream (declared
+% cols 1--3, \cmidrule moved with them; the perfect column sits
+% leftmost, the too-short column innermost next to the labels). Every
+% non-empty cell wrapped {\textdir TRT ...} per the unit 9
+% cell-direction convention; p-column cells are RTL paragraphs, so
+% multi-sentence cells read naturally. The guillemet word «فوهات»
+% (upstream ``craters'') keeps the accepted edition's guillemets.
+% Cell text follows the accepted edition's render of p. 91 line for
+% line; the caption lives in the chapter file.
+
+\begin{tabular}{@{}p{0.273\textwidth}p{0.273\textwidth}p{0.273\textwidth}>{\bfseries}p{0.12\textwidth}@{}}
+\toprule
+\multicolumn{3}{c}{\thead{{\textdir TRT التخمير}}} & \\
+\cmidrule(lr){1-3}
+\thead{{\textdir TRT مثالية}} & \thead{{\textdir TRT طويلة جدًا}} & \thead{{\textdir TRT قصيرة جدًا}} & \\
+\midrule
+{\textdir TRT لُبّ مخبوز بانتساوية؛ قد يُدرَك رطبًا لكنه ليس لزجًا.} &
+{\textdir TRT قد يُدرَك اللُّبّ لزجًا لأن معظم الغلوتين قد تفكك.} &
+{\textdir TRT مناطق غير مخبوزة لزجة باتجاه أسفل الخبز.} &
+{\textdir TRT القوام اللُّبّ} \\
+{\textdir TRT فجوات موزعة بانتساوية بلا «فوهات».} &
+{\textdir TRT فجوات صغيرة كثيرة موزعة بانتساوية.} &
+{\textdir TRT فجوات ضخمة على نحو مبالغ فيه داخل اللُّبّ على شكل «فوهات».} &
+{\textdir TRT الفجوات الهوائية} \\
+{\textdir TRT طابع نكهة متوازن، ليس باهتًا أكثر مما ينبغي ولا حامضًا أكثر مما ينبغي؛ وحسب البادئة لمسات خلّ أو لاكتيك.} &
+{\textdir TRT طابع حمضي قوي؛ تطغى الحمضية عند التذوق.} &
+{\textdir TRT مذاق باهت محايد.} &
+{\textdir TRT المذاق} \\
+{\textdir TRT مزيج رائع من الأقوام.} &
+{\textdir TRT تماسك جيد، لكن اللُّبّ ليس منفوشًا كما يمكن أن يكون.} &
+{\textdir TRT قوام رديء إجمالًا.} &
+{\textdir TRT القوام} \\
+{\textdir TRT انتفاخ عمودي رائع؛ ينمو العجين صعودًا أكثر من نموه جانبًا.} &
+{\textdir TRT بنية مسطحة جدًا تشبه الفطيرة بعد الخَبز.} &
+{\textdir TRT انتفاخ عمودي، سببه غالبًا تبخر الماء وانتفاخ العجين.} &
+{\textdir TRT الانتفاخ في الفرن} \\
+\bottomrule
+\end{tabular}

@@ -1,0 +1,47 @@
+% fig-proofing-process-ar.tex — Arabic edition of upstream
+% figures/fig-proofing-process.tex (ch. 9, المخطط الانسيابي 9.7)
+%
+% Original: The Sourdough Framework by Hendrik Kleinwächter,
+% the-sourdough-framework.com, CC BY-SA 4.0. The Arabic edition inherits
+% CC BY-SA 4.0.
+%
+% R1-FIGURES route: re-derived from the upstream source
+% figures/fig-proofing-process.tex (node styles from
+% figures/flowcharts_tikz.tex, node/edge geometry verbatim), with the
+% label text recovered from the accepted edition's render of p. 111
+% (book-ar-fixed.pdf, b78c2a28…). ACCEPTED-EDITION DIVERGENCE,
+% documented: the upstream node "Poke the dough" reads «انتظر 15 دقيقة»
+% in the accepted edition — the accepted render's text layer carries
+% three انتظر/15 دقيقة nodes (wait_poke far left, the poke position
+% below init, wait_retard right) and no poke-test node, in both the raw
+% and the layout-mode extraction. The accepted edition is the fidelity
+% authority, so the node text follows the accepted render; flagged for
+% render verification in the unit battery. Line splits follow the
+% accepted render (التخمير النهائي/في حرارة/الغرفة؟، هل تخبز خلال/
+% 10 ساعات/من الآن؟، انتظر/15 دقيقة، هل تبقى الحفرة/ظاهرة بعد/
+% دقيقة واحدة؟، شقّ السطح/واخبز، التخمير في الثلاجة/والخبز عند
+% 4°C (40 °F)). Arabic label text wrapped in \textarabic{}; digits,
+% the pH-free temperature pair and °C/°F ride \LR{} islands (Ruling 1
+% uniform-Pagella figure face, ACCEPTED 2026-11-15). Decision edge
+% labels نعم/لا follow the accepted render.
+
+\begin{tikzpicture}[node distance = 3cm, auto]
+  \node [decision_start] (init) {\textarabic{التخمير النهائي}\\ \textarabic{في حرارة}\\ \textarabic{الغرفة؟}};
+  \node [decision, right of=init, node distance=8cm] (retard_bake_decision) {\textarabic{هل تخبز خلال}\\ \LR{10} \textarabic{ساعات}\\ \textarabic{من الآن؟}};
+  \node [block, below of=init, node distance=4cm] (poke) {\textarabic{انتظر}\\ \LR{15} \textarabic{دقيقة}};
+  \node [block, left of=poke] (wait_poke) {\textarabic{انتظر}\\ \LR{15} \textarabic{دقيقة}};
+  \node [decision, below of=poke] (dent_visible_decision) {\textarabic{هل تبقى الحفرة}\\ \textarabic{ظاهرة بعد}\\ \textarabic{دقيقة واحدة؟}};
+  \node [success, right of=dent_visible_decision, node distance=4cm] (bake) {\textarabic{شقّ السطح}\\ \textarabic{واخبز}};
+  \node [block] at (retard_bake_decision |- poke) (wait_retard) {\textarabic{انتظر}\\ \LR{15} \textarabic{دقيقة}};
+  \node [block] at (wait_retard |- bake) (retard) {\textarabic{التخمير في الثلاجة}\\ \textarabic{والخبز عند \LR{4 °C (40 °F)}}};
+  \path [line] (init) -- node{\textarabic{نعم}} (poke);
+  \path [line] (init) -- node{\textarabic{لا}} (retard_bake_decision);
+  \path [line] (poke) -- (dent_visible_decision);
+  \path [line] (dent_visible_decision) -- node{\textarabic{نعم}} (bake);
+  \path [line] (dent_visible_decision.west) -- node{\textarabic{لا}} (dent_visible_decision.west -| wait_poke.south) -- node{} (wait_poke.south);
+  \path [line] (wait_poke) -- (poke);
+  \path [line] (retard_bake_decision) -- node{\textarabic{نعم}} (wait_retard);
+  \path [line] (retard_bake_decision.east) -- node{\textarabic{لا}} ++(1, 0) |- node{} (retard.east);
+  \path [line] (wait_retard) -- (retard);
+  \path [line] (retard) -- (bake);
+\end{tikzpicture}
